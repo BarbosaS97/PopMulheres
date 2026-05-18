@@ -1,0 +1,17 @@
+{
+  "name": "PopRuaJud - Mulheres Guerreiras",
+  "short_name": "PopRuaJud",
+  "description": "Sistema de Triagem para acolhimento de mulheres em situação de vulnerabilidade",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#7A4895",
+  "background_color": "#f5f0fa",
+  "icons": [
+    {
+      "src": "iconemulher.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -4,6 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>PopRuaJud - Mulheres Guerreiras | Sistema de Triagem</title>
+    
+    <!-- Favicon para a aba do navegador -->
+    <link rel="icon" type="image/png" sizes="16x16" href="iconemulher.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="iconemulher.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="iconemulher.png">
+    <link rel="shortcut icon" href="iconemulher.png">
+    
+    <!-- Apple Touch Icon (para dispositivos iOS) -->
+    <link rel="apple-touch-icon" sizes="57x57" href="iconemulher.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="iconemulher.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="iconemulher.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="iconemulher.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="iconemulher.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="iconemulher.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="iconemulher.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="iconemulher.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="iconemulher.png">
+    
+    <!-- PWA Manifest para instalação como app -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Theme color para navegadores móveis -->
+    <meta name="theme-color" content="#7A4895">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="PopRuaJud">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="PopRuaJud - Mulheres Guerreiras">
+    
     <style>
         * {
             margin: 0;
@@ -722,7 +751,6 @@
             color: #7A4895;
         }
         
-        /* Loading spinner */
         .spinner {
             display: inline-block;
             width: 40px;
@@ -810,6 +838,17 @@
 
     let pendingAdminAction = null;
 
+    // Registrar Service Worker para PWA
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js').then(registration => {
+                console.log('ServiceWorker registrado com sucesso:', registration.scope);
+            }).catch(error => {
+                console.log('ServiceWorker falhou:', error);
+            });
+        });
+    }
+
     function showAlertModal(msg, isSuccess = true) {
         let modal = document.createElement('div'); modal.className = 'modal-overlay';
         modal.innerHTML = `<div class="modal-container" style="max-width:450px;"><h3 style="color:${isSuccess ? '#7A4895' : '#dc2626'};">${isSuccess ? 'Sucesso' : 'Aviso'}</h3><p style="color:#4a5568;margin:16px 0;">${msg}</p><div class="modal-buttons"><button class="btn-primary" id="closeModalBtn">Fechar</button></div></div>`;
@@ -869,7 +908,6 @@
         } else resultsDiv.classList.remove('active');
     }
     
-    // Função para cadastrar nova mãe - CORRIGIDA
     function showFullMotherRegistration(editMode = false, motherData = null) {
         let modal = document.createElement('div'); modal.className = 'modal-overlay';
         
@@ -935,7 +973,6 @@
                         showAlertModal('Erro ao editar: ' + error, false);
                     }
                 } else {
-                    // Criar nova mãe
                     const response = await fetch(`${SUPABASE_URL}/rest/v1/mothers`, { 
                         method:'POST', 
                         headers:{ 'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,'Content-Type':'application/json' }, 
@@ -943,7 +980,6 @@
                     });
                     
                     if(response.ok){
-                        // Tentar obter o ID da mãe
                         let motherId = null;
                         const contentType = response.headers.get('content-type');
                         
@@ -951,14 +987,12 @@
                             const newMother = await response.json();
                             motherId = newMother[0]?.id || newMother.id;
                         } else {
-                            // Se não veio JSON, buscar a mãe pelo nome
                             await loadAllMothers();
                             const foundMother = allMothers.find(m => m.name === name);
                             if(foundMother) motherId = foundMother.id;
                         }
                         
                         if(motherId) {
-                            // Salvar filhos
                             let childrenNames = document.querySelectorAll('.child-name');
                             let childrenAges = document.querySelectorAll('.child-age');
                             
@@ -978,16 +1012,11 @@
                             
                             showAlertModal('Mãe e filhos cadastrados com sucesso!', true);
                             modal.remove();
-                            
-                            // Recarregar lista de mães
                             await loadAllMothers();
-                            
-                            // Buscar a mãe novamente
                             const motherDataComplete = allMothers.find(m => m.id === motherId);
                             if(motherDataComplete) {
                                 await selectMother(motherDataComplete);
                             } else {
-                                // Recarregar a página para mostrar a nova mãe
                                 location.reload();
                             }
                             
@@ -1240,11 +1269,9 @@
                 btn.classList.add('active');
                 currentAdminTab = btn.dataset.tab;
                 
-                // Mostrar loading imediatamente
                 const contentDiv = document.getElementById('adminTabContent');
                 contentDiv.innerHTML = '<div class="loading-container"><div class="spinner"></div><div>Carregando...</div></div>';
                 
-                // Verificar cache
                 if(adminCache[currentAdminTab]) {
                     setTimeout(() => {
                         contentDiv.innerHTML = adminCache[currentAdminTab];
@@ -1252,7 +1279,6 @@
                     return;
                 }
                 
-                // Carregar dados conforme a aba
                 if(currentAdminTab === 'organs') await loadOrgansStats();
                 else if(currentAdminTab === 'families') await loadFamiliesList();
                 else if(currentAdminTab === 'crudFamilies') await loadCrudFamilies();
@@ -1459,16 +1485,13 @@
         }
     };
     
-    // Função otimizada para carregar famílias cadastradas
     async function loadCrudFamilies(){
         try {
-            // Buscar mães e filhos em paralelo para maior velocidade
             const [mothers, allChildren] = await Promise.all([
                 fetch(`${SUPABASE_URL}/rest/v1/mothers?select=*&order=name`, { headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} }).then(r=>r.json()),
                 fetch(`${SUPABASE_URL}/rest/v1/children?select=*&order=name`, { headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} }).then(r=>r.json())
             ]);
             
-            // Agrupar filhos por mãe
             const childrenByMother = {};
             for(let child of allChildren) {
                 if(!childrenByMother[child.mother_id]) {
