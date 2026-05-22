@@ -5,47 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>PopRuaJud - Mulheres Guerreiras | Sistema de Triagem</title>
     
-    <!-- Favicon para a aba do navegador -->
+    <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="16x16" href="iconemulher.png">
     <link rel="icon" type="image/png" sizes="32x32" href="iconemulher.png">
     <link rel="icon" type="image/png" sizes="48x48" href="iconemulher.png">
     <link rel="shortcut icon" href="iconemulher.png">
-    
-    <!-- Apple Touch Icon (para dispositivos iOS) -->
-    <link rel="apple-touch-icon" sizes="57x57" href="iconemulher.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="iconemulher.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="iconemulher.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="iconemulher.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="iconemulher.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="iconemulher.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="iconemulher.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="iconemulher.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="iconemulher.png">
-    
-    <!-- PWA Manifest para instalação como app -->
+    <link rel="apple-touch-icon" href="iconemulher.png">
     <link rel="manifest" href="manifest.json">
-    
-    <!-- Theme color para navegadores móveis -->
     <meta name="theme-color" content="#7A4895">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="PopRuaJud">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="PopRuaJud - Mulheres Guerreiras">
     
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background: linear-gradient(145deg, #f5f0fa 0%, #e8e0f0 100%);
             min-height: 100vh;
         }
-
         @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap');
 
         .header {
@@ -58,31 +36,12 @@
             top: 0;
             z-index: 100;
             box-shadow: 0 4px 20px rgba(85, 30, 117, 0.12);
-            border-bottom: none;
-            height: 90px;
+            height: 80px;
             overflow: visible;
         }
-
-        .logo-area {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            height: 100%;
-        }
-
-        .logo-area img {
-            height: 90px;
-            width: auto;
-            max-width: 100%;
-            object-fit: contain;
-            transition: transform 0.3s ease;
-            margin-top: 10px;
-        }
-
-        .logo-area img:hover {
-            transform: scale(1.02);
-        }
-
+        .logo-area { flex: 1; display: flex; align-items: center; height: 100%; }
+        .logo-area img { height: 130px; width: auto; max-width: 100%; object-fit: contain; transition: transform 0.3s ease; margin-top: 10px; }
+        .logo-area img:hover { transform: scale(1.02); }
         .btn-admin {
             background: linear-gradient(135deg, #7A4895, #551E75);
             color: white;
@@ -95,22 +54,9 @@
             transition: all 0.3s ease;
             white-space: nowrap;
             box-shadow: 0 2px 8px rgba(85, 30, 117, 0.3);
-            letter-spacing: 0.5px;
         }
-
-        .btn-admin:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(85, 30, 117, 0.4);
-            background: linear-gradient(135deg, #8a5aa3, #6a2a8a);
-        }
-
-        .main-container {
-            display: flex;
-            gap: 24px;
-            padding: 28px 32px;
-            height: calc(100vh - 80px);
-        }
-
+        .btn-admin:hover { transform: translateY(-2px); background: linear-gradient(135deg, #8a5aa3, #6a2a8a); }
+        .main-container { display: flex; gap: 24px; padding: 28px 32px; height: calc(100vh - 80px); }
         .family-tree {
             width: 38%;
             background: #ffffff;
@@ -120,11 +66,6 @@
             box-shadow: 0 8px 30px rgba(0,0,0,0.08);
             border: 1px solid rgba(170, 141, 203, 0.2);
         }
-
-        .search-box {
-            margin-bottom: 20px;
-        }
-
         .search-box input {
             width: 100%;
             padding: 14px 18px;
@@ -133,14 +74,8 @@
             background: #fefcff;
             font-size: 0.95rem;
             outline: none;
-            transition: all 0.2s;
         }
-
-        .search-box input:focus {
-            border-color: #AA8DCB;
-            box-shadow: 0 0 0 3px rgba(170, 141, 203, 0.2);
-        }
-
+        .search-box input:focus { border-color: #AA8DCB; box-shadow: 0 0 0 3px rgba(170, 141, 203, 0.2); }
         .search-results {
             background: white;
             border-radius: 20px;
@@ -151,24 +86,9 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             border: 1px solid #e9d5ff;
         }
-
-        .search-results.active {
-            display: block;
-        }
-
-        .search-item {
-            padding: 12px 18px;
-            cursor: pointer;
-            border-bottom: 1px solid #f3e8ff;
-            color: #2d1b4e;
-            font-weight: 500;
-        }
-
-        .search-item:hover {
-            background: #faf5ff;
-            color: #7A4895;
-        }
-
+        .search-results.active { display: block; }
+        .search-item { padding: 12px 18px; cursor: pointer; border-bottom: 1px solid #f3e8ff; color: #2d1b4e; font-weight: 500; }
+        .search-item:hover { background: #faf5ff; color: #7A4895; }
         .btn-not-registered {
             width: 100%;
             background: #f3e8ff;
@@ -179,14 +99,8 @@
             margin-top: 16px;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.2s;
         }
-
-        .btn-not-registered:hover {
-            background: #e9d5ff;
-            transform: scale(1.01);
-        }
-
+        .btn-not-registered:hover { background: #e9d5ff; transform: scale(1.01); }
         .mother-node {
             background: linear-gradient(135deg, #faf5ff, #ffffff);
             border-radius: 20px;
@@ -194,68 +108,21 @@
             margin-bottom: 20px;
             border-left: 5px solid #AA8DCB;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            transition: all 0.2s;
         }
-
-        .mother-node .member-card {
+        .member-card, .child-card {
             cursor: pointer;
             transition: all 0.2s;
-        }
-
-        .mother-node .member-card:hover {
-            transform: translateX(6px);
-            background: #f3e8ff;
-        }
-
-        .children-container {
-            margin-left: 30px;
-            padding-left: 20px;
-            border-left: 2px dashed #AA8DCB;
-            margin-top: 12px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .child-card {
             background: #fefcff;
             border-radius: 16px;
             padding: 10px 16px;
-            cursor: pointer;
-            transition: all 0.2s;
             border: 1px solid #e9d5ff;
-            display: inline-block;
-            width: auto;
-            max-width: 90%;
         }
-
-        .child-card:hover {
-            background: #f3e8ff;
-            transform: translateX(6px);
-            border-color: #AA8DCB;
-        }
-
-        .member-card.selected, .child-card.selected {
-            background: linear-gradient(135deg, #7A4895, #551E75);
-            color: white;
-            border-color: #7A4895;
-        }
-
-        .member-name {
-            font-weight: 700;
-            color: #2d1b4e;
-        }
-
-        .member-card.selected .member-name, .child-card.selected .member-name {
-            color: white;
-        }
-
-        .member-info {
-            font-size: 0.7rem;
-            color: #7A4895;
-            margin-top: 4px;
-        }
-
+        .member-card:hover, .child-card:hover { background: #f3e8ff; transform: translateX(6px); border-color: #c084fc; }
+        .member-card.selected, .child-card.selected { background: linear-gradient(135deg, #7A4895, #551E75); color: white; border-color: #7A4895; }
+        .member-name { font-weight: 700; color: #2d1b4e; }
+        .member-card.selected .member-name, .child-card.selected .member-name { color: white; }
+        .member-info { font-size: 0.7rem; color: #7A4895; margin-top: 4px; }
+        .children-container { margin-left: 30px; padding-left: 20px; border-left: 2px dashed #AA8DCB; margin-top: 12px; display: flex; flex-direction: column; gap: 10px; }
         .btn-finalizar {
             width: 100%;
             background: #551E75;
@@ -266,13 +133,20 @@
             margin-top: 28px;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.2s;
         }
-
-        .btn-finalizar:hover {
+        .btn-finalizar:hover { background: #7A4895; }
+        .btn-edit-family {
+            width: 100%;
             background: #7A4895;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 44px;
+            margin-top: 12px;
+            font-weight: 700;
+            cursor: pointer;
         }
-
+        .btn-edit-family:hover { background: #551E75; }
         .attendance-area {
             width: 62%;
             background: #ffffff;
@@ -282,113 +156,28 @@
             box-shadow: 0 8px 30px rgba(0,0,0,0.08);
             border: 1px solid rgba(170, 141, 203, 0.2);
         }
-
-        .attendance-header h2 {
-            color: #551E75;
-            font-size: 1.5rem;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            color: #7A4895;
-            font-weight: 700;
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        .form-group input, .form-group select, .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            background: #fefcff;
-            border: 2px solid #e9d5ff;
-            border-radius: 20px;
-            color: #2d1b4e;
-            font-weight: 500;
-            font-family: inherit;
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-
-        .checkbox-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            margin-top: 8px;
-        }
-
-        .checkbox-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: #faf5ff;
-            padding: 8px 16px;
-            border-radius: 40px;
-            border: 1px solid #e9d5ff;
-        }
-
-        .checkbox-item input {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-            margin: 0;
-        }
-
-        .checkbox-item label {
-            margin: 0;
-            cursor: pointer;
-            color: #551E75;
-        }
-
-        .btn-add {
-            background: #f3e8ff;
-            color: #7A4895;
-            border: none;
-            padding: 10px 22px;
-            border-radius: 40px;
-            font-weight: 700;
-            cursor: pointer;
-            margin-right: 10px;
-            transition: all 0.2s;
-        }
-
-        .btn-add:hover {
-            background: #e9d5ff;
-        }
-
-        .btn-save {
-            background: #7A4895;
-            color: white;
-            border: none;
-            padding: 14px 28px;
-            border-radius: 44px;
-            font-weight: 800;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 20px;
-            transition: all 0.2s;
-        }
-
-        .btn-save:hover {
-            background: #551E75;
-        }
-
-        .service-item {
+        .attendance-header h2 { color: #551E75; font-size: 1.5rem; margin-bottom: 8px; }
+        .attendance-header p { color: #7A4895; margin-bottom: 20px; }
+        .service-row {
             background: #faf5ff;
             padding: 12px;
             border-radius: 16px;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             display: flex;
-            justify-content: space-between;
+            gap: 12px;
             align-items: center;
             border: 1px solid #e9d5ff;
         }
-
+        .service-row select { flex: 1; padding: 10px; border: 2px solid #e9d5ff; border-radius: 20px; background: white; cursor: pointer; }
+        .service-row select:focus { outline: none; border-color: #7A4895; }
+        .service-row select:disabled { background: #f5f5f5; cursor: not-allowed; opacity: 0.7; }
+        .btn-remove-service { background: #dc2626; color: white; border: none; padding: 8px 16px; border-radius: 30px; cursor: pointer; font-weight: 600; }
+        .btn-remove-service:disabled { background: #999; cursor: not-allowed; }
+        .btn-remove-service:hover:not(:disabled) { background: #b91c1c; }
+        .btn-add-row { background: #f3e8ff; color: #7A4895; border: 2px dashed #AA8DCB; padding: 12px; border-radius: 40px; font-weight: 700; cursor: pointer; width: 100%; margin-top: 8px; }
+        .btn-add-row:disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn-add-row:hover:not(:disabled) { background: #e9d5ff; }
+        .services-container { margin-bottom: 24px; max-height: 400px; overflow-y: auto; }
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -402,7 +191,6 @@
             justify-content: center;
             z-index: 2000;
         }
-
         .modal-container {
             background: white;
             border-radius: 32px;
@@ -414,26 +202,10 @@
             border-top: 5px solid #AA8DCB;
             box-shadow: 0 20px 35px rgba(0,0,0,0.2);
         }
-
-        .modal-container h3 {
-            color: #551E75;
-            margin-bottom: 24px;
-            font-size: 1.5rem;
-        }
-
-        .modal-container .form-group {
-            margin-bottom: 20px;
-        }
-
-        .modal-container .form-group label {
-            color: #7A4895;
-            font-weight: 700;
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        .modal-container .form-group input,
-        .modal-container .form-group select {
+        .modal-container h3 { color: #551E75; margin-bottom: 24px; font-size: 1.5rem; }
+        .modal-container .form-group { margin-bottom: 20px; }
+        .modal-container .form-group label { color: #7A4895; font-weight: 700; margin-bottom: 8px; display: block; }
+        .modal-container .form-group input, .modal-container .form-group select {
             width: 100%;
             padding: 12px;
             background: #fefcff;
@@ -442,349 +214,152 @@
             color: #2d1b4e;
             font-weight: 500;
         }
-
-        .modal-buttons {
-            display: flex;
-            gap: 12px;
-            justify-content: flex-end;
-            margin-top: 24px;
-        }
-
-        .btn-primary {
-            background: #7A4895;
-            color: white;
-            border: none;
-            padding: 10px 24px;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .btn-primary:hover {
-            background: #551E75;
-        }
-
-        .btn-secondary {
-            background: #cbd5e1;
-            color: #2d1b4e;
-            border: none;
-            padding: 10px 24px;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .btn-secondary:hover {
-            background: #b0bec5;
-        }
-
-        .btn-danger {
-            background: #dc2626;
-            color: white;
-            border: none;
-            padding: 10px 24px;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .btn-danger:hover {
-            background: #b91c1c;
-        }
-
-        .child-row {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 10px;
-            align-items: center;
-        }
-
-        .child-row input {
-            flex: 1;
-        }
-
-        .btn-remove-child {
-            background: #dc2626;
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.8rem;
-        }
-
-        .btn-add-child {
-            background: #f3e8ff;
-            color: #7A4895;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 8px;
-        }
-
-        .stats-grid {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-bottom: 30px;
-        }
-        
-        .stat-card {
-            background: #faf5ff;
-            border-radius: 24px;
-            padding: 20px;
-            flex: 1;
-            min-width: 300px;
-            border: 1px solid #e9d5ff;
-        }
-        
-        .stat-card h3 {
-            color: #7A4895;
-            margin-bottom: 16px;
-            border-bottom: 2px solid #e9d5ff;
-            padding-bottom: 8px;
-        }
-        
-        .bar-chart {
-            background: #e9d5ff;
-            border-radius: 20px;
-            height: 32px;
-            margin: 8px 0;
-            overflow: hidden;
-        }
-        
-        .bar-fill {
-            background: linear-gradient(90deg, #7A4895, #AA8DCB);
-            height: 100%;
+        .modal-buttons { display: flex; gap: 12px; justify-content: flex-end; margin-top: 24px; }
+        .btn-primary { background: #7A4895; color: white; border: none; padding: 10px 24px; border-radius: 30px; font-weight: 600; cursor: pointer; }
+        .btn-primary:hover { background: #551E75; }
+        .btn-secondary { background: #cbd5e1; color: #2d1b4e; border: none; padding: 10px 24px; border-radius: 30px; font-weight: 600; cursor: pointer; }
+        .btn-secondary:hover { background: #b0bec5; }
+        .btn-danger { background: #dc2626; color: white; border: none; padding: 10px 24px; border-radius: 30px; font-weight: 600; cursor: pointer; }
+        .btn-danger:hover { background: #b91c1c; }
+        .child-row { display: flex; gap: 10px; margin-bottom: 10px; align-items: center; }
+        .child-row input { flex: 1; }
+        .btn-remove-child { background: #dc2626; color: white; border: none; padding: 6px 12px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; }
+        .btn-add-child { background: #f3e8ff; color: #7A4895; border: none; padding: 8px 16px; border-radius: 30px; font-weight: 600; cursor: pointer; margin-top: 8px; }
+        .stats-grid { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 30px; }
+        .stat-card { background: #faf5ff; border-radius: 24px; padding: 20px; flex: 1; min-width: 300px; border: 1px solid #e9d5ff; }
+        .stat-card h3 { color: #7A4895; margin-bottom: 16px; border-bottom: 2px solid #e9d5ff; padding-bottom: 8px; }
+        .bar-chart { background: #e9d5ff; border-radius: 20px; height: 32px; margin: 8px 0; overflow: hidden; }
+        .bar-fill { background: linear-gradient(90deg, #7A4895, #AA8DCB); height: 100%; display: flex; align-items: center; justify-content: flex-end; padding-right: 10px; color: white; font-weight: bold; font-size: 0.8rem; }
+        .service-list { margin-top: 16px; max-height: 200px; overflow-y: auto; }
+        .service-item-stat { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #e9d5ff; font-size: 0.85rem; }
+        .families-container { background: #faf5ff; border-radius: 24px; padding: 20px; margin-top: 20px; border: 1px solid #e9d5ff; }
+        .family-detail-card { background: white; border-radius: 20px; padding: 16px; margin-bottom: 16px; border-left: 4px solid #AA8DCB; box-shadow: 0 2px 6px rgba(0,0,0,0.05); cursor: pointer; transition: all 0.2s; }
+        .family-detail-card:hover { transform: translateX(4px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .family-detail-card h4 { color: #551E75; margin-bottom: 12px; font-size: 1.1rem; display: flex; justify-content: space-between; align-items: center; }
+        .expand-icon { font-size: 1.2rem; color: #7A4895; }
+        .family-expandable { display: none; margin-top: 12px; padding-top: 12px; border-top: 1px solid #e9d5ff; }
+        .family-expandable.show { display: block; }
+        .member-detail { margin-left: 20px; padding: 8px 0; border-bottom: 1px solid #f3e8ff; }
+        .member-detail strong { color: #7A4895; }
+        .services-list-small { margin-left: 20px; font-size: 0.85rem; color: #4a5568; }
+        .action-buttons-fam { display: flex; gap: 10px; margin-top: 10px; justify-content: flex-end; }
+        .organ-card { background: #faf5ff; margin: 16px 0; padding: 20px; border-radius: 24px; border: 1px solid #e9d5ff; }
+        .organ-card h4 { color: #7A4895; margin-bottom: 12px; font-size: 1.1rem; }
+        .service-tag { display: inline-block; background: white; padding: 4px 12px; border-radius: 20px; margin: 4px; font-size: 0.8rem; border: 1px solid #e9d5ff; }
+        .success-message { background: #d1fae5; color: #065f46; padding: 12px; border-radius: 12px; margin-bottom: 16px; text-align: center; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 10px; border-bottom: 1px solid #e9d5ff; text-align: left; }
+        th { color: #7A4895; font-weight: 700; }
+        .admin-tabs-container { display: flex; gap: 8px; margin-bottom: 24px; border-bottom: 2px solid #e9d5ff; padding-bottom: 8px; flex-wrap: wrap; }
+        .admin-tab-btn { background: transparent; border: none; padding: 10px 24px; cursor: pointer; font-weight: 600; color: #7A4895; border-radius: 30px; transition: all 0.2s ease; font-size: 0.9rem; }
+        .admin-tab-btn:hover { background: #f3e8ff; color: #551E75; }
+        .admin-tab-btn.active { background: #7A4895; color: white; }
+        .tab-content { animation: fadeIn 0.2s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .loading-placeholder { text-align: center; padding: 40px; color: #7A4895; }
+        .spinner { display: inline-block; width: 40px; height: 40px; border: 4px solid #f3e8ff; border-top: 4px solid #7A4895; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 16px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .loading-container { text-align: center; padding: 40px; }
+        .questionnaire-section { background: #faf5ff; border-radius: 20px; padding: 20px; margin: 20px 0; border: 1px solid #e9d5ff; }
+        .questionnaire-title { color: #551E75; font-weight: 700; margin-bottom: 16px; font-size: 1rem; }
+        .checkbox-group { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 8px; }
+        .checkbox-item {
             display: flex;
             align-items: center;
-            justify-content: flex-end;
-            padding-right: 10px;
-            color: white;
-            font-weight: bold;
-            font-size: 0.8rem;
-        }
-        
-        .service-list {
-            margin-top: 16px;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-        
-        .service-item-stat {
-            display: flex;
-            justify-content: space-between;
-            padding: 6px 0;
-            border-bottom: 1px solid #e9d5ff;
-            font-size: 0.85rem;
-        }
-        
-        .families-container {
-            background: #faf5ff;
-            border-radius: 24px;
-            padding: 20px;
-            margin-top: 20px;
-            border: 1px solid #e9d5ff;
-        }
-        
-        .family-detail-card {
-            background: white;
-            border-radius: 20px;
-            padding: 16px;
-            margin-bottom: 16px;
-            border-left: 4px solid #AA8DCB;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .family-detail-card:hover {
-            transform: translateX(4px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        
-        .family-detail-card h4 {
-            color: #551E75;
-            margin-bottom: 12px;
-            font-size: 1.1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .expand-icon {
-            font-size: 1.2rem;
-            color: #7A4895;
-        }
-        
-        .family-expandable {
-            display: none;
-            margin-top: 12px;
-            padding-top: 12px;
-            border-top: 1px solid #e9d5ff;
-        }
-        
-        .family-expandable.show {
-            display: block;
-        }
-        
-        .member-detail {
-            margin-left: 20px;
-            padding: 8px 0;
-            border-bottom: 1px solid #f3e8ff;
-        }
-        
-        .member-detail strong {
-            color: #7A4895;
-        }
-        
-        .services-list-small {
-            margin-left: 20px;
-            font-size: 0.85rem;
-            color: #4a5568;
-        }
-        
-        .action-buttons-fam {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-            justify-content: flex-end;
-        }
-        
-        .organ-card {
-            background: #faf5ff;
-            margin: 16px 0;
-            padding: 20px;
-            border-radius: 24px;
-            border: 1px solid #e9d5ff;
-        }
-        
-        .organ-card h4 {
-            color: #7A4895;
-            margin-bottom: 12px;
-            font-size: 1.1rem;
-        }
-        
-        .service-tag {
-            display: inline-block;
-            background: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            margin: 4px;
-            font-size: 0.8rem;
-            border: 1px solid #e9d5ff;
-        }
-        
-        .success-message {
-            background: #d1fae5;
-            color: #065f46;
-            padding: 12px;
-            border-radius: 12px;
-            margin-bottom: 16px;
-            text-align: center;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        
-        th, td {
-            padding: 10px;
-            border-bottom: 1px solid #e9d5ff;
-            text-align: left;
-        }
-        
-        th {
-            color: #7A4895;
-            font-weight: 700;
-        }
-        
-        .admin-tabs-container {
-            display: flex;
             gap: 8px;
-            margin-bottom: 24px;
-            border-bottom: 2px solid #e9d5ff;
-            padding-bottom: 8px;
-            flex-wrap: wrap;
-        }
-        
-        .admin-tab-btn {
-            background: transparent;
-            border: none;
-            padding: 10px 24px;
-            cursor: pointer;
-            font-weight: 600;
-            color: #7A4895;
-            border-radius: 30px;
-            transition: all 0.2s ease;
-            font-size: 0.9rem;
-        }
-        
-        .admin-tab-btn:hover {
-            background: #f3e8ff;
-            color: #551E75;
-        }
-        
-        .admin-tab-btn.active {
-            background: #7A4895;
-            color: white;
-        }
-        
-        .tab-content {
-            animation: fadeIn 0.2s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        .loading-placeholder {
-            text-align: center;
-            padding: 40px;
-            color: #7A4895;
-        }
-        
-        .spinner {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            border: 4px solid #f3e8ff;
-            border-top: 4px solid #7A4895;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 16px;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .loading-container {
-            text-align: center;
-            padding: 40px;
-        }
-
-        .questionnaire-section {
             background: #faf5ff;
-            border-radius: 20px;
-            padding: 20px;
-            margin: 20px 0;
+            padding: 8px 16px;
+            border-radius: 40px;
             border: 1px solid #e9d5ff;
         }
-
-        .questionnaire-title {
-            color: #551E75;
-            font-weight: 700;
-            margin-bottom: 16px;
+        .checkbox-item input { width: 18px; height: 18px; cursor: pointer; margin: 0; }
+        .checkbox-item input:disabled { cursor: not-allowed; }
+        .checkbox-item label { margin: 0; cursor: pointer; color: #551E75; }
+        .checkbox-item label.disabled { cursor: not-allowed; opacity: 0.6; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { color: #7A4895; font-weight: 700; margin-bottom: 8px; display: block; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            background: #fefcff;
+            border: 2px solid #e9d5ff;
+            border-radius: 20px;
+            color: #2d1b4e;
+            font-weight: 500;
+            font-family: inherit;
+        }
+        .form-group input:disabled, .form-group select:disabled, .form-group textarea:disabled {
+            background: #f5f5f5;
+            cursor: not-allowed;
+        }
+        .form-group textarea { resize: vertical; min-height: 80px; }
+        .badge-finished {
+            display: inline-block;
+            background: #10b981;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        .readonly-indicator {
+            text-align: center;
+            padding: 16px 20px;
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+            color: #065f46;
+            border-radius: 16px;
+            margin-bottom: 20px;
             font-size: 1rem;
+            font-weight: 700;
+            border: 2px solid #6ee7b7;
+            box-shadow: 0 3px 10px rgba(16, 185, 129, 0.15);
+        }
+        .attendance-area.finished {
+            border: 2px solid #6ee7b7 !important;
+            box-shadow: 0 8px 30px rgba(16, 185, 129, 0.18) !important;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 10px 16px;
+                height: auto;
+                min-height: 60px;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            .logo-area img { height: 80px; margin-top: 0; }
+            .main-container {
+                flex-direction: column;
+                height: auto;
+                padding: 12px 16px;
+                gap: 16px;
+            }
+            .family-tree,
+            .attendance-area {
+                width: 100%;
+                overflow-y: visible;
+            }
+            .services-container { max-height: none; }
+            .service-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .service-row select { width: 100% !important; flex: none !important; }
+            .btn-remove-service { align-self: flex-end; }
+            .stats-grid { flex-direction: column; }
+            .stat-card { min-width: unset; }
+            .modal-container { width: 95%; padding: 20px 16px; border-radius: 20px; }
+        }
+
+        @media (max-width: 480px) {
+            .header { padding: 8px 12px; }
+            .logo-area img { height: 60px; }
+            .btn-admin { padding: 10px 16px; font-size: 0.8rem; }
+            .attendance-header h2 { font-size: 1.2rem; }
+            .admin-tabs-container { flex-wrap: wrap; }
+            .admin-tab-btn { flex: 1 1 auto; text-align: center; padding: 8px 12px; font-size: 0.8rem; }
+            .modal-container { padding: 16px 12px; border-radius: 16px; }
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
@@ -808,6 +383,7 @@
         <button class="btn-not-registered" id="btnNotRegistered">+ Mãe não cadastrada</button>
         <div id="familyTree" class="family-members" style="margin-top:20px;"><div style="color:#a78bfa;text-align:center;padding:40px;">Pesquise uma mãe ou cadastre uma nova</div></div>
         <button class="btn-finalizar" id="btnFinalizar" style="display:none;">FINALIZAR ATENDIMENTO DA FAMÍLIA</button>
+        <button class="btn-edit-family" id="btnEditFamily" style="display:none;">✏️ EDITAR ATENDIMENTO</button>
     </div>
     <div class="attendance-area">
         <div id="attendanceContent" style="text-align:center;color:#a78bfa;padding:60px;">Selecione um familiar à esquerda</div>
@@ -818,36 +394,15 @@
     const SUPABASE_URL = 'https://gbuibkhkiriclnztlgxp.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdidWlia2hraXJpY2xuenRsZ3hwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg3NjgxNDksImV4cCI6MjA5NDM0NDE0OX0.e_3H4G97r3jw3Xp8R1vkLSp4Y9YrIrbRxAaSoc7GP-w';
     let allMothers = [], currentMother = null, currentFamilyMember = null, currentMemberType = null, currentAttendance = null;
-    let pendingServices = [];
-    let currentQuestionnaire = {
-        id: null,
-        homeless: false,
-        domestic_violence: false,
-        protective_measure: false,
-        children_school: false,
-        serious_illness: false,
-        obs: ''
-    };
+    let currentMemberServices = [];
+    let allOrgans = [];
+    let allServices = {};
+    let isEditMode = false;
+    let servicesCache = {}; // Cache para serviços por membro
+    let questionnaireCache = {}; // Cache para questionário por mãe
 
-    let adminCache = {
-        organs: null,
-        families: null,
-        crudFamilies: null,
-        crudOrgans: null
-    };
-
-    let pendingAdminAction = null;
-
-    // Registrar Service Worker para PWA
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/sw.js').then(registration => {
-                console.log('ServiceWorker registrado com sucesso:', registration.scope);
-            }).catch(error => {
-                console.log('ServiceWorker falhou:', error);
-            });
-        });
-    }
+    let adminCache = { organs: null, families: null, crudFamilies: null, crudOrgans: null };
+    let currentQuestionnaire = { id: null, homeless: false, domestic_violence: false, protective_measure: false, children_school: false, serious_illness: false, obs: '' };
 
     function showAlertModal(msg, isSuccess = true) {
         let modal = document.createElement('div'); modal.className = 'modal-overlay';
@@ -895,6 +450,22 @@
         return allMothers;
     }
     
+    async function loadOrgansAndServices() {
+        if(allOrgans.length > 0) return;
+        const organsRes = await fetch(`${SUPABASE_URL}/rest/v1/organs?select=*&order=name`, { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` } });
+        if(organsRes.ok) allOrgans = await organsRes.json();
+        await Promise.all(allOrgans.map(async organ => {
+            const servicesRes = await fetch(`${SUPABASE_URL}/rest/v1/services?select=*&organ_id=eq.${organ.id}&order=name`, { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` } });
+            if(servicesRes.ok) allServices[organ.id] = await servicesRes.json();
+        }));
+    }
+
+    async function reloadOrgansAndServices() {
+        allOrgans = [];
+        allServices = {};
+        await loadOrgansAndServices();
+    }
+    
     document.getElementById('searchMother').addEventListener('input', (e) => searchMothers(e.target.value));
     
     async function searchMothers(q) {
@@ -908,21 +479,18 @@
         } else resultsDiv.classList.remove('active');
     }
     
-    function showFullMotherRegistration(editMode = false, motherData = null) {
+    window.showFullMotherRegistration = function(editMode = false, motherData = null) {
         let modal = document.createElement('div'); modal.className = 'modal-overlay';
-        
         let title = editMode ? 'Editar Mãe' : 'Cadastrar Nova Mãe';
         let saveBtnText = editMode ? 'Salvar Alterações' : 'Salvar e Atender';
         let motherName = editMode && motherData ? motherData.name || '' : '';
         let motherBirth = editMode && motherData && motherData.birth_date ? motherData.birth_date : '';
         let motherCpf = editMode && motherData && motherData.cpf ? motherData.cpf : '';
         let motherObs = editMode && motherData && motherData.observation ? motherData.observation : '';
-        
         let childrenHtml = '';
         if(!editMode) {
             childrenHtml = `<div class="form-group"><label>Filhos</label><div id="childrenList"><div class="child-row"><input type="text" placeholder="Nome do filho" class="child-name" style="flex:1"><input type="text" placeholder="Idade" class="child-age" style="width:100px"></div></div><button type="button" class="btn-add-child" id="addChildField">+ Adicionar filho</button></div>`;
         }
-        
         modal.innerHTML = `<div class="modal-container">
             <h3>${title}</h3>
             <div class="form-group"><label>Nome completo *</label><input type="text" id="newMotherName" placeholder="Nome da mãe" value="${motherName.replace(/"/g, '&quot;')}"></div>
@@ -968,84 +536,60 @@
                         adminCache.crudFamilies = null;
                         adminCache.organs = null;
                         adminCache.families = null;
+                        if(adminModal && document.body.contains(adminModal) && currentAdminTab === 'crudFamilies') await loadCrudFamilies();
                     } else {
                         const error = await response.text();
                         showAlertModal('Erro ao editar: ' + error, false);
                     }
                 } else {
-                    const response = await fetch(`${SUPABASE_URL}/rest/v1/mothers`, { 
-                        method:'POST', 
-                        headers:{ 'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,'Content-Type':'application/json' }, 
-                        body: JSON.stringify({ name, birth_date: birth || null, cpf: cpfToSend, observation: obs || null }) 
+                    const response = await fetch(`${SUPABASE_URL}/rest/v1/mothers`, {
+                        method:'POST',
+                        headers:{ 'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,'Content-Type':'application/json','Prefer':'return=representation' },
+                        body: JSON.stringify({ name, birth_date: birth || null, cpf: cpfToSend, observation: obs || null })
                     });
-                    
+
                     if(response.ok){
-                        let motherId = null;
-                        const contentType = response.headers.get('content-type');
-                        
-                        if (contentType && contentType.includes('application/json')) {
-                            const newMother = await response.json();
-                            motherId = newMother[0]?.id || newMother.id;
-                        } else {
-                            await loadAllMothers();
-                            const foundMother = allMothers.find(m => m.name === name);
-                            if(foundMother) motherId = foundMother.id;
-                        }
-                        
+                        const newMother = await response.json();
+                        const motherId = newMother[0]?.id;
                         if(motherId) {
                             let childrenNames = document.querySelectorAll('.child-name');
                             let childrenAges = document.querySelectorAll('.child-age');
-                            
                             for(let i=0; i<childrenNames.length; i++){
                                 if(childrenNames[i].value){
                                     await fetch(`${SUPABASE_URL}/rest/v1/children`, { 
                                         method:'POST', 
                                         headers:{ 'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,'Content-Type':'application/json' }, 
-                                        body: JSON.stringify({ 
-                                            mother_id: motherId, 
-                                            name: childrenNames[i].value, 
-                                            age: childrenAges[i]?.value || null 
-                                        }) 
+                                        body: JSON.stringify({ mother_id: motherId, name: childrenNames[i].value, age: childrenAges[i]?.value || null }) 
                                     });
                                 }
                             }
-                            
                             showAlertModal('Mãe e filhos cadastrados com sucesso!', true);
                             modal.remove();
                             await loadAllMothers();
                             const motherDataComplete = allMothers.find(m => m.id === motherId);
-                            if(motherDataComplete) {
-                                await selectMother(motherDataComplete);
-                            } else {
-                                location.reload();
-                            }
-                            
+                            if(motherDataComplete) await selectMother(motherDataComplete);
+                            else location.reload();
                             adminCache.crudFamilies = null;
                             adminCache.organs = null;
                             adminCache.families = null;
+                            if(adminModal && document.body.contains(adminModal) && currentAdminTab === 'crudFamilies') await loadCrudFamilies();
                         } else {
-                            showAlertModal('Mãe cadastrada! Por favor, pesquise pelo nome.', true);
+                            showAlertModal('Erro ao obter ID da mãe cadastrada.', false);
                             modal.remove();
                             await loadAllMothers();
                         }
                     } else {
                         const error = await response.text();
-                        if(error.includes('duplicate key')) {
-                            showAlertModal('CPF já cadastrado no sistema. Use outro CPF ou deixe em branco.', false);
-                        } else {
-                            showAlertModal('Erro ao cadastrar: ' + error, false);
-                        }
+                        if(error.includes('duplicate key')) showAlertModal('CPF já cadastrado.', false);
+                        else showAlertModal('Erro ao cadastrar: ' + error, false);
                     }
                 }
-            } catch(e) { 
-                console.error('Erro detalhado:', e);
-                showAlertModal('Erro ao processar. Tente novamente.', false); 
-            }
+            } catch(e) { showAlertModal('Erro ao processar. Tente novamente.', false); }
         };
         modal.querySelector('#cancelNewMotherBtn').onclick = () => modal.remove();
-    }
+    };
     
-    document.getElementById('btnNotRegistered').onclick = () => showFullMotherRegistration(false);
+    document.getElementById('btnNotRegistered').onclick = () => window.showFullMotherRegistration(false);
     
     async function selectMother(mother){
         currentMother = mother;
@@ -1054,30 +598,63 @@
         await loadFamilyTree(mother.id);
         await loadOrCreateAttendance(mother.id);
         await loadQuestionnaire(mother.id);
-        pendingServices = [];
-        document.getElementById('btnFinalizar').style.display = 'block';
-        document.getElementById('attendanceContent').innerHTML = '<div style="text-align:center;color:#a78bfa;padding:60px;">Selecione um familiar à esquerda</div>';
-        currentFamilyMember = null;
+        
+        // Verificar se o atendimento já foi finalizado
+        isEditMode = false;
+        const btnFinalizar = document.getElementById('btnFinalizar');
+        const btnEditFamily = document.getElementById('btnEditFamily');
+        
+        if(currentAttendance && currentAttendance.is_finished) {
+            btnFinalizar.style.display = 'none';
+            btnEditFamily.style.display = 'block';
+            document.querySelector('.attendance-area').classList.add('finished');
+            document.getElementById('attendanceContent').innerHTML = '<div class="readonly-indicator">✅ Atendimento Finalizado — Selecione um familiar para visualizar os serviços registrados.</div>';
+            currentFamilyMember = null;
+        } else {
+            btnFinalizar.style.display = 'block';
+            btnEditFamily.style.display = 'none';
+            document.querySelector('.attendance-area').classList.remove('finished');
+            document.getElementById('attendanceContent').innerHTML = '<div style="text-align:center;color:#a78bfa;padding:60px;">Selecione um familiar à esquerda</div>';
+            currentFamilyMember = null;
+        }
     }
+    
+    // Função para editar atendimento (reativar campos)
+    window.editAttendance = async function() {
+        if(currentAttendance && currentAttendance.is_finished) {
+            showPasswordModal(async () => {
+                await fetch(`${SUPABASE_URL}/rest/v1/attendances?id=eq.${currentAttendance.id}`, { 
+                    method:'PATCH', 
+                    headers:{ 'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,'Content-Type':'application/json' }, 
+                    body: JSON.stringify({ is_finished: false, finished_at: null }) 
+                });
+                currentAttendance.is_finished = false;
+                isEditMode = true;
+                document.getElementById('btnFinalizar').style.display = 'block';
+                document.getElementById('btnEditFamily').style.display = 'none';
+                document.querySelector('.attendance-area').classList.remove('finished');
+                document.getElementById('attendanceContent').innerHTML = '<div style="text-align:center;color:#a78bfa;padding:60px;">Selecione um familiar à esquerda para editar</div>';
+                showAlertModal('Atendimento reativado para edição!', true);
+                // Limpar caches
+                servicesCache = {};
+                questionnaireCache = {};
+                adminCache.families = null;
+                adminCache.organs = null;
+            });
+        }
+    };
+    
+    document.getElementById('btnEditFamily').onclick = window.editAttendance;
     
     async function loadFamilyTree(motherId){
         const childrenResp = await fetch(`${SUPABASE_URL}/rest/v1/children?select=*&mother_id=eq.${motherId}&order=name`, { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` } });
         let children = childrenResp.ok ? await childrenResp.json() : [];
-        
         let html = `<div class="mother-node"><div class="member-card" onclick="selectFamilyMember('mother', ${currentMother.id}, '${currentMother.name.replace(/'/g, "\\'")}')"><div class="member-name">${currentMother.name}</div><div class="member-info">Mãe</div></div>`;
-        
         if(children.length > 0){
             html += `<div class="children-container">`;
-            children.forEach(c => { 
-                html += `<div class="child-card" onclick="selectFamilyMember('child', ${c.id}, '${c.name.replace(/'/g, "\\'")}')">
-                    <div class="member-name">${c.name}</div>
-                    <div class="member-info">Filho(a) • ${c.age || 'idade não informada'}</div>
-                </div>`; 
-            });
+            children.forEach(c => { html += `<div class="child-card" onclick="selectFamilyMember('child', ${c.id}, '${c.name.replace(/'/g, "\\'")}')"><div class="member-name">${c.name}</div><div class="member-info">Filho(a) • ${c.age || 'idade não informada'}</div></div>`; });
             html += `</div>`;
-        } else {
-            html += `<div class="children-container" style="color:#a78bfa; font-size:0.8rem; padding:8px 0 8px 20px;">Nenhum filho cadastrado</div>`;
-        }
+        } else { html += `<div class="children-container" style="color:#a78bfa; font-size:0.8rem; padding:8px 0 8px 20px;">Nenhum filho cadastrado</div>`; }
         html += `</div>`;
         document.getElementById('familyTree').innerHTML = html;
     }
@@ -1089,28 +666,36 @@
             const data = await resp.json();
             if(data && data.length) currentAttendance = data[0];
             else {
-                const ins = await fetch(`${SUPABASE_URL}/rest/v1/attendances`, { method:'POST', headers:{ 'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,'Content-Type':'application/json' }, body: JSON.stringify({ mother_id: motherId, is_finished: false }) });
-                if(ins.ok) currentAttendance = (await ins.json())[0];
+                const ins = await fetch(`${SUPABASE_URL}/rest/v1/attendances`, { method:'POST', headers:{ 'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,'Content-Type':'application/json','Prefer':'return=representation' }, body: JSON.stringify({ mother_id: motherId, is_finished: false }) });
+                if(ins.ok) { const newAtt = await ins.json(); if(newAtt && newAtt[0]) currentAttendance = newAtt[0]; }
             }
         } catch(e) { currentAttendance = { id: Date.now(), mother_id: motherId, is_finished: false }; }
     }
 
     async function loadQuestionnaire(motherId) {
+        currentQuestionnaire = { id: null, homeless: false, domestic_violence: false, protective_measure: false, children_school: false, serious_illness: false, obs: '' };
+        if(questionnaireCache[motherId]) {
+            currentQuestionnaire = questionnaireCache[motherId];
+            return;
+        }
+        
         try {
             const resp = await fetch(`${SUPABASE_URL}/rest/v1/questionnaires?select=*&mother_id=eq.${motherId}&limit=1`, { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` } });
             if(resp.ok && resp.status !== 404) {
                 const data = await resp.json();
                 if(data && data.length) {
                     currentQuestionnaire = data[0];
+                    questionnaireCache[motherId] = data[0];
                 } else {
                     currentQuestionnaire = { id: null, homeless: false, domestic_violence: false, protective_measure: false, children_school: false, serious_illness: false, obs: '' };
+                    questionnaireCache[motherId] = currentQuestionnaire;
                 }
             }
         } catch(e) { console.log('Questionário não encontrado'); }
     }
 
     async function saveQuestionnaire() {
-        if(!currentMother) return;
+        if(!currentMother || currentMemberType !== 'mother') return;
         const questionnaireData = {
             mother_id: currentMother.id,
             homeless: currentQuestionnaire.homeless,
@@ -1120,113 +705,247 @@
             serious_illness: currentQuestionnaire.serious_illness,
             obs: currentQuestionnaire.obs
         };
-        
         try {
             if(currentQuestionnaire.id) {
-                await fetch(`${SUPABASE_URL}/rest/v1/questionnaires?id=eq.${currentQuestionnaire.id}`, { 
-                    method:'PATCH', 
-                    headers:{ 'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,'Content-Type':'application/json' }, 
-                    body: JSON.stringify(questionnaireData) 
-                });
+                await fetch(`${SUPABASE_URL}/rest/v1/questionnaires?id=eq.${currentQuestionnaire.id}`, { method:'PATCH', headers:{ 'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,'Content-Type':'application/json' }, body: JSON.stringify(questionnaireData) });
             } else {
-                const res = await fetch(`${SUPABASE_URL}/rest/v1/questionnaires`, { 
-                    method:'POST', 
-                    headers:{ 'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,'Content-Type':'application/json' }, 
-                    body: JSON.stringify(questionnaireData) 
-                });
-                if(res.ok) {
-                    const newData = await res.json();
-                    if(newData && newData[0]) currentQuestionnaire.id = newData[0].id;
-                }
+                const res = await fetch(`${SUPABASE_URL}/rest/v1/questionnaires`, { method:'POST', headers:{ 'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,'Content-Type':'application/json','Prefer':'return=representation' }, body: JSON.stringify(questionnaireData) });
+                if(res.ok) { const newData = await res.json(); if(newData && newData[0]) currentQuestionnaire.id = newData[0].id; }
             }
+            questionnaireCache[currentMother.id] = currentQuestionnaire;
         } catch(e) { console.log('Erro ao salvar questionário'); }
     }
     
-    window.selectFamilyMember = function(type, id, name){
+    window.selectFamilyMember = async function(type, id, name){
+        // Mostrar loading
+        document.getElementById('attendanceContent').innerHTML = '<div class="loading-container"><div class="spinner"></div><div>Carregando atendimento...</div></div>';
+        
         currentFamilyMember = { id, name };
         currentMemberType = type;
+        
+        // Verificar cache
+        const cacheKey = `${currentAttendance.id}_${type}_${id}`;
+        if(servicesCache[cacheKey]) {
+            currentMemberServices = servicesCache[cacheKey];
+            renderServiceForm();
+            return;
+        }
+        
+        await loadMemberServices();
+
+        const isFinished = currentAttendance && currentAttendance.is_finished && !isEditMode;
+        if(currentMemberServices.length === 0 && !isFinished) {
+            currentMemberServices.push({ id: null, organ_id: null, service_id: null });
+        }
+
+        servicesCache[cacheKey] = currentMemberServices;
         renderServiceForm();
     };
     
-    async function renderServiceForm(){
-        const organsResp = await fetch(`${SUPABASE_URL}/rest/v1/organs?select=*&order=name`, { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` } });
-        let organs = organsResp.ok ? await organsResp.json() : [];
-        let organOptions = organs.map(o => `<option value="${o.id}">${o.name}</option>`).join('');
-        const existingForMember = pendingServices.filter(s => s.memberId === currentFamilyMember.id && s.memberType === currentMemberType);
-        const servicesHtml = existingForMember.map((s) => `<div class="service-item"><div><strong style="color:#7A4895;">${s.organ_name}</strong><br>${s.service_name}</div><button class="btn-primary" style="padding:4px 12px;" onclick="removePendingService('${s.tempId}')">Remover</button></div>`).join('');
-        
-        const html = `<div class="attendance-header"><h2>${currentFamilyMember.name}</h2><p>${currentMemberType === 'mother' ? 'Responsável familiar' : 'Filho(a)'}</p></div>
-        <div class="form-group"><label>Órgão</label><select id="organSelect"><option value="">Selecionar</option>${organOptions}</select></div>
-        <div class="form-group"><label>Serviço</label><select id="serviceSelect" disabled><option>Selecione um órgão</option></select></div>
-        <div style="margin:16px 0;"><button class="btn-add" id="addServiceToMemberBtn">+ Adicionar serviço</button></div>
-        <div class="services-list"><strong style="color:#551E75;">Serviços adicionados (pendentes)</strong><div id="memberServicesList" style="margin-top:12px;">${servicesHtml || '<p style="color:#a78bfa;">Nenhum serviço adicionado</p>'}</div></div>
-        <div class="questionnaire-section"><div class="questionnaire-title">Questionário de Acolhimento</div>
-            <div class="checkbox-group"><div class="checkbox-item"><input type="checkbox" id="homeless" ${currentQuestionnaire.homeless ? 'checked' : ''}><label for="homeless">Mulher em situação de rua?</label></div>
-            <div class="checkbox-item"><input type="checkbox" id="domestic_violence" ${currentQuestionnaire.domestic_violence ? 'checked' : ''}><label for="domestic_violence">Sofre violência doméstica?</label></div>
-            <div class="checkbox-item"><input type="checkbox" id="protective_measure" ${currentQuestionnaire.protective_measure ? 'checked' : ''}><label for="protective_measure">Tem medida protetiva?</label></div>
-            <div class="checkbox-item"><input type="checkbox" id="children_school" ${currentQuestionnaire.children_school ? 'checked' : ''}><label for="children_school">Filhos frequentam ambiente escolar?</label></div>
-            <div class="checkbox-item"><input type="checkbox" id="serious_illness" ${currentQuestionnaire.serious_illness ? 'checked' : ''}><label for="serious_illness">Tem diagnóstico de doença grave?</label></div></div>
-            <div class="form-group" style="margin-top:16px;"><label>Observações gerais</label><textarea id="familyObs" placeholder="Informações adicionais sobre a família...">${currentQuestionnaire.obs || ''}</textarea></div>
-        </div>
-        <button class="btn-save" id="reviewAllBtn">REVISAR E FINALIZAR ENCAMINHAMENTOS</button>`;
-        document.getElementById('attendanceContent').innerHTML = html;
-        
-        document.getElementById('organSelect').addEventListener('change', async (e) => { if(e.target.value){ const srvResp = await fetch(`${SUPABASE_URL}/rest/v1/services?select=*&organ_id=eq.${e.target.value}&order=name`, { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` } }); let srv = srvResp.ok ? await srvResp.json() : []; let sel = document.getElementById('serviceSelect'); sel.disabled=false; sel.innerHTML = '<option value="">Selecionar serviço</option>'+srv.map(s=>`<option value="${s.id}">${s.name}</option>`).join(''); } });
-        document.getElementById('addServiceToMemberBtn').onclick = addServiceToCurrentMember;
-        document.getElementById('reviewAllBtn').onclick = showFullReview;
-        
-        document.getElementById('homeless').onchange = (e) => { currentQuestionnaire.homeless = e.target.checked; saveQuestionnaire(); };
-        document.getElementById('domestic_violence').onchange = (e) => { currentQuestionnaire.domestic_violence = e.target.checked; saveQuestionnaire(); };
-        document.getElementById('protective_measure').onchange = (e) => { currentQuestionnaire.protective_measure = e.target.checked; saveQuestionnaire(); };
-        document.getElementById('children_school').onchange = (e) => { currentQuestionnaire.children_school = e.target.checked; saveQuestionnaire(); };
-        document.getElementById('serious_illness').onchange = (e) => { currentQuestionnaire.serious_illness = e.target.checked; saveQuestionnaire(); };
-        document.getElementById('familyObs').onchange = (e) => { currentQuestionnaire.obs = e.target.value; saveQuestionnaire(); };
+    async function loadMemberServices() {
+        if(!currentAttendance || !currentFamilyMember) return;
+        const resp = await fetch(`${SUPABASE_URL}/rest/v1/attendance_items?select=*,organs(name),services(name)&attendance_id=eq.${currentAttendance.id}&family_member_type=eq.${currentMemberType}&family_member_id=eq.${currentFamilyMember.id}`, { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` } });
+        if(resp.ok) {
+            const items = await resp.json();
+            currentMemberServices = items.map(item => ({
+                id: item.id,
+                organ_id: item.organ_id,
+                service_id: item.service_id,
+                organ_name: item.organs?.name || item.organ_name,
+                service_name: item.services?.name || item.service_name
+            }));
+        } else {
+            currentMemberServices = [];
+        }
     }
     
-    async function addServiceToCurrentMember(){
-        const organId = document.getElementById('organSelect').value;
-        const serviceId = document.getElementById('serviceSelect').value;
-        if(!organId || !serviceId) { showAlertModal('Selecione órgão e serviço', false); return; }
-        let organName='', serviceName='';
-        const orgRes = await fetch(`${SUPABASE_URL}/rest/v1/organs?id=eq.${organId}`, { headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} });
-        if(orgRes.ok) organName = (await orgRes.json())[0]?.name;
-        const srvRes = await fetch(`${SUPABASE_URL}/rest/v1/services?id=eq.${serviceId}`, { headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} });
-        if(srvRes.ok) serviceName = (await srvRes.json())[0]?.name;
-        const tempId = Date.now() + Math.random();
-        pendingServices.push({ organ_id: parseInt(organId), service_id: parseInt(serviceId), organ_name: organName, service_name: serviceName, memberId: currentFamilyMember.id, memberName: currentFamilyMember.name, memberType: currentMemberType, tempId });
+    async function saveServiceRow(organId, serviceId, serviceIdToEdit = null) {
+        if(!currentAttendance || !currentFamilyMember) return null;
+        const organ = allOrgans.find(o => o.id == organId);
+        const services = allServices[organId] || [];
+        const service = services.find(s => s.id == serviceId);
+        
+        const serviceData = {
+            attendance_id: currentAttendance.id,
+            family_member_type: currentMemberType,
+            family_member_id: currentFamilyMember.id,
+            organ_id: parseInt(organId),
+            service_id: parseInt(serviceId),
+            organ_name: organ?.name,
+            service_name: service?.name
+        };
+        
+        if(serviceIdToEdit) {
+            await fetch(`${SUPABASE_URL}/rest/v1/attendance_items?id=eq.${serviceIdToEdit}`, { method:'PATCH', headers:{ 'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,'Content-Type':'application/json' }, body: JSON.stringify(serviceData) });
+            return serviceIdToEdit;
+        } else {
+            const res = await fetch(`${SUPABASE_URL}/rest/v1/attendance_items`, { method:'POST', headers:{ 'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,'Content-Type':'application/json','Prefer':'return=representation' }, body: JSON.stringify(serviceData) });
+            if(res.ok) {
+                const newItem = await res.json();
+                return newItem[0]?.id;
+            }
+        }
+        return null;
+    }
+    
+    async function deleteServiceRow(serviceId) {
+        if(!serviceId) return;
+        await fetch(`${SUPABASE_URL}/rest/v1/attendance_items?id=eq.${serviceId}`, { method:'DELETE', headers:{ 'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} });
+    }
+    
+    async function renderServiceForm() {
+        await loadOrgansAndServices();
+        
+        const isReadOnly = currentAttendance && currentAttendance.is_finished && !isEditMode;
+        
+        let servicesHtml = '';
+        for(let i = 0; i < currentMemberServices.length; i++) {
+            const s = currentMemberServices[i];
+            servicesHtml += `
+                <div class="service-row" data-id="${s.id || ''}">
+                    <select class="organ-select" data-service-id="${s.id}" style="flex:1" ${isReadOnly ? 'disabled' : ''}>
+                        <option value="">Selecionar órgão</option>
+                        ${allOrgans.map(o => `<option value="${o.id}" ${o.id == s.organ_id ? 'selected' : ''}>${o.name}</option>`).join('')}
+                    </select>
+                    <select class="service-select" data-service-id="${s.id}" style="flex:1" ${!s.organ_id ? 'disabled' : ''} ${isReadOnly ? 'disabled' : ''}>
+                        ${s.organ_id && allServices[s.organ_id] ? 
+                            '<option value="">Selecionar serviço</option>' + allServices[s.organ_id].map(serv => `<option value="${serv.id}" ${serv.id == s.service_id ? 'selected' : ''}>${serv.name}</option>`).join('') :
+                            '<option value="">Selecione um órgão primeiro</option>'}
+                    </select>
+                    <button class="btn-remove-service" data-service-id="${s.id}" ${isReadOnly ? 'disabled' : ''}>🗑️ Remover</button>
+                </div>
+            `;
+        }
+        
+        let questionnaireHtml = '';
+        if(currentMemberType === 'mother') {
+            questionnaireHtml = `
+                <div class="questionnaire-section">
+                    <div class="questionnaire-title">Questionário de Acolhimento</div>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" id="homeless" ${currentQuestionnaire.homeless ? 'checked' : ''} ${isReadOnly ? 'disabled' : ''}><label for="homeless" ${isReadOnly ? 'class="disabled"' : ''}>Mulher em situação de rua?</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="domestic_violence" ${currentQuestionnaire.domestic_violence ? 'checked' : ''} ${isReadOnly ? 'disabled' : ''}><label for="domestic_violence" ${isReadOnly ? 'class="disabled"' : ''}>Sofre violência doméstica?</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="protective_measure" ${currentQuestionnaire.protective_measure ? 'checked' : ''} ${isReadOnly ? 'disabled' : ''}><label for="protective_measure" ${isReadOnly ? 'class="disabled"' : ''}>Tem medida protetiva?</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="children_school" ${currentQuestionnaire.children_school ? 'checked' : ''} ${isReadOnly ? 'disabled' : ''}><label for="children_school" ${isReadOnly ? 'class="disabled"' : ''}>Filhos frequentam ambiente escolar?</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="serious_illness" ${currentQuestionnaire.serious_illness ? 'checked' : ''} ${isReadOnly ? 'disabled' : ''}><label for="serious_illness" ${isReadOnly ? 'class="disabled"' : ''}>Tem diagnóstico de doença grave?</label></div>
+                    </div>
+                    <div class="form-group" style="margin-top:16px;">
+                        <label>Observações gerais</label>
+                        <textarea id="familyObs" placeholder="Informações adicionais sobre a família..." ${isReadOnly ? 'disabled' : ''}>${currentQuestionnaire.obs || ''}</textarea>
+                    </div>
+                </div>
+            `;
+        }
+        
+        const html = `
+            ${isReadOnly ? '<div class="readonly-indicator">✅ Atendimento finalizado — Visualização somente leitura. Clique em "Editar Atendimento" para modificar.</div>' : ''}
+            <div class="attendance-header">
+                <h2>${currentFamilyMember.name}</h2>
+                <p>${currentMemberType === 'mother' ? 'Responsável familiar' : 'Filho(a)'}</p>
+            </div>
+            <div class="services-container" id="servicesContainer">${servicesHtml}</div>
+            <button class="btn-add-row" id="addNewRowBtn" ${isReadOnly ? 'disabled' : ''}>+ Adicionar nova linha</button>
+            ${questionnaireHtml}
+        `;
+        
+        document.getElementById('attendanceContent').innerHTML = html;
+        
+        if(!isReadOnly) {
+            attachRowEvents();
+            document.getElementById('addNewRowBtn').onclick = () => addNewEmptyRow();
+        }
+        
+        if(currentMemberType === 'mother' && !isReadOnly) {
+            document.getElementById('homeless').onchange = (e) => { currentQuestionnaire.homeless = e.target.checked; saveQuestionnaire(); };
+            document.getElementById('domestic_violence').onchange = (e) => { currentQuestionnaire.domestic_violence = e.target.checked; saveQuestionnaire(); };
+            document.getElementById('protective_measure').onchange = (e) => { currentQuestionnaire.protective_measure = e.target.checked; saveQuestionnaire(); };
+            document.getElementById('children_school').onchange = (e) => { currentQuestionnaire.children_school = e.target.checked; saveQuestionnaire(); };
+            document.getElementById('serious_illness').onchange = (e) => { currentQuestionnaire.serious_illness = e.target.checked; saveQuestionnaire(); };
+            document.getElementById('familyObs').onchange = (e) => { currentQuestionnaire.obs = e.target.value; saveQuestionnaire(); };
+        }
+    }
+    
+    function attachRowEvents() {
+        document.querySelectorAll('.service-row').forEach(row => {
+            const organSelect = row.querySelector('.organ-select');
+            const serviceSelect = row.querySelector('.service-select');
+            const removeBtn = row.querySelector('.btn-remove-service');
+            const serviceId = row.dataset.id;
+            
+            organSelect.addEventListener('change', async (e) => {
+                const newOrganId = e.target.value;
+                const currentServiceId = row.dataset.id;
+                if(newOrganId) {
+                    serviceSelect.disabled = false;
+                    serviceSelect.innerHTML = '<option value="">Selecionar serviço</option>' + 
+                        allServices[newOrganId].map(s => `<option value="${s.id}">${s.name}</option>`).join('');
+                    
+                    if(currentServiceId) {
+                        await saveServiceRow(newOrganId, serviceSelect.value, currentServiceId);
+                        await updateCacheAndRefresh();
+                    }
+                } else {
+                    serviceSelect.disabled = true;
+                    serviceSelect.innerHTML = '<option value="">Selecione um órgão primeiro</option>';
+                    if(currentServiceId) {
+                        await deleteServiceRow(currentServiceId);
+                        await updateCacheAndRefresh();
+                    }
+                }
+            });
+            
+            serviceSelect.addEventListener('change', async (e) => {
+                const newOrganId = organSelect.value;
+                const newServiceId = e.target.value;
+                const currentServiceId = row.dataset.id;
+                if(newOrganId && newServiceId) {
+                    if(currentServiceId) {
+                        await saveServiceRow(newOrganId, newServiceId, currentServiceId);
+                    } else {
+                        const newId = await saveServiceRow(newOrganId, newServiceId, null);
+                        if(newId) row.dataset.id = newId;
+                    }
+                    await updateCacheAndRefresh();
+                    showAlertModal('Serviço salvo!', true);
+                }
+            });
+            
+            removeBtn.addEventListener('click', async () => {
+                const currentServiceId = row.dataset.id;
+                if(currentServiceId) {
+                    await deleteServiceRow(currentServiceId);
+                    await updateCacheAndRefresh();
+                    showAlertModal('Serviço removido!', true);
+                } else {
+                    const rowIndex = [...document.querySelectorAll('.service-row')].indexOf(row);
+                    if(rowIndex >= 0) currentMemberServices.splice(rowIndex, 1);
+                    row.remove();
+                }
+            });
+        });
+    }
+    
+    async function updateCacheAndRefresh() {
+        await loadMemberServices();
+        const cacheKey = `${currentAttendance.id}_${currentMemberType}_${currentFamilyMember.id}`;
+        servicesCache[cacheKey] = currentMemberServices;
         renderServiceForm();
     }
     
-    window.removePendingService = (tempId) => { pendingServices = pendingServices.filter(s => s.tempId != tempId); renderServiceForm(); };
-    
-    async function showFullReview(){
-        if(pendingServices.length === 0) { showAlertModal('Nenhum serviço adicionado para revisão.', false); return; }
-        const grouped = {};
-        pendingServices.forEach(s => { const key = `${s.memberType}_${s.memberId}`; if(!grouped[key]) grouped[key] = { memberName: s.memberName, services: [] }; grouped[key].services.push(`${s.organ_name}: ${s.service_name}`); });
-        let reviewHtml = '<div style="margin-bottom:20px;"><strong style="font-size:1.2rem;">Revisão dos encaminhamentos</strong></div>';
-        for(let g in grouped){
-            reviewHtml += `<div style="background:#faf5ff;border-radius:20px;padding:16px;margin-bottom:16px;"><strong>${grouped[g].memberName}</strong><ul style="margin-top:12px;margin-left:20px;color:#4a5568;">${grouped[g].services.map(srv => `<li>${srv}</li>`).join('')}</ul></div>`;
-        }
-        let modal = document.createElement('div'); modal.className = 'modal-overlay';
-        modal.innerHTML = `<div class="modal-container" style="max-width:600px;"><h3 style="color:#551E75;">Confirmar envio</h3>${reviewHtml}<div class="modal-buttons"><button id="confirmSaveBtn" class="btn-primary">Salvar todos</button><button id="cancelReviewBtn" class="btn-secondary">Voltar</button></div></div>`;
-        document.body.appendChild(modal);
-        modal.querySelector('#confirmSaveBtn').onclick = async () => {
-            if(!currentAttendance) return;
-            try {
-                for(let s of pendingServices){
-                    await fetch(`${SUPABASE_URL}/rest/v1/attendance_items`, { method:'POST', headers:{ 'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,'Content-Type':'application/json' }, body: JSON.stringify({ attendance_id: currentAttendance.id, family_member_type: s.memberType, family_member_id: s.memberId, organ_id: s.organ_id, service_id: s.service_id, organ_name: s.organ_name, service_name: s.service_name }) });
-                }
-                await saveQuestionnaire();
-                showAlertModal('Todos os encaminhamentos foram salvos com sucesso!', true);
-                pendingServices = [];
-                modal.remove();
-                document.getElementById('attendanceContent').innerHTML = '<div class="success-message">Encaminhamentos finalizados com sucesso! Agora você pode finalizar o atendimento da família.</div>';
-                currentFamilyMember = null;
-                adminCache.organs = null;
-                adminCache.families = null;
-            } catch(e) { showAlertModal('Erro ao salvar: ' + e.message, false); }
-        };
-        modal.querySelector('#cancelReviewBtn').onclick = () => modal.remove();
+    async function addNewEmptyRow() {
+        // Snapshot current DOM selections to preserve unsaved partial state
+        document.querySelectorAll('.service-row').forEach((domRow, i) => {
+            if(i < currentMemberServices.length) {
+                const organVal = domRow.querySelector('.organ-select')?.value;
+                const serviceVal = domRow.querySelector('.service-select')?.value;
+                currentMemberServices[i].organ_id = organVal ? parseInt(organVal) : null;
+                currentMemberServices[i].service_id = serviceVal ? parseInt(serviceVal) : null;
+            }
+        });
+        currentMemberServices.push({ id: null, organ_id: null, service_id: null });
+        const cacheKey = `${currentAttendance.id}_${currentMemberType}_${currentFamilyMember.id}`;
+        servicesCache[cacheKey] = currentMemberServices;
+        renderServiceForm();
     }
     
     window.finalizarAtendimento = async function(){
@@ -1234,15 +953,17 @@
             showConfirmModal('Deseja finalizar o atendimento desta família?', async () => {
                 await fetch(`${SUPABASE_URL}/rest/v1/attendances?id=eq.${currentAttendance.id}`, { method:'PATCH', headers:{ 'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,'Content-Type':'application/json' }, body: JSON.stringify({ is_finished: true, finished_at: new Date().toISOString() }) });
                 showAlertModal('Família finalizada com sucesso!', true);
+                currentAttendance.is_finished = true;
                 adminCache.organs = null;
                 adminCache.families = null;
-                setTimeout(() => location.reload(), 1500);
+                // Recarregar a família para mostrar o estado finalizado
+                await selectMother(currentMother);
             });
         }
     };
-    document.getElementById('btnFinalizar').onclick = finalizarAtendimento;
+    document.getElementById('btnFinalizar').onclick = window.finalizarAtendimento;
 
-    // ADMIN
+    // ADMIN (mantido - código encurtado para caber no limite)
     let adminModal = null;
     let currentAdminTab = 'organs';
     
@@ -1268,17 +989,12 @@
                 tabs.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 currentAdminTab = btn.dataset.tab;
-                
                 const contentDiv = document.getElementById('adminTabContent');
                 contentDiv.innerHTML = '<div class="loading-container"><div class="spinner"></div><div>Carregando...</div></div>';
-                
                 if(adminCache[currentAdminTab]) {
-                    setTimeout(() => {
-                        contentDiv.innerHTML = adminCache[currentAdminTab];
-                    }, 100);
+                    setTimeout(() => { contentDiv.innerHTML = adminCache[currentAdminTab]; }, 100);
                     return;
                 }
-                
                 if(currentAdminTab === 'organs') await loadOrgansStats();
                 else if(currentAdminTab === 'families') await loadFamiliesList();
                 else if(currentAdminTab === 'crudFamilies') await loadCrudFamilies();
@@ -1288,56 +1004,72 @@
         loadOrgansStats();
     }
     
+    async function exportToExcel(data, filename, sheetName = 'Dados') {
+        const ws = XLSX.utils.aoa_to_sheet(data);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, sheetName);
+        XLSX.writeFile(wb, `${filename}_${new Date().toISOString().slice(0,19)}.xlsx`);
+        showAlertModal('Exportação concluída!', true);
+    }
+    
     async function loadOrgansStats(){
         try {
-            const items = await fetch(`${SUPABASE_URL}/rest/v1/attendance_items?select=*,attendance_id,family_member_type,family_member_id`, { headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} }).then(r=>r.json());
-            
+            const finishedAttendances = await fetch(
+                `${SUPABASE_URL}/rest/v1/attendances?select=id&is_finished=eq.true`,
+                { headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} }
+            ).then(r=>r.json());
+
+            if(!finishedAttendances.length) {
+                document.getElementById('adminTabContent').innerHTML = '<div class="loading-placeholder">Nenhum atendimento finalizado ainda. Os dados aparecerão aqui após a finalização de um atendimento.</div>';
+                return;
+            }
+
+            const finishedIds = finishedAttendances.map(a => a.id).join(',');
+            const items = await fetch(
+                `${SUPABASE_URL}/rest/v1/attendance_items?select=*&attendance_id=in.(${finishedIds})`,
+                { headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} }
+            ).then(r=>r.json());
+
             let organMap = new Map();
             let maxTotal = 0;
-            items.forEach(i => { 
-                if(i.organ_name){ 
-                    if(!organMap.has(i.organ_name)) organMap.set(i.organ_name, { total:0, services: new Map() }); 
-                    let org = organMap.get(i.organ_name); 
-                    org.total +=1; 
+            items.forEach(i => {
+                if(i.organ_name){
+                    if(!organMap.has(i.organ_name)) organMap.set(i.organ_name, { total:0, services: new Map() });
+                    let org = organMap.get(i.organ_name);
+                    org.total +=1;
                     if(i.service_name) org.services.set(i.service_name, (org.services.get(i.service_name)||0)+1);
                     if(org.total > maxTotal) maxTotal = org.total;
-                } 
+                }
             });
             let sortedOrgans = Array.from(organMap.entries()).sort((a,b)=>b[1].total - a[1].total);
-            
+
             let html = `<div style="margin-bottom:20px;"><button id="exportOrgansExcel" class="btn-primary">📎 Exportar Órgãos e Serviços (Excel)</button></div>`;
-            html += `<div class="stats-grid">`;
-            for(let [orgName, data] of sortedOrgans){
-                let percentage = maxTotal > 0 ? (data.total / maxTotal) * 100 : 0;
-                let sortedServices = Array.from(data.services.entries()).sort((a,b)=>b[1]-a[1]);
-                html += `<div class="stat-card"><h3>${orgName}</h3>
-                    <div style="display:flex;justify-content:space-between;padding:8px 0;"><span>Total solicitações:</span><strong>${data.total}</strong></div>
-                    <div class="bar-chart"><div class="bar-fill" style="width: ${percentage}%;">${data.total}</div></div>
-                    <div class="service-list"><strong>Serviços solicitados (decrescente):</strong>${sortedServices.map(([srvName, qtd])=>`<div class="service-item-stat"><span>${srvName}</span><span>${qtd} vez(es)</span></div>`).join('')}</div></div>`;
+            if(sortedOrgans.length === 0) {
+                html += '<div class="loading-placeholder">Nenhum serviço registrado nos atendimentos finalizados.</div>';
+            } else {
+                html += `<div class="stats-grid">`;
+                for(let [orgName, data] of sortedOrgans){
+                    let percentage = maxTotal > 0 ? (data.total / maxTotal) * 100 : 0;
+                    let sortedServices = Array.from(data.services.entries()).sort((a,b)=>b[1]-a[1]);
+                    html += `<div class="stat-card"><h3>${orgName}</h3>
+                        <div style="display:flex;justify-content:space-between;padding:8px 0;"><span>Total solicitações:</span><strong>${data.total}</strong></div>
+                        <div class="bar-chart"><div class="bar-fill" style="width: ${percentage}%;">${data.total}</div></div>
+                        <div class="service-list"><strong>Serviços solicitados (decrescente):</strong>${sortedServices.map(([srvName, qtd])=>`<div class="service-item-stat"><span>${srvName}</span><span>${qtd} vez(es)</span></div>`).join('')}</div></div>`;
+                }
+                html += `</div>`;
             }
-            html += `</div>`;
-            adminCache.organs = html;
             document.getElementById('adminTabContent').innerHTML = html;
-            
-            const exportBtn = document.getElementById('exportOrgansExcel');
-            if(exportBtn) {
-                exportBtn.onclick = () => {
-                    let wsData = [['RELATÓRIO DE ÓRGÃOS E SERVIÇOS SOLICITADOS']];
-                    wsData.push(['Órgão', 'Total Solicitações', 'Serviços (quantidade)']);
-                    for(let [orgName, data] of sortedOrgans){
-                        let servText = Array.from(data.services.entries()).map(([s,q])=>`${s} (${q})`).join('; ');
-                        wsData.push([orgName, data.total, servText]);
-                    }
-                    let ws = XLSX.utils.aoa_to_sheet(wsData);
-                    let wb = XLSX.utils.book_new();
-                    XLSX.utils.book_append_sheet(wb, ws, 'Orgaos_Solicitados');
-                    XLSX.writeFile(wb, `orgaos_solicitados_${new Date().toISOString().slice(0,19)}.xlsx`);
-                    showAlertModal('Exportação concluída!', true);
-                };
-            }
-        } catch(e) { 
+
+            document.getElementById('exportOrgansExcel').onclick = () => {
+                let wsData = [['RELATÓRIO DE ÓRGÃOS E SERVIÇOS SOLICITADOS'], [], ['Órgão', 'Total Solicitações', 'Serviços (quantidade)']];
+                for(let [orgName, data] of sortedOrgans){
+                    let servText = Array.from(data.services.entries()).map(([s,q])=>`${s} (${q})`).join('; ');
+                    wsData.push([orgName, data.total, servText]);
+                }
+                exportToExcel(wsData, 'orgaos_solicitados', 'Orgaos_Solicitados');
+            };
+        } catch(e) {
             document.getElementById('adminTabContent').innerHTML = '<div class="loading-placeholder">Erro ao carregar dados</div>';
-            console.error(e);
         }
     }
     
@@ -1353,6 +1085,10 @@
             let html = `<div style="margin-bottom:20px;"><button id="exportFamiliesDetailExcel" class="btn-primary">📎 Exportar Todas Famílias (Excel)</button></div>`;
             html += `<div class="families-container"><h3>Famílias com Atendimento Finalizado</h3>`;
             
+            if(attendances.length === 0) {
+                html += '<p style="text-align:center;padding:40px;">Nenhuma família com atendimento finalizado</p>';
+            }
+            
             for(let att of attendances){
                 let familyItems = items.filter(i => i.attendance_id === att.id);
                 let mother = att.mothers;
@@ -1361,7 +1097,6 @@
                 let q = questionnaires.find(q => q.mother_id === att.mother_id);
                 
                 let motherServicesList = motherServices.length ? motherServices.map(s => `${s.organ_name}: ${s.service_name}`).join(', ') : 'Nenhum serviço solicitado';
-                
                 let childrenList = [];
                 let processedChildren = new Set();
                 for(let child of childrenServices){
@@ -1369,14 +1104,11 @@
                         processedChildren.add(child.family_member_id);
                         let childInfo = allChildren.find(c => c.id === child.family_member_id);
                         let childSpecific = familyItems.filter(i => i.family_member_type === 'child' && i.family_member_id === child.family_member_id);
-                        childrenList.push({
-                            name: childInfo?.name || 'Sem nome',
-                            services: childSpecific.map(s => `${s.organ_name}: ${s.service_name}`).join(', ')
-                        });
+                        childrenList.push({ name: childInfo?.name || 'Sem nome', services: childSpecific.map(s => `${s.organ_name}: ${s.service_name}`).join(', ') });
                     }
                 }
-                
-                let questionnaireText = '';
+                let questionnaireFlags = '';
+                let obsText = '';
                 if(q) {
                     let parts = [];
                     if(q.homeless) parts.push('Situação de rua');
@@ -1384,105 +1116,79 @@
                     if(q.protective_measure) parts.push('Medida protetiva');
                     if(q.children_school) parts.push('Filhos na escola');
                     if(q.serious_illness) parts.push('Doença grave');
-                    questionnaireText = parts.join(', ') || 'Nenhum';
-                    if(q.obs) questionnaireText += ` | Obs: ${q.obs}`;
+                    questionnaireFlags = parts.join(', ');
+                    obsText = q.obs || '';
                 }
-                
                 let expandId = `expand-${att.id}`;
                 html += `<div class="family-detail-card">
                     <h4 onclick="toggleExpand('${expandId}')">👪 ${mother?.name || 'N/A'} <span class="expand-icon">▼</span></h4>
                     <div id="${expandId}" class="family-expandable">
                         <div class="member-detail"><strong>Mãe</strong><div class="services-list-small">${motherServicesList}</div></div>`;
-                
-                if(questionnaireText && questionnaireText !== 'Nenhum') {
-                    html += `<div class="member-detail"><strong>Questionário</strong><div class="services-list-small">${questionnaireText}</div></div>`;
+                if(questionnaireFlags) {
+                    html += `<div class="member-detail"><strong>Questionário</strong><div class="services-list-small">${questionnaireFlags}</div></div>`;
                 }
-                
+                if(obsText) {
+                    html += `<div class="member-detail"><strong>Observações</strong><div class="services-list-small">${obsText}</div></div>`;
+                }
                 for(let child of childrenList){
                     html += `<div class="member-detail"><strong>Filho(a): ${child.name}</strong><div class="services-list-small">${child.services || 'Nenhum serviço solicitado'}</div></div>`;
                 }
-                html += `<div class="action-buttons-fam"><button class="btn-danger" onclick="event.stopPropagation(); requestDeleteAttendance(${att.id})">🗑️ Remover Atendimento</button></div>`;
-                html += `</div></div>`;
-            }
-            if(attendances.length === 0) {
-                html += '<p style="text-align:center;padding:40px;">Nenhuma família com atendimento finalizado</p>';
+                html += `<div class="action-buttons-fam"><button class="btn-danger" onclick="event.stopPropagation(); requestDeleteAttendance(${att.id})">🗑️ Remover Atendimento</button></div></div></div>`;
             }
             html += `</div>`;
             adminCache.families = html;
             document.getElementById('adminTabContent').innerHTML = html;
             
-            const exportBtn = document.getElementById('exportFamiliesDetailExcel');
-            if(exportBtn) {
-                exportBtn.onclick = () => {
-                    let wsData = [['FAMÍLIAS ATENDIDAS - RELATÓRIO COMPLETO']];
-                    wsData.push(['Família', 'Status', 'Membro', 'Órgão/Serviço', 'Questionário']);
-                    for(let att of attendances){
-                        let familyItems = items.filter(i => i.attendance_id === att.id);
-                        let mother = att.mothers;
-                        let q = questionnaires.find(q => q.mother_id === att.mother_id);
-                        let questionnaireText = '';
-                        if(q) {
-                            let parts = [];
-                            if(q.homeless) parts.push('Rua');
-                            if(q.domestic_violence) parts.push('Violência');
-                            if(q.protective_measure) parts.push('Medida protetiva');
-                            if(q.children_school) parts.push('Escola');
-                            if(q.serious_illness) parts.push('Doença grave');
-                            questionnaireText = parts.join(', ') || 'Nenhum';
-                            if(q.obs) questionnaireText += ` | Obs: ${q.obs}`;
-                        }
-                        
-                        let motherServices = familyItems.filter(i => i.family_member_type === 'mother');
-                        if(motherServices.length) {
-                            motherServices.forEach(ms => wsData.push([mother?.name || 'N/A', 'Finalizado', 'Mãe', `${ms.organ_name}: ${ms.service_name}`, questionnaireText]));
-                        } else {
-                            wsData.push([mother?.name || 'N/A', 'Finalizado', 'Mãe', 'Nenhum serviço', questionnaireText]);
-                        }
-                        
-                        let childrenServices = familyItems.filter(i => i.family_member_type === 'child');
-                        for(let cs of childrenServices){
-                            let childInfo = allChildren.find(c => c.id === cs.family_member_id);
-                            wsData.push([mother?.name || 'N/A', 'Finalizado', `Filho: ${childInfo?.name || 'Sem nome'}`, `${cs.organ_name}: ${cs.service_name}`, '']);
-                        }
+            document.getElementById('exportFamiliesDetailExcel').onclick = () => {
+                let wsData = [['FAMÍLIAS ATENDIDAS - RELATÓRIO COMPLETO'], [], ['Família', 'Status', 'Membro', 'Órgão/Serviço', 'Questionário', 'Observações']];
+                for(let att of attendances){
+                    let familyItems = items.filter(i => i.attendance_id === att.id);
+                    let mother = att.mothers;
+                    let q = questionnaires.find(q => q.mother_id === att.mother_id);
+                    let questionnaireText = '';
+                    let obsExcel = '';
+                    if(q) {
+                        let parts = [];
+                        if(q.homeless) parts.push('Rua');
+                        if(q.domestic_violence) parts.push('Violência');
+                        if(q.protective_measure) parts.push('Medida protetiva');
+                        if(q.children_school) parts.push('Escola');
+                        if(q.serious_illness) parts.push('Doença grave');
+                        questionnaireText = parts.join(', ');
+                        obsExcel = q.obs || '';
                     }
-                    let ws = XLSX.utils.aoa_to_sheet(wsData);
-                    let wb = XLSX.utils.book_new();
-                    XLSX.utils.book_append_sheet(wb, ws, 'Familias_Atendidas');
-                    XLSX.writeFile(wb, `familias_atendidas_${new Date().toISOString().slice(0,19)}.xlsx`);
-                    showAlertModal('Exportação concluída!', true);
-                };
-            }
+                    let motherServices = familyItems.filter(i => i.family_member_type === 'mother');
+                    if(motherServices.length) motherServices.forEach(ms => wsData.push([mother?.name || 'N/A', 'Finalizado', 'Mãe', `${ms.organ_name}: ${ms.service_name}`, questionnaireText, obsExcel]));
+                    else wsData.push([mother?.name || 'N/A', 'Finalizado', 'Mãe', 'Nenhum serviço', questionnaireText, obsExcel]);
+                    let childrenServices = familyItems.filter(i => i.family_member_type === 'child');
+                    for(let cs of childrenServices){
+                        let childInfo = allChildren.find(c => c.id === cs.family_member_id);
+                        wsData.push([mother?.name || 'N/A', 'Finalizado', `Filho: ${childInfo?.name || 'Sem nome'}`, `${cs.organ_name}: ${cs.service_name}`, '', '']);
+                    }
+                }
+                exportToExcel(wsData, 'familias_atendidas', 'Familias_Atendidas');
+            };
         } catch(e) { 
             document.getElementById('adminTabContent').innerHTML = '<div class="loading-placeholder">Erro ao carregar dados</div>';
-            console.error(e);
         }
     }
     
     window.requestDeleteAttendance = async function(attendanceId) {
         showPasswordModal(async () => {
             showConfirmModal('Remover todo o atendimento desta família? Esta ação não pode ser desfeita.', async () => {
-                await fetch(`${SUPABASE_URL}/rest/v1/attendance_items?attendance_id=eq.${attendanceId}`, { 
-                    method:'DELETE', 
-                    headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} 
-                });
-                await fetch(`${SUPABASE_URL}/rest/v1/attendances?id=eq.${attendanceId}`, { 
-                    method:'DELETE', 
-                    headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} 
-                });
+                await fetch(`${SUPABASE_URL}/rest/v1/attendance_items?attendance_id=eq.${attendanceId}`, { method:'DELETE', headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} });
+                await fetch(`${SUPABASE_URL}/rest/v1/attendances?id=eq.${attendanceId}`, { method:'DELETE', headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} });
                 showAlertModal('Atendimento removido com sucesso!', true);
                 adminCache.families = null;
                 adminCache.organs = null;
-                loadFamiliesList();
-                loadOrgansStats();
+                await loadFamiliesList();
             });
         });
     };
     
     window.toggleExpand = function(id) {
         let element = document.getElementById(id);
-        if(element) {
-            element.classList.toggle('show');
-        }
+        if(element) element.classList.toggle('show');
     };
     
     async function loadCrudFamilies(){
@@ -1491,55 +1197,63 @@
                 fetch(`${SUPABASE_URL}/rest/v1/mothers?select=*&order=name`, { headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} }).then(r=>r.json()),
                 fetch(`${SUPABASE_URL}/rest/v1/children?select=*&order=name`, { headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} }).then(r=>r.json())
             ]);
-            
             const childrenByMother = {};
             for(let child of allChildren) {
-                if(!childrenByMother[child.mother_id]) {
-                    childrenByMother[child.mother_id] = [];
-                }
+                if(!childrenByMother[child.mother_id]) childrenByMother[child.mother_id] = [];
                 childrenByMother[child.mother_id].push(child);
             }
-            
-            let html = `<button id="addFamilyModalBtn" class="btn-primary">+ Adicionar Nova Mãe</button><div style="margin-top:20px;">`;
-            
+            let html = `<button onclick="window.showFullMotherRegistration(false)" class="btn-primary">+ Adicionar Nova Mãe</button><div style="margin-top:20px;">`;
             for(let m of mothers){
                 const children = childrenByMother[m.id] || [];
                 const childrenNames = children.map(c => c.name).join(', ') || 'Nenhum';
                 html += `<div style="background:#faf5ff;margin:12px 0;padding:16px;border-radius:20px;">
                     <strong style="color:#7A4895;">${m.name}</strong> 
                     <button onclick="editMotherFromAdmin(${m.id})" class="btn-primary" style="background:#7A4895; margin-left:10px;">Editar</button> 
-                    <button onclick="deleteMotherPrompt(${m.id})" class="btn-danger">Excluir</button>
+                    <button onclick="deleteMotherFromAdmin(${m.id})" class="btn-danger">Excluir</button>
                     <div style="margin-top:8px;margin-left:20px;font-size:0.8rem;color:#7A4895;">👶 Filhos: ${childrenNames}</div>
                 </div>`;
             }
             html += `</div>`;
-            
             adminCache.crudFamilies = html;
             document.getElementById('adminTabContent').innerHTML = html;
-            document.getElementById('addFamilyModalBtn').onclick = () => showFullMotherRegistration(false);
-            
         } catch(e) {
-            console.error('Erro ao carregar famílias:', e);
             document.getElementById('adminTabContent').innerHTML = '<div class="loading-placeholder">Erro ao carregar dados. Tente novamente.</div>';
         }
     }
     
-    window.editMotherFromAdmin = async (id) => { 
-        let mother = allMothers.find(m => m.id === id);
-        if(mother) {
-            showFullMotherRegistration(true, mother);
-        }
+    window.editMotherFromAdmin = async (id) => {
+        const resp = await fetch(`${SUPABASE_URL}/rest/v1/mothers?id=eq.${id}`, { headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} });
+        if(resp.ok) { const data = await resp.json(); if(data && data[0]) window.showFullMotherRegistration(true, data[0]); }
     };
     
-    window.deleteMotherPrompt = async (id) => { 
-        showConfirmModal('Excluir esta mãe e todos os filhos vinculados?', async () => { 
-            await fetch(`${SUPABASE_URL}/rest/v1/mothers?id=eq.${id}`, { method:'DELETE', headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} }); 
+    window.deleteMotherFromAdmin = async (id) => {
+        showConfirmModal('Excluir esta mãe e todos os filhos e atendimentos vinculados?', async () => {
+            const attendances = await fetch(`${SUPABASE_URL}/rest/v1/attendances?select=id&mother_id=eq.${id}`, { headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} }).then(r=>r.json());
+            for(let att of attendances){
+                await fetch(`${SUPABASE_URL}/rest/v1/attendance_items?attendance_id=eq.${att.id}`, { method:'DELETE', headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} });
+            }
+            await fetch(`${SUPABASE_URL}/rest/v1/questionnaires?mother_id=eq.${id}`, { method:'DELETE', headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} });
+            await fetch(`${SUPABASE_URL}/rest/v1/children?mother_id=eq.${id}`, { method:'DELETE', headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} });
+            await fetch(`${SUPABASE_URL}/rest/v1/attendances?mother_id=eq.${id}`, { method:'DELETE', headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} });
+            await fetch(`${SUPABASE_URL}/rest/v1/mothers?id=eq.${id}`, { method:'DELETE', headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} });
+            showAlertModal('Mãe e todos os dados vinculados excluídos com sucesso!', true);
+            if(currentMother && currentMother.id === id) {
+                currentMother = null; currentAttendance = null; currentFamilyMember = null;
+                currentMemberType = null; currentMemberServices = [];
+                servicesCache = {}; questionnaireCache = {};
+                document.getElementById('searchMother').value = '';
+                document.getElementById('familyTree').innerHTML = '<div style="color:#a78bfa;text-align:center;padding:40px;">Pesquise uma mãe ou cadastre uma nova</div>';
+                document.getElementById('attendanceContent').innerHTML = '<div style="text-align:center;color:#a78bfa;padding:60px;">Selecione um familiar à esquerda</div>';
+                document.getElementById('btnFinalizar').style.display = 'none';
+                document.getElementById('btnEditFamily').style.display = 'none';
+                document.querySelector('.attendance-area').classList.remove('finished');
+            }
             adminCache.crudFamilies = null;
             adminCache.organs = null;
             adminCache.families = null;
-            loadCrudFamilies(); 
-            loadAllMothers(); 
-        }); 
+            await loadAllMothers();
+            await loadCrudFamilies();
+        });
     };
     
     window.showFullOrganRegistration = function() {
@@ -1560,17 +1274,11 @@
         modal.querySelector('#saveNewOrganBtn').onclick = async () => {
             let organName = document.getElementById('newOrganName').value;
             if(!organName) { showAlertModal('Nome do órgão é obrigatório', false); return; }
-            
             try {
                 const checkRes = await fetch(`${SUPABASE_URL}/rest/v1/organs?name=eq.${encodeURIComponent(organName)}`, { headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} });
                 const existing = await checkRes.json();
-                if(existing && existing.length > 0) {
-                    showAlertModal('Órgão já existe no sistema!', false);
-                    modal.remove();
-                    return;
-                }
-                
-                const res = await fetch(`${SUPABASE_URL}/rest/v1/organs`, { method:'POST', headers:{ 'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,'Content-Type':'application/json' }, body: JSON.stringify({ name: organName }) });
+                if(existing && existing.length > 0) { showAlertModal('Órgão já existe no sistema!', false); modal.remove(); return; }
+                const res = await fetch(`${SUPABASE_URL}/rest/v1/organs`, { method:'POST', headers:{ 'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,'Content-Type':'application/json','Prefer':'return=representation' }, body: JSON.stringify({ name: organName }) });
                 if(res.ok){
                     let newOrgan = (await res.json())[0];
                     let serviceInputs = document.querySelectorAll('.service-name-input');
@@ -1584,14 +1292,9 @@
                     adminCache.organs = null;
                     modal.remove();
                     loadCrudOrgans();
-                } else {
-                    modal.remove();
-                    loadCrudOrgans();
-                }
-            } catch(e) { 
-                modal.remove();
-                loadCrudOrgans();
-            }
+                    reloadOrgansAndServices();
+                } else { modal.remove(); loadCrudOrgans(); }
+            } catch(e) { modal.remove(); loadCrudOrgans(); }
         };
         modal.querySelector('#cancelNewOrganBtn').onclick = () => modal.remove();
     };
@@ -1603,25 +1306,18 @@
             <div class="form-group"><label>Nome do Órgão *</label><input type="text" id="editOrganName" placeholder="Nome do órgão" value="${(organ[0]?.name || '').replace(/"/g, '&quot;')}"></div>
             <div class="modal-buttons"><button id="saveEditOrganBtn" class="btn-primary">Salvar Alterações</button><button id="cancelEditOrganBtn" class="btn-secondary">Cancelar</button></div></div>`;
         document.body.appendChild(modal);
-        
         modal.querySelector('#saveEditOrganBtn').onclick = async () => {
             let newName = document.getElementById('editOrganName').value;
             if(!newName) { showAlertModal('Nome do órgão é obrigatório', false); return; }
-            
-            const res = await fetch(`${SUPABASE_URL}/rest/v1/organs?id=eq.${id}`, { 
-                method:'PATCH', 
-                headers:{ 'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,'Content-Type':'application/json' }, 
-                body: JSON.stringify({ name: newName }) 
-            });
+            const res = await fetch(`${SUPABASE_URL}/rest/v1/organs?id=eq.${id}`, { method:'PATCH', headers:{ 'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,'Content-Type':'application/json' }, body: JSON.stringify({ name: newName }) });
             if(res.ok) {
                 showAlertModal('Órgão editado com sucesso!', true);
                 adminCache.crudOrgans = null;
                 adminCache.organs = null;
                 modal.remove();
                 loadCrudOrgans();
-            } else {
-                showAlertModal('Erro ao editar órgão', false);
-            }
+                reloadOrgansAndServices();
+            } else { showAlertModal('Erro ao editar órgão', false); }
         };
         modal.querySelector('#cancelEditOrganBtn').onclick = () => modal.remove();
     };
@@ -1629,27 +1325,19 @@
     window.addServiceToOrganPrompt = async function(organId) {
         let organ = await fetch(`${SUPABASE_URL}/rest/v1/organs?id=eq.${organId}`, { headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} }).then(r=>r.json());
         let organName = organ[0]?.name || 'Órgão';
-        
         let modal = document.createElement('div'); modal.className = 'modal-overlay';
         modal.innerHTML = `<div class="modal-container" style="max-width:500px;"><h3 style="color:#551E75;">Adicionar Serviço</h3>
             <div class="form-group"><label>Órgão</label><input type="text" value="${organName}" disabled style="background:#f3e8ff;"></div>
             <div class="form-group"><label>Nome do Serviço *</label><input type="text" id="newServiceName" placeholder="Ex: Atendimento psicológico"></div>
             <div class="modal-buttons"><button id="saveNewServiceBtn" class="btn-primary">Salvar Serviço</button><button id="cancelNewServiceBtn" class="btn-secondary">Cancelar</button></div></div>`;
         document.body.appendChild(modal);
-        
         modal.querySelector('#saveNewServiceBtn').onclick = async () => {
             let serviceName = document.getElementById('newServiceName').value;
             if(!serviceName) { showAlertModal('Nome do serviço é obrigatório', false); return; }
-            
             try {
                 const checkRes = await fetch(`${SUPABASE_URL}/rest/v1/services?organ_id=eq.${organId}&name=eq.${encodeURIComponent(serviceName)}`, { headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} });
                 const existing = await checkRes.json();
-                if(existing && existing.length > 0) {
-                    showAlertModal('Serviço já existe neste órgão!', false);
-                    modal.remove();
-                    return;
-                }
-                
+                if(existing && existing.length > 0) { showAlertModal('Serviço já existe neste órgão!', false); modal.remove(); return; }
                 const res = await fetch(`${SUPABASE_URL}/rest/v1/services`, { method:'POST', headers:{ 'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,'Content-Type':'application/json' }, body: JSON.stringify({ organ_id: organId, name: serviceName }) });
                 if(res.ok){
                     showAlertModal('Serviço adicionado com sucesso!', true);
@@ -1657,14 +1345,9 @@
                     adminCache.organs = null;
                     modal.remove();
                     loadCrudOrgans();
-                } else {
-                    showAlertModal('Erro ao adicionar serviço', false);
-                    modal.remove();
-                }
-            } catch(e) { 
-                showAlertModal('Erro: ' + e.message, false);
-                modal.remove();
-            }
+                    reloadOrgansAndServices();
+                } else { showAlertModal('Erro ao adicionar serviço', false); modal.remove(); }
+            } catch(e) { showAlertModal('Erro: ' + e.message, false); modal.remove(); }
         };
         modal.querySelector('#cancelNewServiceBtn').onclick = () => modal.remove();
     };
@@ -1676,53 +1359,54 @@
             <div class="form-group"><label>Nome do Serviço</label><input type="text" id="editServiceName" value="${(service[0]?.name || '').replace(/"/g, '&quot;')}"></div>
             <div class="modal-buttons"><button id="saveEditServiceBtn" class="btn-primary">Salvar Alterações</button><button id="cancelEditServiceBtn" class="btn-secondary">Cancelar</button></div></div>`;
         document.body.appendChild(modal);
-        
         modal.querySelector('#saveEditServiceBtn').onclick = async () => {
             let newName = document.getElementById('editServiceName').value;
             if(!newName) { showAlertModal('Nome do serviço é obrigatório', false); return; }
-            
-            const res = await fetch(`${SUPABASE_URL}/rest/v1/services?id=eq.${id}`, { 
-                method:'PATCH', 
-                headers:{ 'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,'Content-Type':'application/json' }, 
-                body: JSON.stringify({ name: newName }) 
-            });
+            const res = await fetch(`${SUPABASE_URL}/rest/v1/services?id=eq.${id}`, { method:'PATCH', headers:{ 'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,'Content-Type':'application/json' }, body: JSON.stringify({ name: newName }) });
             if(res.ok) {
                 showAlertModal('Serviço editado com sucesso!', true);
                 adminCache.crudOrgans = null;
                 adminCache.organs = null;
                 modal.remove();
                 loadCrudOrgans();
-            } else {
-                showAlertModal('Erro ao editar serviço', false);
-            }
+                reloadOrgansAndServices();
+            } else { showAlertModal('Erro ao editar serviço', false); }
         };
         modal.querySelector('#cancelEditServiceBtn').onclick = () => modal.remove();
     };
     
     window.deleteServicePrompt = async function(id) { 
         showConfirmModal('Excluir este serviço?', async () => { 
-            await fetch(`${SUPABASE_URL}/rest/v1/services?id=eq.${id}`, { method:'DELETE', headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} }); 
+            await fetch(`${SUPABASE_URL}/rest/v1/services?id=eq.${id}`, { method:'DELETE', headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} });
             adminCache.crudOrgans = null;
             adminCache.organs = null;
-            loadCrudOrgans(); 
+            loadCrudOrgans();
+            reloadOrgansAndServices();
         }); 
     };
     
-    window.deleteOrganPrompt = async function(id) { 
-        showConfirmModal('Excluir este órgão e todos os seus serviços?', async () => { 
+    window.deleteOrganPrompt = async function(id, organName) {
+        showConfirmModal(`Excluir o órgão "${organName}" e todos os seus serviços? Esta ação também removerá todos os atendimentos relacionados a este órgão.`, async () => { 
+            await fetch(`${SUPABASE_URL}/rest/v1/services?organ_id=eq.${id}`, { method:'DELETE', headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} });
+            await fetch(`${SUPABASE_URL}/rest/v1/attendance_items?organ_id=eq.${id}`, { method:'DELETE', headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} });
             await fetch(`${SUPABASE_URL}/rest/v1/organs?id=eq.${id}`, { method:'DELETE', headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} }); 
+            showAlertModal(`Órgão "${organName}" e todos os seus dados foram excluídos com sucesso!`, true);
             adminCache.crudOrgans = null;
             adminCache.organs = null;
-            loadCrudOrgans(); 
+            adminCache.families = null;
+            await loadCrudOrgans();
+            await loadOrgansStats();
+            await loadFamiliesList();
+            await reloadOrgansAndServices();
         }); 
     };
     
     async function loadCrudOrgans(){
         let organs = await fetch(`${SUPABASE_URL}/rest/v1/organs?select=*,services(*)`, { headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} }).then(r=>r.json());
-        let html = `<button id="addOrganMainBtn" class="btn-primary">+ Adicionar Novo Órgão</button>`;
+        let html = `<button onclick="window.showFullOrganRegistration()" class="btn-primary">+ Adicionar Novo Órgão</button>`;
         for(let o of organs){
             html += `<div class="organ-card"><h4>${o.name}</h4>
-                <div style="margin-bottom:12px;"><button onclick="editOrganFromAdmin(${o.id})" class="btn-primary" style="background:#7A4895;">Editar Órgão</button> <button onclick="deleteOrganPrompt(${o.id})" class="btn-danger">Excluir Órgão</button></div>
+                <div style="margin-bottom:12px;"><button onclick="editOrganFromAdmin(${o.id})" class="btn-primary" style="background:#7A4895;">Editar Órgão</button> <button onclick="deleteOrganPrompt(${o.id}, '${o.name.replace(/'/g, "\\'")}')" class="btn-danger">Excluir Órgão</button></div>
                 <div><strong>Serviços:</strong><br>`;
             if(o.services && o.services.length){
                 for(let s of o.services){
@@ -1733,10 +1417,10 @@
         }
         adminCache.crudOrgans = html;
         document.getElementById('adminTabContent').innerHTML = html;
-        document.getElementById('addOrganMainBtn').onclick = () => window.showFullOrganRegistration();
     }
     
     loadAllMothers();
+    loadOrgansAndServices();
 </script>
 </body>
 </html>
