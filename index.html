@@ -233,6 +233,10 @@
         .child-extra-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 20px; margin-top: 10px; padding-top: 10px; border-top: 1px dashed #ddd6fe; }
         .btn-remove-child { background: #dc2626; color: white; border: none; padding: 6px 12px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; flex-shrink: 0; }
         .btn-add-child { background: #f3e8ff; color: #7A4895; border: none; padding: 8px 16px; border-radius: 30px; font-weight: 600; cursor: pointer; margin-top: 8px; }
+        .btn-edit-child-inline { background: #f3e8ff; color: #7A4895; border: 1px solid #e9d5ff; padding: 3px 8px; border-radius: 12px; cursor: pointer; font-size: 0.7rem; font-weight: 600; flex-shrink: 0; line-height: 1; transition: background 0.15s; }
+        .btn-edit-child-inline:hover { background: #e9d5ff; }
+        .btn-add-child-tree { background: transparent; color: #7A4895; border: 1.5px dashed #AA8DCB; padding: 7px 14px; border-radius: 20px; font-weight: 600; cursor: pointer; margin-top: 12px; font-size: 0.82rem; width: 100%; transition: all 0.15s; display: block; }
+        .btn-add-child-tree:hover { background: #f3e8ff; border-color: #7A4895; }
         @media (max-width: 500px) { .child-extra-fields { grid-template-columns: 1fr; } }
         .stats-grid { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 30px; }
         .stat-card { background: #faf5ff; border-radius: 24px; padding: 20px; flex: 1; min-width: 300px; border: 1px solid #e9d5ff; }
@@ -878,8 +882,33 @@
         if(currentMother?._isMan) {
             const man = allMen.find(m => m.id === currentMother._manId) || { id: currentMother._manId, name: currentMother.name };
             const escAttr = s => String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;');
-            document.getElementById('familyTree').innerHTML = `<div class="mother-node"><div class="member-card" data-type="man" data-id="${man.id}" data-name="${escAttr(man.name)}" data-age=""><div class="member-name">${man.name}</div><div class="member-info">Responsável familiar</div></div></div>`;
-            document.querySelector('#familyTree .member-card').addEventListener('click', () => selectFamilyMember('man', man.id, man.name, null));
+            const childrenResp = await fetch(`${SUPABASE_URL}/rest/v1/children?select=*&mother_id=eq.${motherId}&order=name`, { headers: hdrs });
+            const manChildren = childrenResp.ok ? await childrenResp.json() : [];
+            for(const c of manChildren) childrenCache[c.id] = c;
+            let html = `<div class="mother-node"><div class="member-card" data-type="man" data-id="${man.id}" data-name="${escAttr(man.name)}" data-age=""><div class="member-name">${man.name}</div><div class="member-info">Responsável familiar</div></div>`;
+            if(manChildren.length > 0) {
+                html += `<div class="children-container">`;
+                manChildren.forEach(c => {
+                    html += `<div class="child-card" data-type="child" data-id="${c.id}" data-name="${escAttr(c.name)}" data-age="${c.age !== null && c.age !== undefined ? c.age : ''}">
+                        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px;">
+                            <div style="min-width:0;"><div class="member-name">${c.name}</div><div class="member-info">Filho(a) • ${c.age || 'idade não informada'}</div></div>
+                            <button class="btn-edit-child-inline" onclick="event.stopPropagation(); window.editChildFromAdmin(${c.id})">✏️ Editar</button>
+                        </div>
+                    </div>`;
+                });
+                html += `</div>`;
+            } else {
+                html += `<div class="children-container" style="color:#a78bfa; font-size:0.8rem; padding:8px 0 8px 20px;">Nenhum filho cadastrado</div>`;
+            }
+            html += `<button class="btn-add-child-tree" onclick="window.addChildInline(${motherId})">➕ Adicionar filho(a)</button>`;
+            html += `</div>`;
+            document.getElementById('familyTree').innerHTML = html;
+            document.querySelectorAll('#familyTree .member-card, #familyTree .child-card').forEach(el => {
+                el.addEventListener('click', () => {
+                    const age = el.dataset.age !== '' ? parseInt(el.dataset.age) : null;
+                    selectFamilyMember(el.dataset.type, parseInt(el.dataset.id), el.dataset.name, age);
+                });
+            });
             return;
         }
         const childrenResp = await fetch(`${SUPABASE_URL}/rest/v1/children?select=*&mother_id=eq.${motherId}&order=name`, { headers: hdrs });
@@ -895,9 +924,20 @@
         let html = `<div class="mother-node"><div class="member-card" data-type="mother" data-id="${currentMother.id}" data-name="${escAttr(currentMother.name)}" data-age="${motherAge ?? ''}"><div class="member-name">${currentMother.name}</div><div class="member-info">Mãe</div></div>`;
         if(children.length > 0){
             html += `<div class="children-container">`;
-            children.forEach(c => { html += `<div class="child-card" data-type="child" data-id="${c.id}" data-name="${escAttr(c.name)}" data-age="${c.age !== null && c.age !== undefined ? c.age : ''}"><div class="member-name">${c.name}</div><div class="member-info">Filho(a) • ${c.age || 'idade não informada'}</div></div>`; });
+            children.forEach(c => {
+                html += `<div class="child-card" data-type="child" data-id="${c.id}" data-name="${escAttr(c.name)}" data-age="${c.age !== null && c.age !== undefined ? c.age : ''}">
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px;">
+                        <div style="min-width:0;">
+                            <div class="member-name">${c.name}</div>
+                            <div class="member-info">Filho(a) • ${c.age || 'idade não informada'}</div>
+                        </div>
+                        <button class="btn-edit-child-inline" onclick="event.stopPropagation(); window.editChildFromAdmin(${c.id})">✏️ Editar</button>
+                    </div>
+                </div>`;
+            });
             html += `</div>`;
         } else { html += `<div class="children-container" style="color:#a78bfa; font-size:0.8rem; padding:8px 0 8px 20px;">Nenhum filho cadastrado</div>`; }
+        html += `<button class="btn-add-child-tree" onclick="window.addChildInline(${motherId})">➕ Adicionar filho(a)</button>`;
         html += `</div>`;
         document.getElementById('familyTree').innerHTML = html;
         document.querySelectorAll('#familyTree .member-card, #familyTree .child-card').forEach(el => {
@@ -1846,6 +1886,15 @@
                         mother?.data_nascimento ? `<span class="info-chip">🎂 Nasc.: ${fmtDate(mother.data_nascimento)}</span>` : ''
                     ].filter(Boolean).join('');
                     let manDemogr = manProf ? `<div class="member-demographics">📊 ${[manProf.escolaridade, manProf.raca_etnia, manProf.genero, manProf.idade != null ? manProf.idade + ' anos' : ''].filter(Boolean).join(' · ')}</div>` : '';
+                    let manChildrenHtml = allChildren.filter(c => c.mother_id === att.mother_id).map(ci => {
+                        let cSvcs = familyItems.filter(i => i.family_member_type === 'child' && i.family_member_id === ci.id);
+                        let cProf = memberProfiles.find(p => p.member_type === 'child' && p.member_id === ci.id);
+                        let chips = [ci.cpf ? `<span class="info-chip">📄 CPF: ${ci.cpf}</span>` : '', ci.data_nascimento ? `<span class="info-chip">🎂 Nasc.: ${fmtDate(ci.data_nascimento)}</span>` : ''].filter(Boolean).join('');
+                        let dem = cProf ? `<div class="member-demographics">📊 ${[cProf.escolaridade, cProf.raca_etnia, cProf.genero, cProf.idade != null ? cProf.idade + ' anos' : ''].filter(Boolean).join(' · ')}</div>` : '';
+                        let svcs = cSvcs.length ? cSvcs.map(s => `<span class="service-badge">${s.organ_name}: ${s.service_name}</span>`).join('') : '<em style="color:#a78bfa;font-size:0.82rem;">Nenhum serviço solicitado</em>';
+                        let obsHtml = cProf?.obs ? `<div class="member-obs"><strong>📝 Observações Gerais ${ci.name||''}:</strong><div class="obs-text">${cProf.obs}</div></div>` : '';
+                        return `<div class="member-block member-block-child"><div class="member-block-title">👶 Filho(a): ${ci.name||'Sem nome'}</div>${chips ? `<div class="member-contact-row">${chips}</div>` : ''}${dem}<div class="member-services"><strong>Serviços solicitados:</strong><div style="margin-top:4px;">${svcs}</div></div>${obsHtml}</div>`;
+                    }).join('');
                     html += `<div class="family-detail-card">
                         <h4 onclick="toggleExpand('${expandId}')"><span>👨 ${mother?.name || 'N/A'}</span><span style="display:flex;align-items:center;gap:8px;">${attDate ? `<span class="att-date-badge">📅 ${attDate}</span>` : ''}<span class="expand-icon">▼</span></span></h4>
                         <div id="${expandId}" class="family-expandable">
@@ -1856,6 +1905,7 @@
                                 <div class="member-services"><strong>Serviços solicitados:</strong><div style="margin-top:4px;">${manSvcsBadges}</div></div>
                                 ${manProf?.obs ? `<div class="member-obs"><strong>📝 Observações Gerais ${mother?.name || ''}:</strong><div class="obs-text">${manProf.obs}</div></div>` : ''}
                             </div>
+                            ${manChildrenHtml}
                             <div class="action-buttons-fam"><button class="btn-danger" onclick="event.stopPropagation(); requestDeleteAttendance(${att.id})">🗑️ Remover Atendimento</button></div>
                         </div>
                     </div>`;
@@ -1871,24 +1921,12 @@
                     ].filter(Boolean).join('');
                     let motherDemogr = motherProfile ? `<div class="member-demographics">📊 ${[motherProfile.escolaridade, motherProfile.raca_etnia, motherProfile.genero, motherProfile.idade != null ? motherProfile.idade + ' anos' : ''].filter(Boolean).join(' · ')}</div>` : '';
 
-                    // Build complete children list (with and without services)
-                    let childrenWithSet = new Set();
+                    // Build complete children list — iterate allChildren to catch manually added and pre-existing
                     let childrenList = [];
-                    for(let csItem of familyItems.filter(i => i.family_member_type === 'child')){
-                        let cid = csItem.family_member_id;
-                        if(!childrenWithSet.has(cid)){
-                            childrenWithSet.add(cid);
-                            let ci = allChildren.find(c => c.id === cid);
-                            let cSvcs = familyItems.filter(i => i.family_member_type === 'child' && i.family_member_id === cid);
-                            let cProf = memberProfiles.find(p => p.member_type === 'child' && p.member_id === cid);
-                            childrenList.push({ name: ci?.name||'Sem nome', cpf: ci?.cpf||'', dn: ci?.data_nascimento||'', svcs: cSvcs.map(s => `<span class="service-badge">${s.organ_name}: ${s.service_name}</span>`).join(''), prof: cProf||null });
-                        }
-                    }
                     for(let ci of allChildren.filter(c => c.mother_id === att.mother_id)){
-                        if(!childrenWithSet.has(ci.id)){
-                            let cProf = memberProfiles.find(p => p.member_type === 'child' && p.member_id === ci.id);
-                            childrenList.push({ name: ci.name||'Sem nome', cpf: ci.cpf||'', dn: ci.data_nascimento||'', svcs: '', prof: cProf||null });
-                        }
+                        let cSvcs = familyItems.filter(i => i.family_member_type === 'child' && i.family_member_id === ci.id);
+                        let cProf = memberProfiles.find(p => p.member_type === 'child' && p.member_id === ci.id);
+                        childrenList.push({ name: ci.name||'Sem nome', cpf: ci.cpf||'', dn: ci.data_nascimento||'', svcs: cSvcs.map(s => `<span class="service-badge">${s.organ_name}: ${s.service_name}</span>`).join(''), prof: cProf||null });
                     }
 
                     // Questionnaire block
@@ -1975,6 +2013,16 @@
                             manSvcs.map(s => `${s.organ_name}: ${s.service_name}`).join('; '),
                             manObs
                         ]);
+                        for(let child of allChildren.filter(c => c.mother_id === att.mother_id)){
+                            const cSvcs = famItems.filter(i => i.family_member_type === 'child' && i.family_member_id === child.id);
+                            const cProf = memberProfiles.find(p => p.member_type === 'child' && p.member_id === child.id);
+                            wsData.push([
+                                'Filho(a)', child.name||'Sem nome', child.cpf||'', '', fmtDate(child.data_nascimento),
+                                cProf?.escolaridade||'', cProf?.raca_etnia||child.raca||'', cProf?.genero||child.genero||'', cProf?.idade != null ? cProf.idade : child.age != null ? child.age : '',
+                                cSvcs.map(s => `${s.organ_name}: ${s.service_name}`).join('; '),
+                                cProf?.obs||''
+                            ]);
+                        }
                     } else {
                         const q     = questionnaires.find(q => q.mother_id === att.mother_id);
                         const mProf = memberProfiles.find(p => p.member_type === 'mother' && p.member_id === att.mother_id);
@@ -1995,30 +2043,14 @@
                             motherObsFull
                         ]);
 
-                        // Children
-                        const famChildren  = allChildren.filter(c => c.mother_id === att.mother_id);
-                        const processedIds = new Set();
-                        for(let cs of famItems.filter(i => i.family_member_type === 'child')) {
-                            const cid = cs.family_member_id;
-                            if(processedIds.has(cid)) continue;
-                            processedIds.add(cid);
-                            const ci    = famChildren.find(c => c.id === cid);
-                            const cSvcs = famItems.filter(i => i.family_member_type === 'child' && i.family_member_id === cid);
-                            const cProf = memberProfiles.find(p => p.member_type === 'child' && p.member_id === cid);
-                            wsData.push([
-                                'Filho(a)', ci?.name||'Sem nome', ci?.cpf||'', '', fmtDate(ci?.data_nascimento),
-                                cProf?.escolaridade||'', cProf?.raca_etnia||ci?.raca||'', cProf?.genero||ci?.genero||'', cProf?.idade != null ? cProf.idade : ci?.age != null ? ci.age : '',
-                                cSvcs.map(s => `${s.organ_name}: ${s.service_name}`).join('; '),
-                                cProf?.obs||''
-                            ]);
-                        }
-                        for(let child of famChildren) {
-                            if(processedIds.has(child.id)) continue;
+                        // Children — iterate allChildren to catch manually added and pre-existing
+                        for(let child of allChildren.filter(c => c.mother_id === att.mother_id)){
+                            const cSvcs = famItems.filter(i => i.family_member_type === 'child' && i.family_member_id === child.id);
                             const cProf = memberProfiles.find(p => p.member_type === 'child' && p.member_id === child.id);
                             wsData.push([
                                 'Filho(a)', child.name||'Sem nome', child.cpf||'', '', fmtDate(child.data_nascimento),
                                 cProf?.escolaridade||'', cProf?.raca_etnia||child.raca||'', cProf?.genero||child.genero||'', cProf?.idade != null ? cProf.idade : child.age != null ? child.age : '',
-                                '',
+                                cSvcs.map(s => `${s.organ_name}: ${s.service_name}`).join('; '),
                                 cProf?.obs||''
                             ]);
                         }
@@ -2188,6 +2220,7 @@
             </div>
             <div class="modal-buttons">
                 <button id="saveEditChildBtn" class="btn-primary">Salvar Alterações</button>
+                <button id="deleteChildBtn" class="btn-danger">🗑️ Excluir Filho(a)</button>
                 <button onclick="this.closest('.modal-overlay').remove()" class="btn-secondary">Cancelar</button>
             </div>
         </div>`;
@@ -2224,8 +2257,99 @@
                 showAlertModal('Erro ao salvar: ' + (await res.text()), false);
             }
         };
+
+        modal.querySelector('#deleteChildBtn').onclick = () => {
+            showConfirmModal(`Excluir o(a) filho(a) "${child.name}"? Os registros de atendimento vinculados também serão removidos.`, async () => {
+                const hdrs = { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` };
+                await Promise.all([
+                    fetch(`${SUPABASE_URL}/rest/v1/attendance_items?family_member_type=eq.child&family_member_id=eq.${id}`, { method: 'DELETE', headers: hdrs }),
+                    fetch(`${SUPABASE_URL}/rest/v1/member_profile?member_type=eq.child&member_id=eq.${id}`, { method: 'DELETE', headers: hdrs })
+                ]);
+                const res = await fetch(`${SUPABASE_URL}/rest/v1/children?id=eq.${id}`, { method: 'DELETE', headers: hdrs });
+                if(res.ok) {
+                    delete profileCache[`child_${id}`];
+                    delete childrenCache[id];
+                    adminCache.crudFamilies = null;
+                    adminCache.families = null;
+                    modal.remove();
+                    showAlertModal('Filho(a) excluído(a) com sucesso!', true);
+                    if(adminModal && document.body.contains(adminModal) && currentAdminTab === 'crudFamilies') await loadCrudFamilies();
+                    if(currentMother) await loadFamilyTree(currentMother.id);
+                } else {
+                    showAlertModal('Erro ao excluir: ' + (await res.text()), false);
+                }
+            });
+        };
     };
     
+    window.addChildInline = function(motherId) {
+        const racaOpts   = ['Preta','Parda','Branca','Amarela','Indígena','Prefere não informar'];
+        const generoOpts = ['Feminino','Masculino','Não-binário','Outro','Prefere não informar'];
+        const modal = document.createElement('div'); modal.className = 'modal-overlay';
+        modal.innerHTML = `<div class="modal-container">
+            <h3 style="color:#551E75;">Adicionar Filho(a)</h3>
+            <div class="form-group"><label>Nome completo *</label><input type="text" id="inlineChildName" placeholder="Nome do(a) filho(a)"></div>
+            <div class="form-group"><label>Idade</label><input type="number" id="inlineChildAge" min="0" max="120" placeholder="Idade"></div>
+            <div class="form-group"><label>CPF</label><input type="text" id="inlineChildCpf" placeholder="000.000.000-00" maxlength="14"></div>
+            <div class="form-group"><label>Data de Nascimento</label><input type="date" id="inlineChildDataNasc"></div>
+            <div class="form-group"><label>Gênero</label>
+                <select id="inlineChildGenero">
+                    <option value="">Selecionar...</option>
+                    ${generoOpts.map(o => `<option>${o}</option>`).join('')}
+                </select>
+            </div>
+            <div class="form-group"><label>Raça/Etnia</label>
+                <select id="inlineChildRaca">
+                    <option value="">Selecionar...</option>
+                    ${racaOpts.map(o => `<option>${o}</option>`).join('')}
+                </select>
+            </div>
+            <div class="modal-buttons">
+                <button id="saveInlineChildBtn" class="btn-primary">Salvar Filho(a)</button>
+                <button onclick="this.closest('.modal-overlay').remove()" class="btn-secondary">Cancelar</button>
+            </div>
+        </div>`;
+        document.body.appendChild(modal);
+
+        modal.querySelector('#inlineChildCpf').addEventListener('input', function() {
+            let v = this.value.replace(/\D/g,'').slice(0,11);
+            if(v.length<=3){this.value=v;return;}
+            if(v.length<=6){this.value=v.slice(0,3)+'.'+v.slice(3);return;}
+            if(v.length<=9){this.value=v.slice(0,3)+'.'+v.slice(3,6)+'.'+v.slice(6);return;}
+            this.value=v.slice(0,3)+'.'+v.slice(3,6)+'.'+v.slice(6,9)+'-'+v.slice(9);
+        });
+
+        modal.querySelector('#saveInlineChildBtn').onclick = async () => {
+            const name = modal.querySelector('#inlineChildName').value.trim();
+            if(!name) { showAlertModal('Nome é obrigatório.', false); return; }
+            const age      = modal.querySelector('#inlineChildAge').value;
+            const cpf      = modal.querySelector('#inlineChildCpf').value.trim() || null;
+            const dataNasc = modal.querySelector('#inlineChildDataNasc').value || null;
+            const genero   = modal.querySelector('#inlineChildGenero').value || null;
+            const raca     = modal.querySelector('#inlineChildRaca').value || null;
+            const childData = { mother_id: motherId, name };
+            if(age)     childData.age             = parseInt(age);
+            if(cpf)     childData.cpf             = cpf;
+            if(dataNasc) childData.data_nascimento = dataNasc;
+            if(genero)  childData.genero          = genero;
+            if(raca)    childData.raca            = raca;
+            const res = await fetch(`${SUPABASE_URL}/rest/v1/children`, {
+                method: 'POST',
+                headers: {'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,'Content-Type':'application/json','Prefer':'return=representation'},
+                body: JSON.stringify(childData)
+            });
+            if(res.ok) {
+                showAlertModal('Filho(a) adicionado(a) com sucesso!', true);
+                modal.remove();
+                adminCache.crudFamilies = null;
+                adminCache.families = null;
+                if(currentMother) await loadFamilyTree(currentMother.id);
+            } else {
+                showAlertModal('Erro ao salvar: ' + (await res.text()), false);
+            }
+        };
+    };
+
     window.deleteMotherFromAdmin = async (id) => {
         showConfirmModal('Excluir esta mãe e todos os filhos e atendimentos vinculados?', async () => {
             const [attendances, childrenToDelete] = await Promise.all([
