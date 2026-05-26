@@ -153,6 +153,7 @@
             border-radius: 28px;
             padding: 28px;
             overflow-y: auto;
+            overflow-x: hidden;
             box-shadow: 0 8px 30px rgba(0,0,0,0.08);
             border: 1px solid rgba(170, 141, 203, 0.2);
         }
@@ -164,20 +165,23 @@
             border-radius: 16px;
             margin-bottom: 12px;
             display: flex;
-            gap: 12px;
+            flex-wrap: wrap;
+            gap: 10px;
             align-items: center;
             border: 1px solid #e9d5ff;
         }
-        .service-row select { flex: 1; padding: 10px; border: 2px solid #e9d5ff; border-radius: 20px; background: white; cursor: pointer; }
+        .service-row select { flex: 1 1 180px; min-width: 0; padding: 10px; border: 2px solid #e9d5ff; border-radius: 20px; background: white; cursor: pointer; }
         .service-row select:focus { outline: none; border-color: #7A4895; }
         .service-row select:disabled { background: #f5f5f5; cursor: not-allowed; opacity: 0.7; }
-        .btn-remove-service { background: #dc2626; color: white; border: none; padding: 8px 16px; border-radius: 30px; cursor: pointer; font-weight: 600; }
+        .btn-remove-service { flex-shrink: 0; background: #dc2626; color: white; border: none; padding: 8px 14px; border-radius: 30px; cursor: pointer; font-weight: 600; font-size: 0.85rem; white-space: nowrap; }
         .btn-remove-service:disabled { background: #999; cursor: not-allowed; }
         .btn-remove-service:hover:not(:disabled) { background: #b91c1c; }
         .btn-add-row { background: #f3e8ff; color: #7A4895; border: 2px dashed #AA8DCB; padding: 12px; border-radius: 40px; font-weight: 700; cursor: pointer; width: 100%; margin-top: 8px; }
         .btn-add-row:disabled { opacity: 0.5; cursor: not-allowed; }
         .btn-add-row:hover:not(:disabled) { background: #e9d5ff; }
-        .services-container { margin-bottom: 24px; max-height: 400px; overflow-y: auto; }
+        .services-container { margin-bottom: 24px; max-height: 420px; overflow-y: auto; overflow-x: hidden; }
+        .service-form-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+        .btn-voltar-cadastro { white-space: nowrap; flex-shrink: 0; align-self: flex-start; }
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -221,10 +225,15 @@
         .btn-secondary:hover { background: #b0bec5; }
         .btn-danger { background: #dc2626; color: white; border: none; padding: 10px 24px; border-radius: 30px; font-weight: 600; cursor: pointer; }
         .btn-danger:hover { background: #b91c1c; }
-        .child-row { display: flex; gap: 10px; margin-bottom: 10px; align-items: center; }
-        .child-row input { flex: 1; }
-        .btn-remove-child { background: #dc2626; color: white; border: none; padding: 6px 12px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; }
+        .child-row { background: #faf5ff; border: 1px solid #e9d5ff; border-radius: 16px; padding: 12px 14px; margin-bottom: 12px; }
+        .child-row-header { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+        .child-row-header input[type="text"], .child-row-header input[type="number"] { flex: 1; min-width: 110px; }
+        .child-skip-label { display: flex; align-items: center; gap: 6px; font-size: 0.82rem; color: #7A4895; cursor: pointer; white-space: nowrap; user-select: none; }
+        .child-skip-label input[type="checkbox"] { accent-color: #7A4895; width: 14px; height: 14px; cursor: pointer; }
+        .child-extra-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 20px; margin-top: 10px; padding-top: 10px; border-top: 1px dashed #ddd6fe; }
+        .btn-remove-child { background: #dc2626; color: white; border: none; padding: 6px 12px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; flex-shrink: 0; }
         .btn-add-child { background: #f3e8ff; color: #7A4895; border: none; padding: 8px 16px; border-radius: 30px; font-weight: 600; cursor: pointer; margin-top: 8px; }
+        @media (max-width: 500px) { .child-extra-fields { grid-template-columns: 1fr; } }
         .stats-grid { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 30px; }
         .stat-card { background: #faf5ff; border-radius: 24px; padding: 20px; flex: 1; min-width: 300px; border: 1px solid #e9d5ff; }
         .stat-card h3 { color: #7A4895; margin-bottom: 16px; border-bottom: 2px solid #e9d5ff; padding-bottom: 8px; }
@@ -260,8 +269,7 @@
         .spinner { display: inline-block; width: 40px; height: 40px; border: 4px solid #f3e8ff; border-top: 4px solid #7A4895; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 16px; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         .loading-container { text-align: center; padding: 40px; }
-        .questionnaire-section { background: #faf5ff; border-radius: 20px; padding: 20px; margin: 20px 0; border: 1px solid #e9d5ff; }
-        .questionnaire-title { color: #551E75; font-weight: 700; margin-bottom: 16px; font-size: 1rem; }
+        .questionnaire-section { background: #faf5ff; border-radius: 20px; padding: 4px 16px 16px; margin: 20px 0; border: 1px solid #e9d5ff; }
         .checkbox-group { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 8px; }
         .checkbox-item {
             display: flex;
@@ -320,6 +328,59 @@
             box-shadow: 0 8px 30px rgba(16, 185, 129, 0.18) !important;
         }
 
+        /* Profile form - inline panel */
+        .profile-form-wrap { padding: 48px 44px; max-width: 860px; width: 100%; margin: 0 auto; }
+        .profile-form-wrap .attendance-header { text-align: center; margin-bottom: 36px; }
+        .profile-form-wrap .attendance-header h2 { margin-bottom: 6px; font-size: 1.6rem; }
+        .profile-form-wrap .attendance-header p { font-size: 1rem; color: #7A4895; }
+        .profile-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px 32px;
+        }
+        .profile-section-divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 28px 0 8px;
+            color: #7A4895;
+            font-weight: 700;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+        .profile-section-divider::before,
+        .profile-section-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e9d5ff;
+        }
+        .profile-form-actions {
+            display: flex;
+            gap: 14px;
+            margin-top: 32px;
+            flex-wrap: wrap;
+        }
+        .profile-form-actions .btn-primary,
+        .profile-form-actions .btn-secondary { flex: 1 1 160px; min-height: 50px; font-size: 1.05rem; }
+        .questionnaire-section-title {
+            padding: 14px 4px 10px;
+            font-weight: 700;
+            color: #551E75;
+            font-size: 0.95rem;
+            border-bottom: 1px solid #e9d5ff;
+            margin-bottom: 12px;
+        }
+
+        @media (max-width: 1100px) {
+            .attendance-area { padding: 20px 16px; }
+            .service-row { flex-direction: column; align-items: stretch; }
+            .service-row select { width: 100% !important; flex: 1 1 auto !important; }
+            .btn-remove-service { align-self: flex-end; }
+            .btn-voltar-cadastro { font-size: 0.82rem; padding: 8px 14px; }
+        }
+
         @media (max-width: 768px) {
             .header {
                 padding: 10px 16px;
@@ -341,15 +402,15 @@
                 overflow-y: visible;
             }
             .services-container { max-height: none; }
-            .service-row {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .service-row select { width: 100% !important; flex: none !important; }
-            .btn-remove-service { align-self: flex-end; }
             .stats-grid { flex-direction: column; }
             .stat-card { min-width: unset; }
             .modal-container { width: 95%; padding: 20px 16px; border-radius: 20px; }
+            /* Profile form: single column on tablet/mobile */
+            .profile-form-wrap { padding: 28px 20px; }
+            .profile-form-grid { grid-template-columns: 1fr; gap: 0; }
+            .profile-form-actions .btn-primary,
+            .profile-form-actions .btn-secondary { flex: 1 1 100%; min-height: 50px; font-size: 1rem; }
+            .checkbox-group { display: grid; grid-template-columns: 1fr; gap: 10px; }
         }
 
         @media (max-width: 480px) {
@@ -360,7 +421,35 @@
             .admin-tabs-container { flex-wrap: wrap; }
             .admin-tab-btn { flex: 1 1 auto; text-align: center; padding: 8px 12px; font-size: 0.8rem; }
             .modal-container { padding: 16px 12px; border-radius: 16px; }
+            .profile-form-wrap { padding: 20px 14px; }
         }
+
+        /* Dados Enraizados */
+        .enraizados-search {
+            width: 100%; padding: 12px 18px; border: 2px solid #e9d5ff; border-radius: 48px;
+            font-size: 0.95rem; outline: none; background: #fefcff; margin-bottom: 16px;
+            font-family: inherit;
+        }
+        .enraizados-search:focus { border-color: #AA8DCB; box-shadow: 0 0 0 3px rgba(170,141,203,0.2); }
+        .enraizados-row {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 12px 20px; background: #faf5ff; border-radius: 16px; margin-bottom: 8px;
+            border: 1px solid #e9d5ff; transition: background 0.15s;
+        }
+        .enraizados-row:hover { background: #f3e8ff; }
+        .enraizados-name { font-weight: 600; color: #2d1b4e; font-size: 0.95rem; }
+        .btn-resetar {
+            border: none; padding: 8px 20px; border-radius: 30px; font-weight: 700;
+            font-size: 0.82rem; cursor: pointer; white-space: nowrap; transition: all 0.2s;
+            font-family: inherit;
+        }
+        .btn-resetar-active {
+            background: linear-gradient(135deg, #16a34a, #15803d); color: white;
+            box-shadow: 0 2px 8px rgba(22,163,74,0.3);
+        }
+        .btn-resetar-active:hover { background: linear-gradient(135deg, #15803d, #166534); transform: translateY(-1px); }
+        .btn-resetar-inactive { background: #e2e8f0; color: #94a3b8; cursor: default; }
+        .enraizados-count { font-size: 0.78rem; color: #7A4895; margin-top: 4px; }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </head>
@@ -393,16 +482,19 @@
 <script>
     const SUPABASE_URL = 'https://gbuibkhkiriclnztlgxp.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdidWlia2hraXJpY2xuenRsZ3hwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg3NjgxNDksImV4cCI6MjA5NDM0NDE0OX0.e_3H4G97r3jw3Xp8R1vkLSp4Y9YrIrbRxAaSoc7GP-w';
-    let allMothers = [], currentMother = null, currentFamilyMember = null, currentMemberType = null, currentAttendance = null;
+    let allMothers = [], allMen = [], currentMother = null, currentFamilyMember = null, currentMemberType = null, currentAttendance = null;
     let currentMemberServices = [];
     let allOrgans = [];
+    let childrenCache = {};
     let allServices = {};
     let isEditMode = false;
     let servicesCache = {}; // Cache para serviços por membro
     let questionnaireCache = {}; // Cache para questionário por mãe
 
-    let adminCache = { organs: null, families: null, crudFamilies: null, crudOrgans: null };
+    let adminCache = { organs: null, families: null, crudFamilies: null, crudOrgans: null, enraizados: null, homens: null };
     let currentQuestionnaire = { id: null, homeless: false, domestic_violence: false, protective_measure: false, children_school: false, serious_illness: false, obs: '' };
+    let profileCache = {};
+    let pendingMember = null;
 
     function showAlertModal(msg, isSuccess = true) {
         let modal = document.createElement('div'); modal.className = 'modal-overlay';
@@ -446,8 +538,39 @@
 
     async function loadAllMothers() {
         const res = await fetch(`${SUPABASE_URL}/rest/v1/mothers?select=*&order=name`, { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` } });
-        if(res.ok) allMothers = await res.json();
+        if(res.ok) allMothers = (await res.json()).filter(m => !m.observation?.startsWith('__man_shadow__:'));
         return allMothers;
+    }
+
+    async function findOrCreateManShadow(man) {
+        const hdrs = { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` };
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/mothers?select=*&observation=eq.__man_shadow__:${man.id}&limit=1`, { headers: hdrs });
+        if(res.ok) {
+            const data = await res.json();
+            if(data.length > 0) return data[0];
+        }
+        const ins = await fetch(`${SUPABASE_URL}/rest/v1/mothers`, {
+            method: 'POST',
+            headers: { ...hdrs, 'Content-Type': 'application/json', 'Prefer': 'return=representation' },
+            body: JSON.stringify({ name: man.name, observation: `__man_shadow__:${man.id}` })
+        });
+        if(!ins.ok) throw new Error(await ins.text());
+        return (await ins.json())[0];
+    }
+
+    async function selectMan(man) {
+        try {
+            const shadow = await findOrCreateManShadow(man);
+            await selectMother({ ...shadow, _isMan: true, _manId: man.id, name: man.name });
+        } catch(e) {
+            showAlertModal('Erro ao carregar atendimento do homem. Tente novamente.', false);
+        }
+    }
+
+    async function loadAllMen() {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/men?select=*&order=name`, { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` } });
+        if(res.ok) allMen = await res.json();
+        return allMen;
     }
     
     async function loadOrgansAndServices() {
@@ -470,15 +593,78 @@
     
     async function searchMothers(q) {
         if(!q.trim()) { document.getElementById('searchResults').classList.remove('active'); return; }
-        const filtered = allMothers.filter(m => m.name.toLowerCase().includes(q.toLowerCase()));
+        const ql = q.toLowerCase();
+        const filteredMothers = allMothers.filter(m => m.name.toLowerCase().includes(ql));
+        const filteredMen = allMen.filter(m => m.name.toLowerCase().includes(ql));
         const resultsDiv = document.getElementById('searchResults');
         resultsDiv.innerHTML = '';
-        if(filtered.length){
+        if(filteredMothers.length || filteredMen.length) {
             resultsDiv.classList.add('active');
-            filtered.forEach(m => { let div = document.createElement('div'); div.className='search-item'; div.textContent=m.name; div.onclick=()=>selectMother(m); resultsDiv.appendChild(div); });
+            filteredMothers.forEach(m => {
+                let div = document.createElement('div'); div.className = 'search-item'; div.textContent = m.name;
+                div.onclick = () => selectMother(m); resultsDiv.appendChild(div);
+            });
+            filteredMen.forEach(m => {
+                let div = document.createElement('div'); div.className = 'search-item';
+                div.innerHTML = `${m.name} <span style="font-size:0.72rem;background:#e9d5ff;color:#7A4895;padding:2px 8px;border-radius:10px;margin-left:6px;">Homem</span>`;
+                div.onclick = () => selectMan(m);
+                resultsDiv.appendChild(div);
+            });
         } else resultsDiv.classList.remove('active');
     }
     
+    function makeChildRowElement(removable = true) {
+        const racaOpts = ['Preta','Parda','Branca','Amarela','Indígena','Prefere não informar'];
+        const div = document.createElement('div');
+        div.className = 'child-row';
+        div.innerHTML = `
+            <div class="child-row-header">
+                <input type="text" placeholder="Nome do filho" class="child-name">
+                <input type="number" placeholder="Idade" class="child-age" min="0" max="120" style="width:90px">
+                <label class="child-skip-label">
+                    <input type="checkbox" class="child-skip" checked>
+                    Não preencher dados agora
+                </label>
+                ${removable ? '<button type="button" class="btn-remove-child" onclick="this.closest(\'.child-row\').remove()">✕</button>' : ''}
+            </div>
+            <div class="child-extra-fields" style="display:none;">
+                <div class="form-group">
+                    <label style="font-size:0.82rem;font-weight:700;color:#7A4895;">CPF</label>
+                    <input type="text" class="child-cpf" placeholder="000.000.000-00" maxlength="14">
+                </div>
+                <div class="form-group">
+                    <label style="font-size:0.82rem;font-weight:700;color:#7A4895;">Data de Nascimento</label>
+                    <input type="date" class="child-data-nasc">
+                </div>
+                <div class="form-group">
+                    <label style="font-size:0.82rem;font-weight:700;color:#7A4895;">Gênero</label>
+                    <select class="child-genero">
+                        <option value="">Selecionar...</option>
+                        <option>Masculino</option>
+                        <option>Feminino</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label style="font-size:0.82rem;font-weight:700;color:#7A4895;">Raça/Etnia</label>
+                    <select class="child-raca">
+                        <option value="">Selecionar...</option>
+                        ${racaOpts.map(o => `<option>${o}</option>`).join('')}
+                    </select>
+                </div>
+            </div>`;
+        div.querySelector('.child-skip').addEventListener('change', function() {
+            div.querySelector('.child-extra-fields').style.display = this.checked ? 'none' : 'grid';
+        });
+        div.querySelector('.child-cpf').addEventListener('input', function() {
+            let v = this.value.replace(/\D/g,'').slice(0,11);
+            if(v.length<=3){this.value=v;return;}
+            if(v.length<=6){this.value=v.slice(0,3)+'.'+v.slice(3);return;}
+            if(v.length<=9){this.value=v.slice(0,3)+'.'+v.slice(3,6)+'.'+v.slice(6);return;}
+            this.value=v.slice(0,3)+'.'+v.slice(3,6)+'.'+v.slice(6,9)+'-'+v.slice(9);
+        });
+        return div;
+    }
+
     window.showFullMotherRegistration = function(editMode = false, motherData = null) {
         let modal = document.createElement('div'); modal.className = 'modal-overlay';
         let title = editMode ? 'Editar Mãe' : 'Cadastrar Nova Mãe';
@@ -489,7 +675,7 @@
         let motherObs = editMode && motherData && motherData.observation ? motherData.observation : '';
         let childrenHtml = '';
         if(!editMode) {
-            childrenHtml = `<div class="form-group"><label>Filhos</label><div id="childrenList"><div class="child-row"><input type="text" placeholder="Nome do filho" class="child-name" style="flex:1"><input type="text" placeholder="Idade" class="child-age" style="width:100px"></div></div><button type="button" class="btn-add-child" id="addChildField">+ Adicionar filho</button></div>`;
+            childrenHtml = `<div class="form-group"><label>Filhos</label><div id="childrenList"></div><button type="button" class="btn-add-child" id="addChildField">+ Adicionar filho</button></div>`;
         }
         modal.innerHTML = `<div class="modal-container">
             <h3>${title}</h3>
@@ -503,11 +689,9 @@
         document.body.appendChild(modal);
         
         if(!editMode) {
+            document.getElementById('childrenList').appendChild(makeChildRowElement(false));
             document.getElementById('addChildField').onclick = () => {
-                let container = document.getElementById('childrenList');
-                let div = document.createElement('div'); div.className = 'child-row';
-                div.innerHTML = `<input type="text" placeholder="Nome do filho" class="child-name" style="flex:1"><input type="text" placeholder="Idade" class="child-age" style="width:100px"><button type="button" class="btn-remove-child" onclick="this.parentElement.remove()">X</button>`;
-                container.appendChild(div);
+                document.getElementById('childrenList').appendChild(makeChildRowElement(true));
             };
         }
         
@@ -552,16 +736,28 @@
                         const newMother = await response.json();
                         const motherId = newMother[0]?.id;
                         if(motherId) {
-                            let childrenNames = document.querySelectorAll('.child-name');
-                            let childrenAges = document.querySelectorAll('.child-age');
-                            for(let i=0; i<childrenNames.length; i++){
-                                if(childrenNames[i].value){
-                                    await fetch(`${SUPABASE_URL}/rest/v1/children`, { 
-                                        method:'POST', 
-                                        headers:{ 'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,'Content-Type':'application/json' }, 
-                                        body: JSON.stringify({ mother_id: motherId, name: childrenNames[i].value, age: childrenAges[i]?.value || null }) 
-                                    });
+                            const childRows = document.querySelectorAll('#childrenList .child-row');
+                            for(const row of childRows) {
+                                const childName = row.querySelector('.child-name')?.value?.trim();
+                                if(!childName) continue;
+                                const ageVal = row.querySelector('.child-age')?.value?.trim();
+                                const skip = row.querySelector('.child-skip')?.checked;
+                                const childData = { mother_id: motherId, name: childName, age: ageVal || null };
+                                if(!skip) {
+                                    const cpf = row.querySelector('.child-cpf')?.value?.trim() || null;
+                                    const dataNasc = row.querySelector('.child-data-nasc')?.value || null;
+                                    const genero = row.querySelector('.child-genero')?.value || null;
+                                    const raca = row.querySelector('.child-raca')?.value || null;
+                                    if(cpf)      childData.cpf             = cpf;
+                                    if(dataNasc) childData.data_nascimento = dataNasc;
+                                    if(genero)   childData.genero          = genero;
+                                    if(raca)     childData.raca            = raca;
                                 }
+                                await fetch(`${SUPABASE_URL}/rest/v1/children`, {
+                                    method:'POST',
+                                    headers:{ 'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,'Content-Type':'application/json' },
+                                    body: JSON.stringify(childData)
+                                });
                             }
                             showAlertModal('Mãe e filhos cadastrados com sucesso!', true);
                             modal.remove();
@@ -647,16 +843,38 @@
     document.getElementById('btnEditFamily').onclick = window.editAttendance;
     
     async function loadFamilyTree(motherId){
-        const childrenResp = await fetch(`${SUPABASE_URL}/rest/v1/children?select=*&mother_id=eq.${motherId}&order=name`, { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` } });
+        const hdrs = { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` };
+        if(currentMother?._isMan) {
+            const man = allMen.find(m => m.id === currentMother._manId) || { id: currentMother._manId, name: currentMother.name };
+            const escAttr = s => String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+            document.getElementById('familyTree').innerHTML = `<div class="mother-node"><div class="member-card" data-type="man" data-id="${man.id}" data-name="${escAttr(man.name)}" data-age=""><div class="member-name">${man.name}</div><div class="member-info">Responsável familiar</div></div></div>`;
+            document.querySelector('#familyTree .member-card').addEventListener('click', () => selectFamilyMember('man', man.id, man.name, null));
+            return;
+        }
+        const childrenResp = await fetch(`${SUPABASE_URL}/rest/v1/children?select=*&mother_id=eq.${motherId}&order=name`, { headers: hdrs });
         let children = childrenResp.ok ? await childrenResp.json() : [];
-        let html = `<div class="mother-node"><div class="member-card" onclick="selectFamilyMember('mother', ${currentMother.id}, '${currentMother.name.replace(/'/g, "\\'")}')"><div class="member-name">${currentMother.name}</div><div class="member-info">Mãe</div></div>`;
+        for(const c of children) childrenCache[c.id] = c;
+        let motherAge = null;
+        if(currentMother.birth_date) {
+            const today = new Date(); const birth = new Date(currentMother.birth_date);
+            motherAge = today.getFullYear() - birth.getFullYear();
+            if(today.getMonth() < birth.getMonth() || (today.getMonth() === birth.getMonth() && today.getDate() < birth.getDate())) motherAge--;
+        }
+        const escAttr = s => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+        let html = `<div class="mother-node"><div class="member-card" data-type="mother" data-id="${currentMother.id}" data-name="${escAttr(currentMother.name)}" data-age="${motherAge ?? ''}"><div class="member-name">${currentMother.name}</div><div class="member-info">Mãe</div></div>`;
         if(children.length > 0){
             html += `<div class="children-container">`;
-            children.forEach(c => { html += `<div class="child-card" onclick="selectFamilyMember('child', ${c.id}, '${c.name.replace(/'/g, "\\'")}')"><div class="member-name">${c.name}</div><div class="member-info">Filho(a) • ${c.age || 'idade não informada'}</div></div>`; });
+            children.forEach(c => { html += `<div class="child-card" data-type="child" data-id="${c.id}" data-name="${escAttr(c.name)}" data-age="${c.age !== null && c.age !== undefined ? c.age : ''}"><div class="member-name">${c.name}</div><div class="member-info">Filho(a) • ${c.age || 'idade não informada'}</div></div>`; });
             html += `</div>`;
         } else { html += `<div class="children-container" style="color:#a78bfa; font-size:0.8rem; padding:8px 0 8px 20px;">Nenhum filho cadastrado</div>`; }
         html += `</div>`;
         document.getElementById('familyTree').innerHTML = html;
+        document.querySelectorAll('#familyTree .member-card, #familyTree .child-card').forEach(el => {
+            el.addEventListener('click', () => {
+                const age = el.dataset.age !== '' ? parseInt(el.dataset.age) : null;
+                selectFamilyMember(el.dataset.type, parseInt(el.dataset.id), el.dataset.name, age);
+            });
+        });
     }
     
     async function loadOrCreateAttendance(motherId){
@@ -716,21 +934,359 @@
         } catch(e) { console.log('Erro ao salvar questionário'); }
     }
     
-    window.selectFamilyMember = async function(type, id, name){
-        // Mostrar loading
+    async function checkMemberProfile(memberType, memberId) {
+        const cacheKey = `${memberType}_${memberId}`;
+        if(profileCache[cacheKey] !== undefined) return profileCache[cacheKey];
+        try {
+            const resp = await fetch(
+                `${SUPABASE_URL}/rest/v1/member_profile?member_type=eq.${memberType}&member_id=eq.${memberId}&limit=1`,
+                { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` } }
+            );
+            if(resp.ok) {
+                const data = await resp.json();
+                const profile = data.length ? data[0] : null;
+                profileCache[cacheKey] = profile;
+                return profile;
+            }
+        } catch(e) { console.log('Erro ao verificar perfil', e); }
+        profileCache[`${memberType}_${memberId}`] = null;
+        return null;
+    }
+
+    function renderProfileForm(memberType, memberId, memberName, defaultAge, existingProfile = null) {
+        const isMother = memberType === 'mother';
+        const showPersonalData = memberType === 'mother' || memberType === 'man';
+        const ep = existingProfile;
+        const genderOpts = ['Feminino','Masculino','Não-binário','Agênero','Bigênero','Genderfluid (Gênero fluido)','Pangênero','Transgênero','Travesti','Outro','Prefere não informar'];
+        const escOpts = ['Sem escolaridade','Fundamental incompleto','Fundamental completo','Médio incompleto','Médio completo','Superior incompleto','Superior completo','Pós-graduação'];
+        const racaOpts = ['Preta','Parda','Branca','Amarela','Indígena','Prefere não informar'];
+        const q = currentQuestionnaire;
+
+        const idadeVal = ep?.idade !== null && ep?.idade !== undefined
+            ? ep.idade
+            : (defaultAge !== null && defaultAge !== undefined && defaultAge !== '' ? defaultAge : '');
+
+        const obsVal = ep?.obs ? ep.obs.replace(/</g, '&lt;') : (q.obs ? q.obs.replace(/</g, '&lt;') : '');
+
+        // Valores dos campos pessoais
+        const childData   = memberType === 'child' ? (childrenCache[memberId] || null) : null;
+        const cpfRaw      = memberType === 'child' ? (childData?.cpf || '') : (currentMother?.cpf || '');
+        const telRaw      = currentMother?.telefone || '';
+        const dataNascVal = memberType === 'child' ? (childData?.data_nascimento || '') : (currentMother?.data_nascimento || '');
+
+        const extraHtml = isMother ? `
+            <div class="questionnaire-section">
+                <div class="questionnaire-section-title">Questionário de Acolhimento</div>
+                <div class="checkbox-group">
+                    <div class="checkbox-item"><input type="checkbox" id="profHomeless" ${q.homeless ? 'checked' : ''}><label for="profHomeless">Mulher em situação de rua?</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="profDomViolence" ${q.domestic_violence ? 'checked' : ''}><label for="profDomViolence">Sofre violência doméstica?</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="profProtMeasure" ${q.protective_measure ? 'checked' : ''}><label for="profProtMeasure">Tem medida protetiva?</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="profChildSchool" ${q.children_school ? 'checked' : ''}><label for="profChildSchool">Filhos frequentam ambiente escolar?</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="profSeriousIll" ${q.serious_illness ? 'checked' : ''}><label for="profSeriousIll">Tem diagnóstico de doença grave?</label></div>
+                </div>
+                <div class="form-group" style="margin-top:16px;">
+                    <label>Observações gerais</label>
+                    <textarea id="profObs" placeholder="Informações adicionais sobre a família...">${obsVal}</textarea>
+                </div>
+            </div>` : `
+            <div class="form-group">
+                <label>Observações gerais</label>
+                <textarea id="profObs" placeholder="Informações adicionais...">${obsVal}</textarea>
+            </div>`;
+
+        const childPersonalDataHtml = memberType === 'child' ? `
+            <div class="profile-section-divider"><span>Dados de Identificação</span></div>
+            <div class="profile-form-grid">
+                <div class="form-group">
+                    <label>CPF <small style="font-weight:400;color:#a78bfa;">opcional</small></label>
+                    <input type="text" id="profileCpf" placeholder="000.000.000-00" maxlength="14" value="${cpfRaw.replace(/"/g,'&quot;')}">
+                </div>
+                <div class="form-group">
+                    <label>Data de Nascimento <small style="font-weight:400;color:#a78bfa;">opcional · preenche a idade automaticamente</small></label>
+                    <input type="date" id="profileDataNasc" value="${dataNascVal}">
+                </div>
+            </div>` : '';
+
+        const personalDataHtml = showPersonalData ? `
+            <div class="profile-section-divider"><span>Dados de Identificação</span></div>
+            <div class="profile-form-grid">
+                <div class="form-group">
+                    <label>CPF</label>
+                    <input type="text" id="profileCpf" placeholder="000.000.000-00" maxlength="14" value="${cpfRaw.replace(/"/g,'&quot;')}">
+                </div>
+                <div class="form-group">
+                    <label>Telefone</label>
+                    <input type="text" id="profileTelefone" placeholder="(00) 00000-0000" maxlength="15" value="${telRaw.replace(/"/g,'&quot;')}">
+                </div>
+                <div class="form-group">
+                    <label>Data de Nascimento <small style="font-weight:400;color:#a78bfa;">(preenche a idade automaticamente)</small></label>
+                    <input type="date" id="profileDataNasc" value="${dataNascVal}">
+                </div>
+            </div>` : '';
+
+        document.getElementById('attendanceContent').innerHTML = `
+            <div class="profile-form-wrap">
+                <div class="attendance-header">
+                    <h2>${memberName}</h2>
+                    <p>${isMother ? 'Responsável familiar' : memberType === 'man' ? 'Homem' : 'Filho(a)'} — Cadastro complementar</p>
+                </div>
+                ${personalDataHtml}
+                ${childPersonalDataHtml}
+                <div class="profile-section-divider"><span>Dados Demográficos</span></div>
+                <div class="profile-form-grid">
+                    <div class="form-group">
+                        <label>Escolaridade *</label>
+                        <select id="profileEscolaridade">
+                            <option value="">Selecionar...</option>
+                            ${escOpts.map(o => `<option ${ep?.escolaridade === o ? 'selected' : ''}>${o}</option>`).join('')}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Raça/Etnia *</label>
+                        <select id="profileRacaEtnia">
+                            <option value="">Selecionar...</option>
+                            ${racaOpts.map(o => `<option ${ep?.raca_etnia === o ? 'selected' : ''}>${o}</option>`).join('')}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Gênero *</label>
+                        <select id="profileGenero">
+                            <option value="">Selecionar...</option>
+                            ${genderOpts.map(g => `<option ${ep?.genero === g ? 'selected' : ''}>${g}</option>`).join('')}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Idade *</label>
+                        <input type="number" id="profileIdade" min="0" max="120" placeholder="0 – 120" value="${idadeVal}">
+                    </div>
+                </div>
+                ${extraHtml}
+                <div class="profile-form-actions">
+                    <button id="saveProfileInlineBtn" class="btn-primary">${ep ? 'Salvar alterações' : 'Salvar e continuar'}</button>
+                    <button id="cancelProfileBtn" class="btn-secondary">${ep ? '← Voltar ao atendimento' : 'Cancelar'}</button>
+                </div>
+            </div>`;
+
+        document.getElementById('saveProfileInlineBtn').onclick = () => saveProfileAndProceed(memberType, memberId, memberName, defaultAge);
+        document.getElementById('cancelProfileBtn').onclick = () => {
+            if(ep) {
+                window.selectFamilyMember(memberType, memberId, memberName, defaultAge);
+            } else {
+                document.getElementById('attendanceContent').innerHTML = '<div style="text-align:center;color:#a78bfa;padding:60px;">Selecione um familiar à esquerda para iniciar o atendimento.</div>';
+            }
+        };
+
+        // Máscaras e cálculo de idade (mães, homens e filhos)
+        if(showPersonalData || memberType === 'child') {
+            const cpfInput   = document.getElementById('profileCpf');
+            const telInput   = document.getElementById('profileTelefone');
+            const dateInput  = document.getElementById('profileDataNasc');
+            const idadeInput = document.getElementById('profileIdade');
+
+            if(cpfInput) {
+                cpfInput.addEventListener('input', function() {
+                    let v = this.value.replace(/\D/g, '').slice(0, 11);
+                    if(v.length <= 3) { this.value = v; return; }
+                    if(v.length <= 6) { this.value = v.slice(0,3) + '.' + v.slice(3); return; }
+                    if(v.length <= 9) { this.value = v.slice(0,3) + '.' + v.slice(3,6) + '.' + v.slice(6); return; }
+                    this.value = v.slice(0,3) + '.' + v.slice(3,6) + '.' + v.slice(6,9) + '-' + v.slice(9);
+                });
+            }
+
+            if(telInput) {
+                telInput.addEventListener('input', function() {
+                    let v = this.value.replace(/\D/g, '').slice(0, 11);
+                    if(v.length === 0) { this.value = ''; return; }
+                    if(v.length <= 2) { this.value = '(' + v; return; }
+                    if(v.length <= 7) { this.value = '(' + v.slice(0,2) + ') ' + v.slice(2); return; }
+                    this.value = '(' + v.slice(0,2) + ') ' + v.slice(2,7) + '-' + v.slice(7);
+                });
+            }
+
+            if(dateInput && idadeInput) {
+                function calcularIdade() {
+                    if(!dateInput.value) return;
+                    const nasc = new Date(dateInput.value + 'T00:00:00');
+                    const hoje = new Date();
+                    let idade = hoje.getFullYear() - nasc.getFullYear();
+                    const m = hoje.getMonth() - nasc.getMonth();
+                    if(m < 0 || (m === 0 && hoje.getDate() < nasc.getDate())) idade--;
+                    if(idade >= 0 && idade <= 120) idadeInput.value = idade;
+                }
+                dateInput.addEventListener('change', calcularIdade);
+                if(dataNascVal) calcularIdade();
+            }
+        }
+    }
+
+    async function saveProfileAndProceed(memberType, memberId, memberName, defaultAge) {
+        const escolaridade = document.getElementById('profileEscolaridade').value;
+        const racaEtnia    = document.getElementById('profileRacaEtnia').value;
+        const genero       = document.getElementById('profileGenero').value;
+        const idadeRaw     = document.getElementById('profileIdade').value;
+        if(!escolaridade || !racaEtnia || !genero || idadeRaw === '') {
+            showAlertModal('Preencha todos os campos obrigatórios.', false); return;
+        }
+        const idade = parseInt(idadeRaw);
+        if(isNaN(idade) || idade < 0 || idade > 120) {
+            showAlertModal('Idade inválida (0 a 120).', false); return;
+        }
+        const obs = document.getElementById('profObs')?.value || '';
+
+        // Salvar dados de identificação do filho (CPF e data de nascimento, opcionais)
+        if(memberType === 'child') {
+            const cpf             = document.getElementById('profileCpf')?.value.trim() || null;
+            const data_nascimento = document.getElementById('profileDataNasc')?.value || null;
+            await saveChildPersonalData(memberId, { cpf: cpf || null, data_nascimento: data_nascimento || null });
+        }
+
+        // Salvar dados de identificação (para mães e homens — homens usam o registro shadow)
+        if(memberType === 'mother' || memberType === 'man') {
+            const cpf            = document.getElementById('profileCpf')?.value.trim() || null;
+            const telefone       = document.getElementById('profileTelefone')?.value.trim() || null;
+            const data_nascimento = document.getElementById('profileDataNasc')?.value || null;
+            const idToSave = memberType === 'man' ? currentMother.id : memberId;
+            await saveMotherPersonalData(idToSave, {
+                cpf: cpf || null,
+                telefone: telefone || null,
+                data_nascimento: data_nascimento || null
+            });
+        }
+
+        const saved = await saveMemberProfile(memberType, memberId, { escolaridade, raca_etnia: racaEtnia, genero, idade, obs });
+        if(!saved) return;
+        if(memberType === 'mother') {
+            currentQuestionnaire = {
+                id: currentQuestionnaire.id || null,
+                homeless:           document.getElementById('profHomeless').checked,
+                domestic_violence:  document.getElementById('profDomViolence').checked,
+                protective_measure: document.getElementById('profProtMeasure').checked,
+                children_school:    document.getElementById('profChildSchool').checked,
+                serious_illness:    document.getElementById('profSeriousIll').checked,
+                obs
+            };
+            await saveQuestionnaire();
+        }
+        await window.selectFamilyMember(memberType, memberId, memberName, defaultAge);
+    }
+
+    async function saveMemberProfile(memberType, memberId, data) {
+        try {
+            const cacheKey = `${memberType}_${memberId}`;
+            const isEdit = !!profileCache[cacheKey];
+            const url = isEdit
+                ? `${SUPABASE_URL}/rest/v1/member_profile?member_type=eq.${memberType}&member_id=eq.${memberId}`
+                : `${SUPABASE_URL}/rest/v1/member_profile`;
+            const hdrs = {
+                'apikey': SUPABASE_ANON_KEY,
+                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                'Content-Type': 'application/json'
+            };
+            if(!isEdit) hdrs['Prefer'] = 'return=representation';
+            const body = JSON.stringify({
+                member_type:  memberType,
+                member_id:    memberId,
+                escolaridade: data.escolaridade,
+                raca_etnia:   data.raca_etnia,
+                genero:       data.genero,
+                idade:        data.idade,
+                obs:          data.obs || null
+            });
+            const res = await fetch(url, { method: isEdit ? 'PATCH' : 'POST', headers: hdrs, body });
+            if(res.ok) {
+                const profile = isEdit
+                    ? { ...profileCache[cacheKey], ...data, member_type: memberType, member_id: memberId }
+                    : ((await res.json())[0] || { member_type: memberType, member_id: memberId, ...data });
+                profileCache[cacheKey] = profile;
+                return profile;
+            } else {
+                const err = await res.text();
+                showAlertModal('Erro ao salvar perfil: ' + err, false);
+                return null;
+            }
+        } catch(e) {
+            showAlertModal('Erro de conexão ao salvar perfil.', false);
+            return null;
+        }
+    }
+
+    async function saveMotherPersonalData(motherId, data) {
+        try {
+            const body = {};
+            if(data.cpf !== undefined)             body.cpf             = data.cpf;
+            if(data.telefone !== undefined)        body.telefone        = data.telefone;
+            if(data.data_nascimento !== undefined) body.data_nascimento = data.data_nascimento;
+            const res = await fetch(`${SUPABASE_URL}/rest/v1/mothers?id=eq.${motherId}`, {
+                method: 'PATCH',
+                headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            });
+            if(res.ok && currentMother && currentMother.id === motherId) {
+                if(data.cpf !== undefined)             currentMother.cpf             = data.cpf;
+                if(data.telefone !== undefined)        currentMother.telefone        = data.telefone;
+                if(data.data_nascimento !== undefined) currentMother.data_nascimento = data.data_nascimento;
+            }
+        } catch(e) { console.log('Erro ao salvar dados pessoais da mãe', e); }
+    }
+
+    async function saveChildPersonalData(childId, data) {
+        try {
+            const body = {};
+            if(data.cpf !== undefined)             body.cpf             = data.cpf;
+            if(data.data_nascimento !== undefined) body.data_nascimento = data.data_nascimento;
+            // Recalcula a idade se a data foi preenchida
+            if(data.data_nascimento) {
+                const nasc = new Date(data.data_nascimento + 'T00:00:00');
+                const hoje = new Date();
+                let idade = hoje.getFullYear() - nasc.getFullYear();
+                const m = hoje.getMonth() - nasc.getMonth();
+                if(m < 0 || (m === 0 && hoje.getDate() < nasc.getDate())) idade--;
+                if(idade >= 0 && idade <= 120) body.age = idade;
+            }
+            await fetch(`${SUPABASE_URL}/rest/v1/children?id=eq.${childId}`, {
+                method: 'PATCH',
+                headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            });
+            if(childrenCache[childId]) {
+                if(data.cpf !== undefined)             childrenCache[childId].cpf             = data.cpf;
+                if(data.data_nascimento !== undefined) childrenCache[childId].data_nascimento = data.data_nascimento;
+                if(body.age !== undefined)             childrenCache[childId].age             = body.age;
+            }
+        } catch(e) { console.log('Erro ao salvar dados pessoais do filho', e); }
+    }
+
+    async function goBackToProfile() {
+        const type = currentMemberType;
+        const { id, name } = currentFamilyMember;
+        const profile = profileCache[`${type}_${id}`] || await checkMemberProfile(type, id);
+        const defaultAge = profile?.idade ?? null;
+        renderProfileForm(type, id, name, defaultAge, profile);
+    }
+
+    window.selectFamilyMember = async function(type, id, name, defaultAge = null){
         document.getElementById('attendanceContent').innerHTML = '<div class="loading-container"><div class="spinner"></div><div>Carregando atendimento...</div></div>';
-        
+
+        // Verificar perfil apenas em atendimentos ativos (não read-only)
+        const isReadOnlyMode = currentAttendance && currentAttendance.is_finished && !isEditMode;
+        if(!isReadOnlyMode) {
+            const profile = await checkMemberProfile(type, id);
+            if(!profile) {
+                renderProfileForm(type, id, name, defaultAge);
+                return;
+            }
+        }
+
         currentFamilyMember = { id, name };
         currentMemberType = type;
-        
-        // Verificar cache
+
         const cacheKey = `${currentAttendance.id}_${type}_${id}`;
         if(servicesCache[cacheKey]) {
             currentMemberServices = servicesCache[cacheKey];
             renderServiceForm();
             return;
         }
-        
+
         await loadMemberServices();
 
         const isFinished = currentAttendance && currentAttendance.is_finished && !isEditMode;
@@ -817,51 +1373,25 @@
             `;
         }
         
-        let questionnaireHtml = '';
-        if(currentMemberType === 'mother') {
-            questionnaireHtml = `
-                <div class="questionnaire-section">
-                    <div class="questionnaire-title">Questionário de Acolhimento</div>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item"><input type="checkbox" id="homeless" ${currentQuestionnaire.homeless ? 'checked' : ''} ${isReadOnly ? 'disabled' : ''}><label for="homeless" ${isReadOnly ? 'class="disabled"' : ''}>Mulher em situação de rua?</label></div>
-                        <div class="checkbox-item"><input type="checkbox" id="domestic_violence" ${currentQuestionnaire.domestic_violence ? 'checked' : ''} ${isReadOnly ? 'disabled' : ''}><label for="domestic_violence" ${isReadOnly ? 'class="disabled"' : ''}>Sofre violência doméstica?</label></div>
-                        <div class="checkbox-item"><input type="checkbox" id="protective_measure" ${currentQuestionnaire.protective_measure ? 'checked' : ''} ${isReadOnly ? 'disabled' : ''}><label for="protective_measure" ${isReadOnly ? 'class="disabled"' : ''}>Tem medida protetiva?</label></div>
-                        <div class="checkbox-item"><input type="checkbox" id="children_school" ${currentQuestionnaire.children_school ? 'checked' : ''} ${isReadOnly ? 'disabled' : ''}><label for="children_school" ${isReadOnly ? 'class="disabled"' : ''}>Filhos frequentam ambiente escolar?</label></div>
-                        <div class="checkbox-item"><input type="checkbox" id="serious_illness" ${currentQuestionnaire.serious_illness ? 'checked' : ''} ${isReadOnly ? 'disabled' : ''}><label for="serious_illness" ${isReadOnly ? 'class="disabled"' : ''}>Tem diagnóstico de doença grave?</label></div>
-                    </div>
-                    <div class="form-group" style="margin-top:16px;">
-                        <label>Observações gerais</label>
-                        <textarea id="familyObs" placeholder="Informações adicionais sobre a família..." ${isReadOnly ? 'disabled' : ''}>${currentQuestionnaire.obs || ''}</textarea>
-                    </div>
-                </div>
-            `;
-        }
-        
         const html = `
             ${isReadOnly ? '<div class="readonly-indicator">✅ Atendimento finalizado — Visualização somente leitura. Clique em "Editar Atendimento" para modificar.</div>' : ''}
-            <div class="attendance-header">
-                <h2>${currentFamilyMember.name}</h2>
-                <p>${currentMemberType === 'mother' ? 'Responsável familiar' : 'Filho(a)'}</p>
+            <div class="service-form-header">
+                <div class="attendance-header" style="margin-bottom:0;">
+                    <h2>${currentFamilyMember.name}</h2>
+                    <p>${currentMemberType === 'mother' ? 'Responsável familiar' : currentMemberType === 'man' ? 'Homem' : 'Filho(a)'}</p>
+                </div>
+                ${!isReadOnly ? '<button id="btnVoltarCadastro" class="btn-secondary btn-voltar-cadastro">← Cadastro complementar</button>' : ''}
             </div>
             <div class="services-container" id="servicesContainer">${servicesHtml}</div>
             <button class="btn-add-row" id="addNewRowBtn" ${isReadOnly ? 'disabled' : ''}>+ Adicionar nova linha</button>
-            ${questionnaireHtml}
         `;
-        
+
         document.getElementById('attendanceContent').innerHTML = html;
-        
+
         if(!isReadOnly) {
             attachRowEvents();
             document.getElementById('addNewRowBtn').onclick = () => addNewEmptyRow();
-        }
-        
-        if(currentMemberType === 'mother' && !isReadOnly) {
-            document.getElementById('homeless').onchange = (e) => { currentQuestionnaire.homeless = e.target.checked; saveQuestionnaire(); };
-            document.getElementById('domestic_violence').onchange = (e) => { currentQuestionnaire.domestic_violence = e.target.checked; saveQuestionnaire(); };
-            document.getElementById('protective_measure').onchange = (e) => { currentQuestionnaire.protective_measure = e.target.checked; saveQuestionnaire(); };
-            document.getElementById('children_school').onchange = (e) => { currentQuestionnaire.children_school = e.target.checked; saveQuestionnaire(); };
-            document.getElementById('serious_illness').onchange = (e) => { currentQuestionnaire.serious_illness = e.target.checked; saveQuestionnaire(); };
-            document.getElementById('familyObs').onchange = (e) => { currentQuestionnaire.obs = e.target.value; saveQuestionnaire(); };
+            document.getElementById('btnVoltarCadastro').onclick = () => goBackToProfile();
         }
     }
     
@@ -948,16 +1478,141 @@
         renderServiceForm();
     }
     
+    async function generateReportData() {
+        if(!currentMother || !currentAttendance) return null;
+
+        const now = new Date();
+        const dd  = String(now.getDate()).padStart(2, '0');
+        const mm  = String(now.getMonth() + 1).padStart(2, '0');
+        const yyyy = now.getFullYear();
+        const dateStr = dd + '/' + mm + '/' + yyyy;
+
+        const hdrs = { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` };
+
+        // Busca filhos e itens do atendimento em paralelo
+        const [childResp, itemsResp] = await Promise.all([
+            fetch(`${SUPABASE_URL}/rest/v1/children?select=*&mother_id=eq.${currentMother.id}&order=name`, { headers: hdrs }),
+            fetch(`${SUPABASE_URL}/rest/v1/attendance_items?attendance_id=eq.${currentAttendance.id}&select=*,organs(name),services(name)`, { headers: hdrs })
+        ]);
+        const children = childResp.ok ? await childResp.json() : [];
+        const allItems = itemsResp.ok ? await itemsResp.json() : [];
+
+        // Retorna somente { organ_name, service_name } — formato exato do ReportPayload
+        function itemsFor(memberType, memberId) {
+            return allItems
+                .filter(i => i.family_member_type === memberType && Number(i.family_member_id) === Number(memberId))
+                .filter(i => i.organ_name || i.organs?.name)
+                .map(i => ({
+                    organ_name:   i.organs?.name   || i.organ_name   || '',
+                    service_name: i.services?.name || i.service_name || ''
+                }));
+        }
+
+        // Retorna perfil mapeado para os campos exatos do ReportPayload (sem IDs internos do DB)
+        async function getProfile(memberType, memberId) {
+            const key = `${memberType}_${memberId}`;
+            const raw = profileCache[key] || await (async () => {
+                const r = await fetch(
+                    `${SUPABASE_URL}/rest/v1/member_profile?member_type=eq.${memberType}&member_id=eq.${memberId}&limit=1`,
+                    { headers: hdrs }
+                );
+                const d = r.ok ? await r.json() : [];
+                return d[0] || null;
+            })();
+            if(!raw) return undefined;
+            const mapped = {
+                escolaridade: raw.escolaridade || '',
+                raca_etnia:   raw.raca_etnia   || '',
+                genero:       raw.genero        || '',
+                idade:        Number(raw.idade) || 0
+            };
+            if(raw.obs) mapped.obs = raw.obs;
+            return mapped;
+        }
+
+        const [motherProfile, motherServices] = await Promise.all([
+            getProfile('mother', currentMother.id),
+            Promise.resolve(itemsFor('mother', currentMother.id))
+        ]);
+
+        const childrenData = await Promise.all(children.map(async c => {
+            const child = {
+                id:       c.id,
+                name:     c.name,
+                services: itemsFor('child', c.id),
+                profile:  await getProfile('child', c.id)
+            };
+            // age só incluído quando é número válido (evita "null anos" no PDF)
+            const age = parseInt(c.age);
+            if(!isNaN(age)) child.age = age;
+            return child;
+        }));
+
+        // Questionário: apenas os 6 campos do ReportPayload, sem o campo `id` interno
+        const q = currentQuestionnaire;
+        const questionnaire = {
+            homeless:           Boolean(q.homeless),
+            domestic_violence:  Boolean(q.domestic_violence),
+            protective_measure: Boolean(q.protective_measure),
+            children_school:    Boolean(q.children_school),
+            serious_illness:    Boolean(q.serious_illness)
+        };
+        if(q.obs) questionnaire.obs = q.obs;
+
+        const mother = {
+            id:       currentMother.id,
+            name:     currentMother.name,
+            services: motherServices
+        };
+        if(currentMother.birth_date) mother.birth_date   = currentMother.birth_date;
+        if(currentMother.cpf)        mother.cpf          = currentMother.cpf;
+        if(currentMother.observation) mother.observation = currentMother.observation;
+        if(motherProfile)            mother.profile      = motherProfile;
+
+        return { mother, questionnaire, children: childrenData, attendanceDate: dateStr };
+    }
+
+    async function sendReportViaEmail() {
+        try {
+            const reportData = await generateReportData();
+            if(!reportData) return;
+            const resp = await fetch(`${SUPABASE_URL}/functions/v1/send-report`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` },
+                body: JSON.stringify(reportData)
+            });
+            if(!resp.ok) {
+                const errText = await resp.text();
+                console.warn('Falha ao enviar relatório:', errText);
+            }
+        } catch(e) {
+            console.warn('Erro ao enviar relatório:', e);
+        }
+    }
+
     window.finalizarAtendimento = async function(){
         if(currentAttendance){
             showConfirmModal('Deseja finalizar o atendimento desta família?', async () => {
-                await fetch(`${SUPABASE_URL}/rest/v1/attendances?id=eq.${currentAttendance.id}`, { method:'PATCH', headers:{ 'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,'Content-Type':'application/json' }, body: JSON.stringify({ is_finished: true, finished_at: new Date().toISOString() }) });
-                showAlertModal('Família finalizada com sucesso!', true);
+                await fetch(`${SUPABASE_URL}/rest/v1/attendances?id=eq.${currentAttendance.id}`, {
+                    method: 'PATCH',
+                    headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}`, 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ is_finished: true, finished_at: new Date().toISOString() })
+                });
                 currentAttendance.is_finished = true;
                 adminCache.organs = null;
                 adminCache.families = null;
-                // Recarregar a família para mostrar o estado finalizado
-                await selectMother(currentMother);
+
+                if(currentMother?._isMan) {
+                    showAlertModal('Atendimento finalizado!', true);
+                    const man = allMen.find(m => m.id === currentMother._manId);
+                    if(man) await selectMan(man);
+                } else {
+                    sendReportViaEmail()
+                        .then(() => console.log('Relatório enviado.'))
+                        .catch(e  => console.warn('Falha no envio:', e));
+                    showAlertModal('Família finalizada! Relatório sendo enviado por e-mail...', true);
+                    await selectMother(currentMother);
+                }
             });
         }
     };
@@ -978,6 +1633,8 @@
                 <button data-tab="families" class="admin-tab-btn">Famílias Atendidas</button>
                 <button data-tab="crudFamilies" class="admin-tab-btn">Famílias Cadastro</button>
                 <button data-tab="crudOrgans" class="admin-tab-btn">Órgãos e Serviços</button>
+                <button data-tab="enraizados" class="admin-tab-btn">📌 Dados Enraizados</button>
+                <button data-tab="homens" class="admin-tab-btn">👨 Homens</button>
             </div>
             <div id="adminTabContent" class="tab-content"><div class="loading-placeholder">Carregando...</div></div></div>`;
         document.body.appendChild(adminModal);
@@ -999,16 +1656,28 @@
                 else if(currentAdminTab === 'families') await loadFamiliesList();
                 else if(currentAdminTab === 'crudFamilies') await loadCrudFamilies();
                 else if(currentAdminTab === 'crudOrgans') await loadCrudOrgans();
+                else if(currentAdminTab === 'enraizados') await loadDadosEnraizados();
+                else if(currentAdminTab === 'homens') await loadHomens();
             };
         });
         loadOrgansStats();
     }
     
-    async function exportToExcel(data, filename, sheetName = 'Dados') {
+    function exportToExcel(data, filename, sheetName = 'Dados', colWidths = null) {
         const ws = XLSX.utils.aoa_to_sheet(data);
+        if(colWidths) ws['!cols'] = colWidths;
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, sheetName);
-        XLSX.writeFile(wb, `${filename}_${new Date().toISOString().slice(0,19)}.xlsx`);
+        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        const blob = new Blob([wbout], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${filename}_${new Date().toISOString().slice(0,10)}.xlsx`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
         showAlertModal('Exportação concluída!', true);
     }
     
@@ -1061,12 +1730,25 @@
             document.getElementById('adminTabContent').innerHTML = html;
 
             document.getElementById('exportOrgansExcel').onclick = () => {
-                let wsData = [['RELATÓRIO DE ÓRGÃOS E SERVIÇOS SOLICITADOS'], [], ['Órgão', 'Total Solicitações', 'Serviços (quantidade)']];
-                for(let [orgName, data] of sortedOrgans){
-                    let servText = Array.from(data.services.entries()).map(([s,q])=>`${s} (${q})`).join('; ');
-                    wsData.push([orgName, data.total, servText]);
+                const today = new Date().toLocaleDateString('pt-BR');
+                let wsData = [
+                    ['RELATÓRIO DE ÓRGÃOS E SERVIÇOS SOLICITADOS'],
+                    [`Gerado em: ${today}`],
+                    [],
+                    ['Órgão', 'Total Solicitações (Órgão)', 'Serviço', 'Qtd. Serviço']
+                ];
+                for(let [orgName, orgData] of sortedOrgans) {
+                    let sortedSvcs = Array.from(orgData.services.entries()).sort((a,b) => b[1]-a[1]);
+                    if(sortedSvcs.length === 0) {
+                        wsData.push([orgName, orgData.total, '', '']);
+                    } else {
+                        sortedSvcs.forEach(([srvName, qty], idx) => {
+                            wsData.push([idx === 0 ? orgName : '', idx === 0 ? orgData.total : '', srvName, qty]);
+                        });
+                    }
+                    wsData.push([]);
                 }
-                exportToExcel(wsData, 'orgaos_solicitados', 'Orgaos_Solicitados');
+                exportToExcel(wsData, 'orgaos_solicitados', 'Orgaos_Servicos', [{wch:35},{wch:24},{wch:40},{wch:14}]);
             };
         } catch(e) {
             document.getElementById('adminTabContent').innerHTML = '<div class="loading-placeholder">Erro ao carregar dados</div>';
@@ -1075,11 +1757,12 @@
     
     async function loadFamiliesList(){
         try {
-            const [items, attendances, allChildren, questionnaires] = await Promise.all([
+            const [items, attendances, allChildren, questionnaires, memberProfiles] = await Promise.all([
                 fetch(`${SUPABASE_URL}/rest/v1/attendance_items?select=*,attendance_id,family_member_type,family_member_id`, { headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} }).then(r=>r.json()),
-                fetch(`${SUPABASE_URL}/rest/v1/attendances?select=*,mothers(name)&is_finished=eq.true`, { headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} }).then(r=>r.json()),
+                fetch(`${SUPABASE_URL}/rest/v1/attendances?select=*,mothers(name,id,cpf,telefone,data_nascimento,observation)&is_finished=eq.true`, { headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} }).then(r=>r.json()),
                 fetch(`${SUPABASE_URL}/rest/v1/children?select=*`, { headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} }).then(r=>r.json()),
-                fetch(`${SUPABASE_URL}/rest/v1/questionnaires?select=*`, { headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} }).then(r=>r.json())
+                fetch(`${SUPABASE_URL}/rest/v1/questionnaires?select=*`, { headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} }).then(r=>r.json()),
+                fetch(`${SUPABASE_URL}/rest/v1/member_profile?select=*`, { headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} }).then(r=>r.json())
             ]);
             
             let html = `<div style="margin-bottom:20px;"><button id="exportFamiliesDetailExcel" class="btn-primary">📎 Exportar Todas Famílias (Excel)</button></div>`;
@@ -1096,6 +1779,7 @@
                 let childrenServices = familyItems.filter(i => i.family_member_type === 'child');
                 let q = questionnaires.find(q => q.mother_id === att.mother_id);
                 
+                let motherProfile = memberProfiles.find(p => p.member_type === 'mother' && p.member_id === att.mother_id);
                 let motherServicesList = motherServices.length ? motherServices.map(s => `${s.organ_name}: ${s.service_name}`).join(', ') : 'Nenhum serviço solicitado';
                 let childrenList = [];
                 let processedChildren = new Set();
@@ -1104,7 +1788,8 @@
                         processedChildren.add(child.family_member_id);
                         let childInfo = allChildren.find(c => c.id === child.family_member_id);
                         let childSpecific = familyItems.filter(i => i.family_member_type === 'child' && i.family_member_id === child.family_member_id);
-                        childrenList.push({ name: childInfo?.name || 'Sem nome', services: childSpecific.map(s => `${s.organ_name}: ${s.service_name}`).join(', ') });
+                        let childProfile = memberProfiles.find(p => p.member_type === 'child' && p.member_id === child.family_member_id);
+                        childrenList.push({ name: childInfo?.name || 'Sem nome', services: childSpecific.map(s => `${s.organ_name}: ${s.service_name}`).join(', '), profile: childProfile || null });
                     }
                 }
                 let questionnaireFlags = '';
@@ -1123,7 +1808,7 @@
                 html += `<div class="family-detail-card">
                     <h4 onclick="toggleExpand('${expandId}')">👪 ${mother?.name || 'N/A'} <span class="expand-icon">▼</span></h4>
                     <div id="${expandId}" class="family-expandable">
-                        <div class="member-detail"><strong>Mãe</strong><div class="services-list-small">${motherServicesList}</div></div>`;
+                        <div class="member-detail"><strong>Mãe</strong><div class="services-list-small">${motherServicesList}</div>${motherProfile ? `<div class="services-list-small" style="color:#7A4895;margin-top:4px;">📋 ${motherProfile.escolaridade} · ${motherProfile.raca_etnia} · ${motherProfile.genero} · ${motherProfile.idade} anos</div>` : ''}</div>`;
                 if(questionnaireFlags) {
                     html += `<div class="member-detail"><strong>Questionário</strong><div class="services-list-small">${questionnaireFlags}</div></div>`;
                 }
@@ -1131,42 +1816,94 @@
                     html += `<div class="member-detail"><strong>Observações</strong><div class="services-list-small">${obsText}</div></div>`;
                 }
                 for(let child of childrenList){
-                    html += `<div class="member-detail"><strong>Filho(a): ${child.name}</strong><div class="services-list-small">${child.services || 'Nenhum serviço solicitado'}</div></div>`;
+                    html += `<div class="member-detail"><strong>Filho(a): ${child.name}</strong><div class="services-list-small">${child.services || 'Nenhum serviço solicitado'}</div>${child.profile ? `<div class="services-list-small" style="color:#7A4895;margin-top:4px;">📋 ${child.profile.escolaridade} · ${child.profile.raca_etnia} · ${child.profile.genero} · ${child.profile.idade} anos</div>` : ''}</div>`;
                 }
                 html += `<div class="action-buttons-fam"><button class="btn-danger" onclick="event.stopPropagation(); requestDeleteAttendance(${att.id})">🗑️ Remover Atendimento</button></div></div></div>`;
             }
             html += `</div>`;
-            adminCache.families = html;
             document.getElementById('adminTabContent').innerHTML = html;
             
             document.getElementById('exportFamiliesDetailExcel').onclick = () => {
-                let wsData = [['FAMÍLIAS ATENDIDAS - RELATÓRIO COMPLETO'], [], ['Família', 'Status', 'Membro', 'Órgão/Serviço', 'Questionário', 'Observações']];
-                for(let att of attendances){
-                    let familyItems = items.filter(i => i.attendance_id === att.id);
-                    let mother = att.mothers;
-                    let q = questionnaires.find(q => q.mother_id === att.mother_id);
-                    let questionnaireText = '';
-                    let obsExcel = '';
-                    if(q) {
-                        let parts = [];
-                        if(q.homeless) parts.push('Rua');
-                        if(q.domestic_violence) parts.push('Violência');
-                        if(q.protective_measure) parts.push('Medida protetiva');
-                        if(q.children_school) parts.push('Escola');
-                        if(q.serious_illness) parts.push('Doença grave');
-                        questionnaireText = parts.join(', ');
-                        obsExcel = q.obs || '';
+                const fmtDate = iso => iso ? iso.split('-').reverse().join('/') : '';
+                const today = new Date().toLocaleDateString('pt-BR');
+
+                const cols = [
+                    {wch:30},{wch:12},{wch:30},{wch:16},{wch:17},{wch:18},
+                    {wch:7},{wch:24},{wch:18},{wch:22},{wch:30},{wch:35},{wch:50},{wch:50}
+                ];
+                let wsData = [
+                    ['FAMÍLIAS ATENDIDAS - RELATÓRIO COMPLETO'],
+                    [`Gerado em: ${today}`],
+                    [],
+                    ['Família','Tipo','Nome','CPF','Telefone','Data de Nasc.','Idade',
+                     'Escolaridade','Raça/Etnia','Gênero','Órgão','Serviço',
+                     'Questionário de Acolhimento','Observações']
+                ];
+
+                for(let att of attendances) {
+                    const m          = att.mothers;
+                    const isShadow   = m?.observation?.startsWith('__man_shadow__:');
+                    const familyName = m?.name || 'N/A';
+                    const famItems   = items.filter(i => i.attendance_id === att.id);
+
+                    if(isShadow) {
+                        // Homem
+                        const manId   = parseInt(m.observation.replace('__man_shadow__:', ''));
+                        const manProf = memberProfiles.find(p => p.member_type === 'man' && p.member_id === manId);
+                        const manSvcs = famItems.filter(i => i.family_member_type === 'man' && i.family_member_id === manId);
+                        const manObs  = manProf?.obs || '';
+                        const baseRow = [familyName,'Homem',familyName, m?.cpf||'',m?.telefone||'',fmtDate(m?.data_nascimento),
+                            manProf?.idade??'', manProf?.escolaridade||'',manProf?.raca_etnia||'',manProf?.genero||''];
+                        if(manSvcs.length) manSvcs.forEach(s => wsData.push([...baseRow, s.organ_name||'',s.service_name||'','',manObs]));
+                        else wsData.push([...baseRow,'','','',manObs]);
+
+                    } else {
+                        // Mãe
+                        const q      = questionnaires.find(q => q.mother_id === att.mother_id);
+                        const mProf  = memberProfiles.find(p => p.member_type === 'mother' && p.member_id === att.mother_id);
+                        const qParts = [];
+                        if(q?.homeless)           qParts.push('Situação de rua');
+                        if(q?.domestic_violence)  qParts.push('Violência doméstica');
+                        if(q?.protective_measure) qParts.push('Medida protetiva');
+                        if(q?.children_school)    qParts.push('Filhos na escola');
+                        if(q?.serious_illness)    qParts.push('Doença grave');
+                        const qText    = qParts.join(', ');
+                        const motherObs = mProf?.obs || q?.obs || '';
+                        const motherSvcs = famItems.filter(i => i.family_member_type === 'mother');
+                        const mBase = [familyName,'Mãe',m?.name||'N/A', m?.cpf||'',m?.telefone||'',fmtDate(m?.data_nascimento),
+                            mProf?.idade??'', mProf?.escolaridade||'',mProf?.raca_etnia||'',mProf?.genero||''];
+                        if(motherSvcs.length) motherSvcs.forEach(s => wsData.push([...mBase, s.organ_name||'',s.service_name||'',qText,motherObs]));
+                        else wsData.push([...mBase,'','',qText,motherObs]);
+
+                        // Filhos
+                        const familyChildren  = allChildren.filter(c => c.mother_id === att.mother_id);
+                        const processedChilds = new Set();
+                        // Filhos com serviços
+                        const childSvcs = famItems.filter(i => i.family_member_type === 'child');
+                        for(let cs of childSvcs) {
+                            const cid = cs.family_member_id;
+                            if(!processedChilds.has(cid)) processedChilds.add(cid);
+                            const ci   = allChildren.find(c => c.id === cid);
+                            const cProf = memberProfiles.find(p => p.member_type === 'child' && p.member_id === cid);
+                            wsData.push([familyName,'Filho(a)',ci?.name||'Sem nome',
+                                ci?.cpf||'','',fmtDate(ci?.data_nascimento),
+                                cProf?.idade??ci?.age??'', cProf?.escolaridade||'',cProf?.raca_etnia||'',cProf?.genero||ci?.genero||'',
+                                cs.organ_name||'',cs.service_name||'','',cProf?.obs||'']);
+                        }
+                        // Filhos sem serviços
+                        for(let child of familyChildren) {
+                            if(!processedChilds.has(child.id)) {
+                                const cProf = memberProfiles.find(p => p.member_type === 'child' && p.member_id === child.id);
+                                wsData.push([familyName,'Filho(a)',child.name||'Sem nome',
+                                    child.cpf||'','',fmtDate(child.data_nascimento),
+                                    cProf?.idade??child.age??'', cProf?.escolaridade||'',cProf?.raca_etnia||'',cProf?.genero||child.genero||'',
+                                    '','','',cProf?.obs||'']);
+                            }
+                        }
                     }
-                    let motherServices = familyItems.filter(i => i.family_member_type === 'mother');
-                    if(motherServices.length) motherServices.forEach(ms => wsData.push([mother?.name || 'N/A', 'Finalizado', 'Mãe', `${ms.organ_name}: ${ms.service_name}`, questionnaireText, obsExcel]));
-                    else wsData.push([mother?.name || 'N/A', 'Finalizado', 'Mãe', 'Nenhum serviço', questionnaireText, obsExcel]);
-                    let childrenServices = familyItems.filter(i => i.family_member_type === 'child');
-                    for(let cs of childrenServices){
-                        let childInfo = allChildren.find(c => c.id === cs.family_member_id);
-                        wsData.push([mother?.name || 'N/A', 'Finalizado', `Filho: ${childInfo?.name || 'Sem nome'}`, `${cs.organ_name}: ${cs.service_name}`, '', '']);
-                    }
+                    wsData.push([]);
                 }
-                exportToExcel(wsData, 'familias_atendidas', 'Familias_Atendidas');
+                exportToExcel(wsData, 'familias_atendidas', 'Familias_Atendidas', cols);
             };
         } catch(e) { 
             document.getElementById('adminTabContent').innerHTML = '<div class="loading-placeholder">Erro ao carregar dados</div>';
@@ -1175,10 +1912,58 @@
     
     window.requestDeleteAttendance = async function(attendanceId) {
         showPasswordModal(async () => {
-            showConfirmModal('Remover todo o atendimento desta família? Esta ação não pode ser desfeita.', async () => {
-                await fetch(`${SUPABASE_URL}/rest/v1/attendance_items?attendance_id=eq.${attendanceId}`, { method:'DELETE', headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} });
-                await fetch(`${SUPABASE_URL}/rest/v1/attendances?id=eq.${attendanceId}`, { method:'DELETE', headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} });
-                showAlertModal('Atendimento removido com sucesso!', true);
+            showConfirmModal('Remover todo o atendimento desta família? Cadastros complementares e questionário também serão apagados.', async () => {
+                const hdrs = { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` };
+
+                // Buscar mother_id e filhos antes de deletar
+                const attResp = await fetch(`${SUPABASE_URL}/rest/v1/attendances?id=eq.${attendanceId}&select=mother_id`, { headers: hdrs });
+                const attData = attResp.ok ? await attResp.json() : [];
+                const motherId = attData[0]?.mother_id;
+
+                let childrenIds = [];
+                if(motherId) {
+                    const childResp = await fetch(`${SUPABASE_URL}/rest/v1/children?select=id&mother_id=eq.${motherId}`, { headers: hdrs });
+                    const childData = childResp.ok ? await childResp.json() : [];
+                    childrenIds = childData.map(c => c.id);
+                }
+
+                // Deletar itens e o atendimento
+                await fetch(`${SUPABASE_URL}/rest/v1/attendance_items?attendance_id=eq.${attendanceId}`, { method:'DELETE', headers: hdrs });
+                await fetch(`${SUPABASE_URL}/rest/v1/attendances?id=eq.${attendanceId}`, { method:'DELETE', headers: hdrs });
+
+                // Deletar cadastros complementares e questionário — reset completo do ciclo
+                if(motherId) {
+                    await Promise.all([
+                        fetch(`${SUPABASE_URL}/rest/v1/member_profile?member_type=eq.mother&member_id=eq.${motherId}`, { method:'DELETE', headers: hdrs }),
+                        fetch(`${SUPABASE_URL}/rest/v1/questionnaires?mother_id=eq.${motherId}`, { method:'DELETE', headers: hdrs })
+                    ]);
+                    delete profileCache[`mother_${motherId}`];
+                    delete questionnaireCache[motherId];
+                }
+                for(const childId of childrenIds) {
+                    await fetch(`${SUPABASE_URL}/rest/v1/member_profile?member_type=eq.child&member_id=eq.${childId}`, { method:'DELETE', headers: hdrs });
+                    delete profileCache[`child_${childId}`];
+                }
+
+                // Limpar cache de serviços do atendimento removido
+                for(const key of Object.keys(servicesCache)) {
+                    if(key.startsWith(`${attendanceId}_`)) delete servicesCache[key];
+                }
+
+                // Resetar estado ativo se for o atendimento em tela
+                if(currentAttendance && currentAttendance.id === attendanceId) {
+                    currentAttendance = null;
+                    currentFamilyMember = null;
+                    currentMemberType = null;
+                    currentMemberServices = [];
+                    currentQuestionnaire = { id: null, homeless: false, domestic_violence: false, protective_measure: false, children_school: false, serious_illness: false, obs: '' };
+                    document.getElementById('attendanceContent').innerHTML = '<div style="text-align:center;color:#a78bfa;padding:60px;">Selecione um familiar à esquerda</div>';
+                    document.getElementById('btnFinalizar').style.display = 'none';
+                    document.getElementById('btnEditFamily').style.display = 'none';
+                    document.querySelector('.attendance-area').classList.remove('finished');
+                }
+
+                showAlertModal('Atendimento e cadastros complementares removidos com sucesso!', true);
                 adminCache.families = null;
                 adminCache.organs = null;
                 await loadFamiliesList();
@@ -1205,12 +1990,22 @@
             let html = `<button onclick="window.showFullMotherRegistration(false)" class="btn-primary">+ Adicionar Nova Mãe</button><div style="margin-top:20px;">`;
             for(let m of mothers){
                 const children = childrenByMother[m.id] || [];
-                const childrenNames = children.map(c => c.name).join(', ') || 'Nenhum';
+                const childrenItemsHtml = children.length > 0
+                    ? children.map(c => {
+                        const details = [c.genero, c.raca, c.cpf ? `CPF: ${c.cpf}` : ''].filter(Boolean).join(' · ');
+                        return `<div style="display:flex;align-items:center;gap:8px;margin:4px 0 4px 20px;flex-wrap:wrap;">
+                            <span style="font-size:0.82rem;color:#551E75;">👤 ${c.name}${c.age != null ? ` (${c.age} anos)` : ''}</span>
+                            ${details ? `<span style="font-size:0.78rem;color:#a78bfa;">— ${details}</span>` : ''}
+                            <button onclick="editChildFromAdmin(${c.id})" class="btn-primary" style="padding:3px 10px;font-size:0.75rem;min-height:unset;">Editar</button>
+                        </div>`;
+                    }).join('')
+                    : `<div style="margin:6px 0 0 20px;font-size:0.8rem;color:#a78bfa;">Nenhum filho cadastrado</div>`;
                 html += `<div style="background:#faf5ff;margin:12px 0;padding:16px;border-radius:20px;">
-                    <strong style="color:#7A4895;">${m.name}</strong> 
-                    <button onclick="editMotherFromAdmin(${m.id})" class="btn-primary" style="background:#7A4895; margin-left:10px;">Editar</button> 
+                    <strong style="color:#7A4895;">${m.name}</strong>
+                    <button onclick="editMotherFromAdmin(${m.id})" class="btn-primary" style="background:#7A4895; margin-left:10px;">Editar</button>
                     <button onclick="deleteMotherFromAdmin(${m.id})" class="btn-danger">Excluir</button>
-                    <div style="margin-top:8px;margin-left:20px;font-size:0.8rem;color:#7A4895;">👶 Filhos: ${childrenNames}</div>
+                    <div style="margin-top:10px;font-size:0.82rem;color:#7A4895;font-weight:700;">👶 Filhos:</div>
+                    ${childrenItemsHtml}
                 </div>`;
             }
             html += `</div>`;
@@ -1225,17 +2020,94 @@
         const resp = await fetch(`${SUPABASE_URL}/rest/v1/mothers?id=eq.${id}`, { headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} });
         if(resp.ok) { const data = await resp.json(); if(data && data[0]) window.showFullMotherRegistration(true, data[0]); }
     };
+
+    window.editChildFromAdmin = async (id) => {
+        const resp = await fetch(`${SUPABASE_URL}/rest/v1/children?id=eq.${id}`, { headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} });
+        if(!resp.ok) { showAlertModal('Erro ao carregar dados do filho.', false); return; }
+        const data = await resp.json();
+        const child = data[0];
+        if(!child) { showAlertModal('Filho(a) não encontrado.', false); return; }
+
+        const racaOpts = ['Preta','Parda','Branca','Amarela','Indígena','Prefere não informar'];
+        const modal = document.createElement('div'); modal.className = 'modal-overlay';
+        modal.innerHTML = `<div class="modal-container">
+            <h3>Editar Filho(a)</h3>
+            <div class="form-group"><label>Nome completo *</label><input type="text" id="editChildName" value="${(child.name||'').replace(/"/g,'&quot;')}"></div>
+            <div class="form-group"><label>Idade</label><input type="number" id="editChildAge" min="0" max="120" value="${child.age != null ? child.age : ''}"></div>
+            <div class="form-group"><label>CPF</label><input type="text" id="editChildCpf" placeholder="000.000.000-00" maxlength="14" value="${(child.cpf||'').replace(/"/g,'&quot;')}"></div>
+            <div class="form-group"><label>Data de Nascimento</label><input type="date" id="editChildDataNasc" value="${child.data_nascimento||''}"></div>
+            <div class="form-group"><label>Gênero</label>
+                <select id="editChildGenero">
+                    <option value="">Selecionar...</option>
+                    <option ${child.genero==='Masculino'?'selected':''}>Masculino</option>
+                    <option ${child.genero==='Feminino'?'selected':''}>Feminino</option>
+                </select>
+            </div>
+            <div class="form-group"><label>Raça/Etnia</label>
+                <select id="editChildRaca">
+                    <option value="">Selecionar...</option>
+                    ${racaOpts.map(o => `<option ${child.raca===o?'selected':''}>${o}</option>`).join('')}
+                </select>
+            </div>
+            <div class="modal-buttons">
+                <button id="saveEditChildBtn" class="btn-primary">Salvar Alterações</button>
+                <button onclick="this.closest('.modal-overlay').remove()" class="btn-secondary">Cancelar</button>
+            </div>
+        </div>`;
+        document.body.appendChild(modal);
+
+        modal.querySelector('#editChildCpf').addEventListener('input', function() {
+            let v = this.value.replace(/\D/g,'').slice(0,11);
+            if(v.length<=3){this.value=v;return;}
+            if(v.length<=6){this.value=v.slice(0,3)+'.'+v.slice(3);return;}
+            if(v.length<=9){this.value=v.slice(0,3)+'.'+v.slice(3,6)+'.'+v.slice(6);return;}
+            this.value=v.slice(0,3)+'.'+v.slice(3,6)+'.'+v.slice(6,9)+'-'+v.slice(9);
+        });
+
+        modal.querySelector('#saveEditChildBtn').onclick = async () => {
+            const name = modal.querySelector('#editChildName').value.trim();
+            if(!name) { showAlertModal('Nome é obrigatório.', false); return; }
+            const age           = modal.querySelector('#editChildAge').value;
+            const cpf           = modal.querySelector('#editChildCpf').value.trim() || null;
+            const dataNasc      = modal.querySelector('#editChildDataNasc').value || null;
+            const genero        = modal.querySelector('#editChildGenero').value || null;
+            const raca          = modal.querySelector('#editChildRaca').value || null;
+            const res = await fetch(`${SUPABASE_URL}/rest/v1/children?id=eq.${id}`, {
+                method: 'PATCH',
+                headers: {'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,'Content-Type':'application/json'},
+                body: JSON.stringify({ name, age: age || null, cpf, data_nascimento: dataNasc, genero, raca })
+            });
+            if(res.ok) {
+                showAlertModal('Dados do(a) filho(a) atualizados com sucesso!', true);
+                modal.remove();
+                adminCache.crudFamilies = null;
+                if(adminModal && document.body.contains(adminModal) && currentAdminTab === 'crudFamilies') await loadCrudFamilies();
+                if(currentMother) await loadFamilyTree(currentMother.id);
+            } else {
+                showAlertModal('Erro ao salvar: ' + (await res.text()), false);
+            }
+        };
+    };
     
     window.deleteMotherFromAdmin = async (id) => {
         showConfirmModal('Excluir esta mãe e todos os filhos e atendimentos vinculados?', async () => {
-            const attendances = await fetch(`${SUPABASE_URL}/rest/v1/attendances?select=id&mother_id=eq.${id}`, { headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} }).then(r=>r.json());
+            const [attendances, childrenToDelete] = await Promise.all([
+                fetch(`${SUPABASE_URL}/rest/v1/attendances?select=id&mother_id=eq.${id}`, { headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} }).then(r=>r.json()),
+                fetch(`${SUPABASE_URL}/rest/v1/children?select=id&mother_id=eq.${id}`, { headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} }).then(r=>r.json())
+            ]);
             for(let att of attendances){
                 await fetch(`${SUPABASE_URL}/rest/v1/attendance_items?attendance_id=eq.${att.id}`, { method:'DELETE', headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} });
             }
             await fetch(`${SUPABASE_URL}/rest/v1/questionnaires?mother_id=eq.${id}`, { method:'DELETE', headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} });
+            await fetch(`${SUPABASE_URL}/rest/v1/member_profile?member_type=eq.mother&member_id=eq.${id}`, { method:'DELETE', headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} });
+            for(let child of childrenToDelete) {
+                await fetch(`${SUPABASE_URL}/rest/v1/member_profile?member_type=eq.child&member_id=eq.${child.id}`, { method:'DELETE', headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} });
+            }
             await fetch(`${SUPABASE_URL}/rest/v1/children?mother_id=eq.${id}`, { method:'DELETE', headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} });
             await fetch(`${SUPABASE_URL}/rest/v1/attendances?mother_id=eq.${id}`, { method:'DELETE', headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} });
             await fetch(`${SUPABASE_URL}/rest/v1/mothers?id=eq.${id}`, { method:'DELETE', headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`} });
+            delete profileCache[`mother_${id}`];
+            for(let child of childrenToDelete) delete profileCache[`child_${child.id}`];
             showAlertModal('Mãe e todos os dados vinculados excluídos com sucesso!', true);
             if(currentMother && currentMother.id === id) {
                 currentMother = null; currentAttendance = null; currentFamilyMember = null;
@@ -1419,7 +2291,343 @@
         document.getElementById('adminTabContent').innerHTML = html;
     }
     
+    async function loadDadosEnraizados() {
+        try {
+            const hdrs = { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` };
+            const [allMothersRaw, allMenRaw, attendances, motherProfiles, questionnaires, allChildren, childProfiles, menProfiles] = await Promise.all([
+                fetch(`${SUPABASE_URL}/rest/v1/mothers?select=id,name,observation&order=name`, { headers: hdrs }).then(r => r.json()),
+                fetch(`${SUPABASE_URL}/rest/v1/men?select=id,name&order=name`, { headers: hdrs }).then(r => r.json()),
+                fetch(`${SUPABASE_URL}/rest/v1/attendances?select=mother_id`, { headers: hdrs }).then(r => r.json()),
+                fetch(`${SUPABASE_URL}/rest/v1/member_profile?select=member_id&member_type=eq.mother`, { headers: hdrs }).then(r => r.json()),
+                fetch(`${SUPABASE_URL}/rest/v1/questionnaires?select=mother_id`, { headers: hdrs }).then(r => r.json()),
+                fetch(`${SUPABASE_URL}/rest/v1/children?select=id,mother_id`, { headers: hdrs }).then(r => r.json()),
+                fetch(`${SUPABASE_URL}/rest/v1/member_profile?select=member_id&member_type=eq.child`, { headers: hdrs }).then(r => r.json()),
+                fetch(`${SUPABASE_URL}/rest/v1/member_profile?select=member_id&member_type=eq.man`, { headers: hdrs }).then(r => r.json())
+            ]);
+
+            const mothers     = allMothersRaw.filter(m => !m.observation?.startsWith('__man_shadow__:'));
+            const shadowMothers = allMothersRaw.filter(m => m.observation?.startsWith('__man_shadow__:'));
+
+            // Mapa manId → shadowMotherId
+            const manShadowMap = {};
+            for(const s of shadowMothers) {
+                const manId = parseInt(s.observation.replace('__man_shadow__:', ''));
+                if(!isNaN(manId)) manShadowMap[manId] = s.id;
+            }
+
+            const withAttendances   = new Set(attendances.map(a => a.mother_id));
+            const withMotherProfile = new Set(motherProfiles.map(p => p.member_id));
+            const withQuestionnaire = new Set(questionnaires.map(q => q.mother_id));
+            const withChildProfile  = new Set(childProfiles.map(p => p.member_id));
+            const withManProfile    = new Set(menProfiles.map(p => p.member_id));
+
+            const childrenByMother = {};
+            for(const c of allChildren) {
+                if(!childrenByMother[c.mother_id]) childrenByMother[c.mother_id] = [];
+                childrenByMother[c.mother_id].push(c.id);
+            }
+
+            function hasMotherData(id) {
+                if(withAttendances.has(id) || withMotherProfile.has(id) || withQuestionnaire.has(id)) return true;
+                return (childrenByMother[id] || []).some(cid => withChildProfile.has(cid));
+            }
+
+            function hasManData(manId) {
+                if(withManProfile.has(manId)) return true;
+                const shadowId = manShadowMap[manId];
+                return shadowId ? withAttendances.has(shadowId) : false;
+            }
+
+            // Juntar mães e homens em lista única ordenada por nome
+            const allEntries = [
+                ...mothers.map(m => ({ type: 'mother', id: m.id, name: m.name })),
+                ...allMenRaw.map(m => ({ type: 'man', id: m.id, name: m.name }))
+            ].sort((a, b) => a.name.localeCompare(b.name, 'pt-BR', { sensitivity: 'base' }));
+
+            const total    = allEntries.length;
+            const comDados = allEntries.filter(e => e.type === 'mother' ? hasMotherData(e.id) : hasManData(e.id)).length;
+
+            let rows = '';
+            for(const entry of allEntries) {
+                const active   = entry.type === 'mother' ? hasMotherData(entry.id) : hasManData(entry.id);
+                const nameSafe = entry.name.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                const badge    = entry.type === 'man'
+                    ? `<span style="font-size:0.72rem;background:#e9d5ff;color:#7A4895;padding:2px 8px;border-radius:10px;margin-left:6px;">Homem</span>`
+                    : '';
+                const shadowId = entry.type === 'man' ? (manShadowMap[entry.id] ?? null) : null;
+                const onclick  = entry.type === 'mother'
+                    ? `window.resetarFamilia(${entry.id},'${nameSafe}')`
+                    : `window.resetarHomem(${entry.id},${shadowId},'${nameSafe}')`;
+                rows += `
+                    <div class="enraizados-row" data-name="${entry.name.toLowerCase()}">
+                        <span class="enraizados-name">${entry.name}${badge}</span>
+                        <button class="btn-resetar ${active ? 'btn-resetar-active' : 'btn-resetar-inactive'}"
+                            ${active ? `onclick="${onclick}"` : 'disabled'}>
+                            ${active ? '🟢 Resetar' : '⚪ Sem dados'}
+                        </button>
+                    </div>`;
+            }
+
+            const html = `
+                <div style="color:#7A4895;font-size:0.85rem;margin-bottom:16px;">
+                    <strong>${total}</strong> pessoa(s) cadastrada(s) —
+                    <strong style="color:#16a34a;">${comDados}</strong> com atendimento ou cadastro complementar
+                </div>
+                <input type="text" class="enraizados-search" id="enraizadosSearch" placeholder="Filtrar por nome...">
+                <div id="enraizadosList">${rows || '<div class="loading-placeholder">Nenhum cadastro encontrado.</div>'}</div>`;
+
+            document.getElementById('adminTabContent').innerHTML = html;
+
+            document.getElementById('enraizadosSearch').addEventListener('input', e => {
+                const q = e.target.value.toLowerCase().trim();
+                document.querySelectorAll('.enraizados-row').forEach(row => {
+                    row.style.display = row.dataset.name.includes(q) ? '' : 'none';
+                });
+            });
+        } catch(e) {
+            document.getElementById('adminTabContent').innerHTML = '<div class="loading-placeholder">Erro ao carregar dados. Tente novamente.</div>';
+        }
+    }
+
+    window.resetarFamilia = async function(motherId, motherName) {
+        showConfirmModal(
+            `Resetar atendimento e cadastro complementar de <strong>${motherName}</strong>?<br>Nomes e filhos permanecem. Esta ação não pode ser desfeita.`,
+            async () => {
+                const hdrs = { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` };
+
+                // Buscar atendimentos e filhos em paralelo
+                const [attData, childData] = await Promise.all([
+                    fetch(`${SUPABASE_URL}/rest/v1/attendances?select=id&mother_id=eq.${motherId}`, { headers: hdrs }).then(r => r.ok ? r.json() : []),
+                    fetch(`${SUPABASE_URL}/rest/v1/children?select=id&mother_id=eq.${motherId}`, { headers: hdrs }).then(r => r.ok ? r.json() : [])
+                ]);
+                const attendanceIds = attData.map(a => a.id);
+                const childIds = childData.map(c => c.id);
+
+                // Deletar itens de atendimento e limpar cache de serviços
+                for(const attId of attendanceIds) {
+                    await fetch(`${SUPABASE_URL}/rest/v1/attendance_items?attendance_id=eq.${attId}`, { method:'DELETE', headers: hdrs });
+                    for(const key of Object.keys(servicesCache)) {
+                        if(key.startsWith(`${attId}_`)) delete servicesCache[key];
+                    }
+                }
+
+                // Deletar tudo em paralelo
+                const ops = [
+                    fetch(`${SUPABASE_URL}/rest/v1/attendances?mother_id=eq.${motherId}`,                          { method:'DELETE', headers: hdrs }),
+                    fetch(`${SUPABASE_URL}/rest/v1/member_profile?member_type=eq.mother&member_id=eq.${motherId}`, { method:'DELETE', headers: hdrs }),
+                    fetch(`${SUPABASE_URL}/rest/v1/questionnaires?mother_id=eq.${motherId}`,                       { method:'DELETE', headers: hdrs }),
+                    // Limpar campos preenchidos pelo triador na mãe (sem apagar nome, CPF de cadastro ou birth_date)
+                    fetch(`${SUPABASE_URL}/rest/v1/mothers?id=eq.${motherId}`, {
+                        method: 'PATCH',
+                        headers: { ...hdrs, 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ telefone: null, data_nascimento: null })
+                    }),
+                    // Deletar perfis de todos os filhos
+                    ...childIds.map(cid =>
+                        fetch(`${SUPABASE_URL}/rest/v1/member_profile?member_type=eq.child&member_id=eq.${cid}`, { method:'DELETE', headers: hdrs })
+                    )
+                ];
+                await Promise.all(ops);
+
+                // Limpar caches em memória
+                delete profileCache[`mother_${motherId}`];
+                delete questionnaireCache[motherId];
+                for(const cid of childIds) delete profileCache[`child_${cid}`];
+
+                // Resetar estado ativo se for a mãe em tela
+                if(currentMother && currentMother.id === motherId) {
+                    currentAttendance = null; currentFamilyMember = null;
+                    currentMemberType = null; currentMemberServices = [];
+                    currentQuestionnaire = { id: null, homeless: false, domestic_violence: false, protective_measure: false, children_school: false, serious_illness: false, obs: '' };
+                    document.getElementById('attendanceContent').innerHTML = '<div style="text-align:center;color:#a78bfa;padding:60px;">Selecione um familiar à esquerda</div>';
+                    document.getElementById('btnFinalizar').style.display = 'none';
+                    document.getElementById('btnEditFamily').style.display = 'none';
+                    document.querySelector('.attendance-area').classList.remove('finished');
+                    await loadFamilyTree(motherId);
+                }
+
+                adminCache.families = null; adminCache.organs = null;
+                adminCache.crudFamilies = null; adminCache.enraizados = null;
+
+                showAlertModal(`Dados de <strong>${motherName}</strong> resetados com sucesso!`, true);
+                await loadDadosEnraizados();
+            }
+        );
+    };
+
+    window.resetarHomem = async function(manId, shadowId, manName) {
+        showConfirmModal(
+            `Resetar atendimento e cadastro complementar de <strong>${manName}</strong>?<br>O nome permanece. Esta ação não pode ser desfeita.`,
+            async () => {
+                const hdrs = { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` };
+
+                if(shadowId) {
+                    const attData = await fetch(`${SUPABASE_URL}/rest/v1/attendances?select=id&mother_id=eq.${shadowId}`, { headers: hdrs }).then(r => r.ok ? r.json() : []);
+                    for(const att of attData) {
+                        await fetch(`${SUPABASE_URL}/rest/v1/attendance_items?attendance_id=eq.${att.id}`, { method: 'DELETE', headers: hdrs });
+                        for(const key of Object.keys(servicesCache)) {
+                            if(key.startsWith(`${att.id}_`)) delete servicesCache[key];
+                        }
+                    }
+                }
+
+                const ops = [
+                    fetch(`${SUPABASE_URL}/rest/v1/member_profile?member_type=eq.man&member_id=eq.${manId}`, { method: 'DELETE', headers: hdrs })
+                ];
+                if(shadowId) {
+                    ops.push(
+                        fetch(`${SUPABASE_URL}/rest/v1/attendances?mother_id=eq.${shadowId}`, { method: 'DELETE', headers: hdrs }),
+                        fetch(`${SUPABASE_URL}/rest/v1/mothers?id=eq.${shadowId}`, {
+                            method: 'PATCH',
+                            headers: { ...hdrs, 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ cpf: null, telefone: null, data_nascimento: null })
+                        })
+                    );
+                }
+                await Promise.all(ops);
+
+                delete profileCache[`man_${manId}`];
+
+                if(currentMother?._isMan && currentMother._manId === manId) {
+                    currentAttendance = null; currentFamilyMember = null;
+                    currentMemberType = null; currentMemberServices = [];
+                    document.getElementById('attendanceContent').innerHTML = '<div style="text-align:center;color:#a78bfa;padding:60px;">Selecione um familiar à esquerda</div>';
+                    document.getElementById('btnFinalizar').style.display = 'none';
+                    document.getElementById('btnEditFamily').style.display = 'none';
+                    document.querySelector('.attendance-area').classList.remove('finished');
+                    if(shadowId) await loadFamilyTree(shadowId);
+                }
+
+                adminCache.families = null; adminCache.organs = null;
+                adminCache.crudFamilies = null; adminCache.enraizados = null;
+
+                showAlertModal(`Dados de <strong>${manName}</strong> resetados com sucesso!`, true);
+                await loadDadosEnraizados();
+            }
+        );
+    };
+
+    async function loadHomens() {
+        try {
+            const hdrs = { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` };
+            const men = await fetch(`${SUPABASE_URL}/rest/v1/men?select=*&order=name`, { headers: hdrs }).then(r => r.json());
+
+            let rows = '';
+            for(const m of men) {
+                const ns = m.name.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                rows += `
+                    <div style="background:#faf5ff;margin:10px 0;padding:14px 20px;border-radius:20px;display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid #e9d5ff;">
+                        <strong style="color:#2d1b4e;font-size:0.95rem;">${m.name}</strong>
+                        <div style="display:flex;gap:8px;flex-shrink:0;">
+                            <button onclick="window.editHomem(${m.id},'${ns}')" class="btn-primary" style="padding:7px 16px;">✏️ Editar</button>
+                            <button onclick="window.deleteHomem(${m.id},'${ns}')" class="btn-danger" style="padding:7px 16px;">🗑️ Excluir</button>
+                        </div>
+                    </div>`;
+            }
+
+            const html = `
+                <div style="margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+                    <span style="color:#7A4895;font-size:0.85rem;"><strong>${men.length}</strong> homem(ns) cadastrado(s)</span>
+                    <button onclick="window.showAddHomemModal()" class="btn-primary">+ Adicionar</button>
+                </div>
+                ${rows || '<div class="loading-placeholder">Nenhum homem cadastrado. Clique em "+ Adicionar" para começar.</div>'}`;
+
+            adminCache.homens = html;
+            document.getElementById('adminTabContent').innerHTML = html;
+        } catch(e) {
+            document.getElementById('adminTabContent').innerHTML = '<div class="loading-placeholder">Erro ao carregar dados. Tente novamente.</div>';
+        }
+    }
+
+    window.showAddHomemModal = function() {
+        const modal = document.createElement('div'); modal.className = 'modal-overlay';
+        modal.innerHTML = `
+            <div class="modal-container" style="max-width:500px;">
+                <h3>Adicionar Homem</h3>
+                <div class="form-group">
+                    <label>Nome completo *</label>
+                    <input type="text" id="newHomemName" placeholder="Nome do homem">
+                </div>
+                <div class="modal-buttons">
+                    <button id="saveHomemBtn" class="btn-primary">Salvar</button>
+                    <button id="cancelHomemBtn" class="btn-secondary">Cancelar</button>
+                </div>
+            </div>`;
+        document.body.appendChild(modal);
+        document.getElementById('newHomemName').focus();
+
+        modal.querySelector('#saveHomemBtn').onclick = async () => {
+            const name = document.getElementById('newHomemName').value.trim();
+            if(!name) { showAlertModal('Nome é obrigatório.', false); return; }
+            const hdrs = { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}`, 'Content-Type': 'application/json', 'Prefer': 'return=representation' };
+            const res = await fetch(`${SUPABASE_URL}/rest/v1/men`, { method: 'POST', headers: hdrs, body: JSON.stringify({ name }) });
+            if(res.ok) {
+                showAlertModal('Homem cadastrado com sucesso!', true);
+                modal.remove();
+                adminCache.homens = null;
+                await loadAllMen();
+                await loadHomens();
+            } else {
+                const err = await res.text();
+                showAlertModal('Erro ao cadastrar: ' + err, false);
+            }
+        };
+        modal.querySelector('#cancelHomemBtn').onclick = () => modal.remove();
+    };
+
+    window.editHomem = function(id, name) {
+        const modal = document.createElement('div'); modal.className = 'modal-overlay';
+        modal.innerHTML = `
+            <div class="modal-container" style="max-width:500px;">
+                <h3>Editar Homem</h3>
+                <div class="form-group">
+                    <label>Nome completo *</label>
+                    <input type="text" id="editHomemName" value="${name.replace(/"/g, '&quot;')}">
+                </div>
+                <div class="modal-buttons">
+                    <button id="saveEditHomemBtn" class="btn-primary">Salvar Alterações</button>
+                    <button id="cancelEditHomemBtn" class="btn-secondary">Cancelar</button>
+                </div>
+            </div>`;
+        document.body.appendChild(modal);
+        const input = document.getElementById('editHomemName');
+        input.focus(); input.select();
+
+        modal.querySelector('#saveEditHomemBtn').onclick = async () => {
+            const newName = input.value.trim();
+            if(!newName) { showAlertModal('Nome é obrigatório.', false); return; }
+            const hdrs = { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}`, 'Content-Type': 'application/json' };
+            const res = await fetch(`${SUPABASE_URL}/rest/v1/men?id=eq.${id}`, { method: 'PATCH', headers: hdrs, body: JSON.stringify({ name: newName }) });
+            if(res.ok) {
+                showAlertModal('Nome atualizado com sucesso!', true);
+                modal.remove();
+                adminCache.homens = null;
+                await loadAllMen();
+                await loadHomens();
+            } else {
+                showAlertModal('Erro ao atualizar.', false);
+            }
+        };
+        modal.querySelector('#cancelEditHomemBtn').onclick = () => modal.remove();
+    };
+
+    window.deleteHomem = function(id, name) {
+        showConfirmModal(`Excluir <strong>${name}</strong> do cadastro? Esta ação não pode ser desfeita.`, async () => {
+            const hdrs = { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` };
+            const res = await fetch(`${SUPABASE_URL}/rest/v1/men?id=eq.${id}`, { method: 'DELETE', headers: hdrs });
+            if(res.ok) {
+                showAlertModal('Homem excluído com sucesso!', true);
+            } else {
+                showAlertModal('Erro ao excluir.', false);
+            }
+            adminCache.homens = null;
+            await loadAllMen();
+            await loadHomens();
+        });
+    };
+
     loadAllMothers();
+    loadAllMen();
     loadOrgansAndServices();
 </script>
 </body>
