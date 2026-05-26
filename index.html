@@ -241,6 +241,16 @@
         .bar-fill { background: linear-gradient(90deg, #7A4895, #AA8DCB); height: 100%; display: flex; align-items: center; justify-content: flex-end; padding-right: 10px; color: white; font-weight: bold; font-size: 0.8rem; }
         .service-list { margin-top: 16px; max-height: 200px; overflow-y: auto; }
         .service-item-stat { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #e9d5ff; font-size: 0.85rem; }
+        .organ-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 2px solid #e9d5ff; }
+        .organ-header h3 { color: #551E75; margin: 0; font-size: 1rem; }
+        .organ-total-chip { background: #7A4895; color: white; padding: 3px 12px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; white-space: nowrap; }
+        .svc-bar-row { margin: 8px 0; }
+        .svc-bar-label { font-size: 0.8rem; color: #374151; margin-bottom: 3px; display: flex; justify-content: space-between; }
+        .svc-bar-label-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-right: 8px; }
+        .svc-bar-label-pct { font-size: 0.75rem; color: #7A4895; font-weight: 600; }
+        .svc-bar-track { background: #e9d5ff; border-radius: 20px; height: 24px; overflow: hidden; }
+        .svc-bar-fill { background: linear-gradient(90deg, #7A4895, #AA8DCB); height: 100%; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; min-width: 32px; border-radius: 20px; }
+        .svc-bar-count { color: white; font-weight: 700; font-size: 0.78rem; }
         .families-container { background: #faf5ff; border-radius: 24px; padding: 20px; margin-top: 20px; border: 1px solid #e9d5ff; }
         .family-detail-card { background: white; border-radius: 20px; padding: 16px; margin-bottom: 16px; border-left: 4px solid #AA8DCB; box-shadow: 0 2px 6px rgba(0,0,0,0.05); cursor: pointer; transition: all 0.2s; }
         .family-detail-card:hover { transform: translateX(4px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
@@ -252,6 +262,27 @@
         .member-detail strong { color: #7A4895; }
         .services-list-small { margin-left: 20px; font-size: 0.85rem; color: #4a5568; }
         .action-buttons-fam { display: flex; gap: 10px; margin-top: 10px; justify-content: flex-end; }
+        .att-date-badge { font-size: 0.75rem; color: #7A4895; font-weight: normal; background: #f3e8ff; padding: 2px 8px; border-radius: 12px; }
+        .member-block { background: #faf5ff; border-radius: 14px; padding: 12px 16px; margin: 8px 0; border-left: 3px solid #AA8DCB; }
+        .member-block-child { border-left-color: #e9d5ff; background: #fdfbff; }
+        .member-block-title { font-weight: 700; color: #551E75; font-size: 0.93rem; margin-bottom: 8px; }
+        .member-contact-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+        .info-chip { background: white; border: 1px solid #e9d5ff; border-radius: 12px; padding: 2px 10px; font-size: 0.78rem; color: #4a5568; }
+        .member-demographics { font-size: 0.8rem; color: #7A4895; background: white; border-radius: 10px; padding: 4px 10px; margin-bottom: 8px; display: inline-block; }
+        .member-services { margin-bottom: 8px; font-size: 0.85rem; }
+        .member-services strong { color: #6b7280; display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 4px; }
+        .service-badge { display: inline-block; background: #f3e8ff; border: 1px solid #e9d5ff; border-radius: 10px; padding: 2px 8px; font-size: 0.78rem; margin: 2px; color: #551E75; }
+        .member-obs { margin: 8px 0 4px 0; font-size: 0.83rem; }
+        .member-obs strong { color: #7A4895; display: block; font-size: 0.73rem; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 3px; }
+        .obs-text { background: white; border-left: 3px solid #AA8DCB; padding: 6px 10px; border-radius: 0 8px 8px 0; color: #374151; font-style: italic; font-size: 0.83rem; }
+        .questionnaire-block { background: #fffbeb; border-radius: 14px; padding: 12px 16px; margin: 8px 0; border-left: 3px solid #f59e0b; }
+        .questionnaire-title { font-weight: 700; color: #92400e; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+        .q-flags-row { display: flex; flex-wrap: wrap; gap: 6px; }
+        .q-flag { font-size: 0.75rem; padding: 3px 10px; border-radius: 12px; font-weight: 600; }
+        .q-flag-warning { background: #fef3c7; color: #92400e; }
+        .q-flag-danger { background: #fee2e2; color: #991b1b; }
+        .q-flag-info { background: #e0f2fe; color: #075985; }
+        .q-flag-ok { background: #dcfce7; color: #166534; }
         .organ-card { background: #faf5ff; margin: 16px 0; padding: 20px; border-radius: 24px; border: 1px solid #e9d5ff; }
         .organ-card h4 { color: #7A4895; margin-bottom: 12px; font-size: 1.1rem; }
         .service-tag { display: inline-block; background: white; padding: 4px 12px; border-radius: 20px; margin: 4px; font-size: 0.8rem; border: 1px solid #e9d5ff; }
@@ -1712,18 +1743,27 @@
             });
             let sortedOrgans = Array.from(organMap.entries()).sort((a,b)=>b[1].total - a[1].total);
 
+            const grandTotal = items.length;
             let html = `<div style="margin-bottom:20px;"><button id="exportOrgansExcel" class="btn-primary">📎 Exportar Órgãos e Serviços (Excel)</button></div>`;
             if(sortedOrgans.length === 0) {
                 html += '<div class="loading-placeholder">Nenhum serviço registrado nos atendimentos finalizados.</div>';
             } else {
                 html += `<div class="stats-grid">`;
-                for(let [orgName, data] of sortedOrgans){
-                    let percentage = maxTotal > 0 ? (data.total / maxTotal) * 100 : 0;
-                    let sortedServices = Array.from(data.services.entries()).sort((a,b)=>b[1]-a[1]);
-                    html += `<div class="stat-card"><h3>${orgName}</h3>
-                        <div style="display:flex;justify-content:space-between;padding:8px 0;"><span>Total solicitações:</span><strong>${data.total}</strong></div>
-                        <div class="bar-chart"><div class="bar-fill" style="width: ${percentage}%;">${data.total}</div></div>
-                        <div class="service-list"><strong>Serviços solicitados (decrescente):</strong>${sortedServices.map(([srvName, qtd])=>`<div class="service-item-stat"><span>${srvName}</span><span>${qtd} vez(es)</span></div>`).join('')}</div></div>`;
+                for(let [orgName, orgData] of sortedOrgans){
+                    let sortedServices = Array.from(orgData.services.entries()).sort((a,b)=>b[1]-a[1]);
+                    let maxSvc = sortedServices.length > 0 ? sortedServices[0][1] : 1;
+                    let barsHtml = sortedServices.map(([srvName, qty]) => {
+                        let pct = Math.max(8, Math.round((qty / maxSvc) * 100));
+                        let pctLabel = grandTotal > 0 ? Math.round(qty / grandTotal * 100) + '% do total' : '';
+                        return `<div class="svc-bar-row">
+                            <div class="svc-bar-label"><span class="svc-bar-label-name" title="${srvName}">${srvName}</span><span class="svc-bar-label-pct">${pctLabel}</span></div>
+                            <div class="svc-bar-track"><div class="svc-bar-fill" style="width:${pct}%;"><span class="svc-bar-count">${qty}</span></div></div>
+                        </div>`;
+                    }).join('');
+                    html += `<div class="stat-card">
+                        <div class="organ-header"><h3>${orgName}</h3><span class="organ-total-chip">${orgData.total} solicitações</span></div>
+                        ${barsHtml}
+                    </div>`;
                 }
                 html += `</div>`;
             }
@@ -1731,24 +1771,39 @@
 
             document.getElementById('exportOrgansExcel').onclick = () => {
                 const today = new Date().toLocaleDateString('pt-BR');
+                const NCOLS_ORG = 4;
                 let wsData = [
-                    ['RELATÓRIO DE ÓRGÃOS E SERVIÇOS SOLICITADOS'],
+                    ['RELATÓRIO DE ÓRGÃOS E SERVIÇOS SOLICITADOS — PopMulheres'],
                     [`Gerado em: ${today}`],
-                    [],
-                    ['Órgão', 'Total Solicitações (Órgão)', 'Serviço', 'Qtd. Serviço']
+                    [`Total de registros de serviços: ${grandTotal}   |   Total de órgãos: ${sortedOrgans.length}`],
+                    []
                 ];
+                let merges = [];
                 for(let [orgName, orgData] of sortedOrgans) {
+                    const orgHeaderRow = wsData.length;
+                    wsData.push([`ÓRGÃO: ${orgName}`, '', `Total: ${orgData.total} solicitações`, '']);
+                    merges.push({ s: {r: orgHeaderRow, c: 0}, e: {r: orgHeaderRow, c: NCOLS_ORG - 1} });
+                    wsData.push(['Serviço', 'Quantidade', '% do Órgão', '% do Total Geral']);
                     let sortedSvcs = Array.from(orgData.services.entries()).sort((a,b) => b[1]-a[1]);
-                    if(sortedSvcs.length === 0) {
-                        wsData.push([orgName, orgData.total, '', '']);
-                    } else {
-                        sortedSvcs.forEach(([srvName, qty], idx) => {
-                            wsData.push([idx === 0 ? orgName : '', idx === 0 ? orgData.total : '', srvName, qty]);
-                        });
+                    for(let [srvName, qty] of sortedSvcs) {
+                        const pctOrg   = orgData.total > 0 ? (qty / orgData.total * 100).toFixed(1) + '%' : '';
+                        const pctTotal = grandTotal > 0 ? (qty / grandTotal * 100).toFixed(1) + '%' : '';
+                        wsData.push([srvName, qty, pctOrg, pctTotal]);
                     }
                     wsData.push([]);
                 }
-                exportToExcel(wsData, 'orgaos_solicitados', 'Orgaos_Servicos', [{wch:35},{wch:24},{wch:40},{wch:14}]);
+                const ws = XLSX.utils.aoa_to_sheet(wsData);
+                ws['!merges'] = merges;
+                ws['!cols'] = [{wch:45},{wch:14},{wch:16},{wch:18}];
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, 'Orgaos_Servicos');
+                const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+                const blob = new Blob([wbout], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `orgaos_servicos_${today.replace(/\//g,'-')}.xlsx`;
+                document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
             };
         } catch(e) {
             document.getElementById('adminTabContent').innerHTML = '<div class="loading-placeholder">Erro ao carregar dados</div>';
@@ -1775,50 +1830,107 @@
             for(let att of attendances){
                 let familyItems = items.filter(i => i.attendance_id === att.id);
                 let mother = att.mothers;
-                let motherServices = familyItems.filter(i => i.family_member_type === 'mother');
-                let childrenServices = familyItems.filter(i => i.family_member_type === 'child');
-                let q = questionnaires.find(q => q.mother_id === att.mother_id);
-                
-                let motherProfile = memberProfiles.find(p => p.member_type === 'mother' && p.member_id === att.mother_id);
-                let motherServicesList = motherServices.length ? motherServices.map(s => `${s.organ_name}: ${s.service_name}`).join(', ') : 'Nenhum serviço solicitado';
-                let childrenList = [];
-                let processedChildren = new Set();
-                for(let child of childrenServices){
-                    if(!processedChildren.has(child.family_member_id)){
-                        processedChildren.add(child.family_member_id);
-                        let childInfo = allChildren.find(c => c.id === child.family_member_id);
-                        let childSpecific = familyItems.filter(i => i.family_member_type === 'child' && i.family_member_id === child.family_member_id);
-                        let childProfile = memberProfiles.find(p => p.member_type === 'child' && p.member_id === child.family_member_id);
-                        childrenList.push({ name: childInfo?.name || 'Sem nome', services: childSpecific.map(s => `${s.organ_name}: ${s.service_name}`).join(', '), profile: childProfile || null });
-                    }
-                }
-                let questionnaireFlags = '';
-                let obsText = '';
-                if(q) {
-                    let parts = [];
-                    if(q.homeless) parts.push('Situação de rua');
-                    if(q.domestic_violence) parts.push('Violência doméstica');
-                    if(q.protective_measure) parts.push('Medida protetiva');
-                    if(q.children_school) parts.push('Filhos na escola');
-                    if(q.serious_illness) parts.push('Doença grave');
-                    questionnaireFlags = parts.join(', ');
-                    obsText = q.obs || '';
-                }
+                let isShadow = mother?.observation?.startsWith('__man_shadow__:');
+                let fmtDate = iso => iso ? iso.split('-').reverse().join('/') : '';
+                let attDate = att.finished_at ? new Date(att.finished_at).toLocaleString('pt-BR') : '';
                 let expandId = `expand-${att.id}`;
-                html += `<div class="family-detail-card">
-                    <h4 onclick="toggleExpand('${expandId}')">👪 ${mother?.name || 'N/A'} <span class="expand-icon">▼</span></h4>
-                    <div id="${expandId}" class="family-expandable">
-                        <div class="member-detail"><strong>Mãe</strong><div class="services-list-small">${motherServicesList}</div>${motherProfile ? `<div class="services-list-small" style="color:#7A4895;margin-top:4px;">📋 ${motherProfile.escolaridade} · ${motherProfile.raca_etnia} · ${motherProfile.genero} · ${motherProfile.idade} anos</div>` : ''}</div>`;
-                if(questionnaireFlags) {
-                    html += `<div class="member-detail"><strong>Questionário</strong><div class="services-list-small">${questionnaireFlags}</div></div>`;
+
+                if(isShadow) {
+                    let manId = parseInt(mother.observation.replace('__man_shadow__:', ''));
+                    let manProf = memberProfiles.find(p => p.member_type === 'man' && p.member_id === manId);
+                    let manSvcs = familyItems.filter(i => i.family_member_type === 'man' && i.family_member_id === manId);
+                    let manSvcsBadges = manSvcs.length ? manSvcs.map(s => `<span class="service-badge">${s.organ_name}: ${s.service_name}</span>`).join('') : '<em style="color:#a78bfa;font-size:0.82rem;">Nenhum serviço solicitado</em>';
+                    let manContactChips = [
+                        mother?.cpf ? `<span class="info-chip">📄 CPF: ${mother.cpf}</span>` : '',
+                        mother?.telefone ? `<span class="info-chip">📞 ${mother.telefone}</span>` : '',
+                        mother?.data_nascimento ? `<span class="info-chip">🎂 Nasc.: ${fmtDate(mother.data_nascimento)}</span>` : ''
+                    ].filter(Boolean).join('');
+                    let manDemogr = manProf ? `<div class="member-demographics">📊 ${[manProf.escolaridade, manProf.raca_etnia, manProf.genero, manProf.idade != null ? manProf.idade + ' anos' : ''].filter(Boolean).join(' · ')}</div>` : '';
+                    html += `<div class="family-detail-card">
+                        <h4 onclick="toggleExpand('${expandId}')"><span>👨 ${mother?.name || 'N/A'}</span><span style="display:flex;align-items:center;gap:8px;">${attDate ? `<span class="att-date-badge">📅 ${attDate}</span>` : ''}<span class="expand-icon">▼</span></span></h4>
+                        <div id="${expandId}" class="family-expandable">
+                            <div class="member-block">
+                                <div class="member-block-title">👨 ${mother?.name || 'N/A'}</div>
+                                ${manContactChips ? `<div class="member-contact-row">${manContactChips}</div>` : ''}
+                                ${manDemogr}
+                                <div class="member-services"><strong>Serviços solicitados:</strong><div style="margin-top:4px;">${manSvcsBadges}</div></div>
+                                ${manProf?.obs ? `<div class="member-obs"><strong>📝 Observações Gerais ${mother?.name || ''}:</strong><div class="obs-text">${manProf.obs}</div></div>` : ''}
+                            </div>
+                            <div class="action-buttons-fam"><button class="btn-danger" onclick="event.stopPropagation(); requestDeleteAttendance(${att.id})">🗑️ Remover Atendimento</button></div>
+                        </div>
+                    </div>`;
+                } else {
+                    let q = questionnaires.find(q => q.mother_id === att.mother_id);
+                    let motherProfile = memberProfiles.find(p => p.member_type === 'mother' && p.member_id === att.mother_id);
+                    let motherServices = familyItems.filter(i => i.family_member_type === 'mother');
+                    let motherSvcsBadges = motherServices.length ? motherServices.map(s => `<span class="service-badge">${s.organ_name}: ${s.service_name}</span>`).join('') : '<em style="color:#a78bfa;font-size:0.82rem;">Nenhum serviço solicitado</em>';
+                    let contactChips = [
+                        mother?.cpf ? `<span class="info-chip">📄 CPF: ${mother.cpf}</span>` : '',
+                        mother?.telefone ? `<span class="info-chip">📞 ${mother.telefone}</span>` : '',
+                        mother?.data_nascimento ? `<span class="info-chip">🎂 Nasc.: ${fmtDate(mother.data_nascimento)}</span>` : ''
+                    ].filter(Boolean).join('');
+                    let motherDemogr = motherProfile ? `<div class="member-demographics">📊 ${[motherProfile.escolaridade, motherProfile.raca_etnia, motherProfile.genero, motherProfile.idade != null ? motherProfile.idade + ' anos' : ''].filter(Boolean).join(' · ')}</div>` : '';
+
+                    // Build complete children list (with and without services)
+                    let childrenWithSet = new Set();
+                    let childrenList = [];
+                    for(let csItem of familyItems.filter(i => i.family_member_type === 'child')){
+                        let cid = csItem.family_member_id;
+                        if(!childrenWithSet.has(cid)){
+                            childrenWithSet.add(cid);
+                            let ci = allChildren.find(c => c.id === cid);
+                            let cSvcs = familyItems.filter(i => i.family_member_type === 'child' && i.family_member_id === cid);
+                            let cProf = memberProfiles.find(p => p.member_type === 'child' && p.member_id === cid);
+                            childrenList.push({ name: ci?.name||'Sem nome', cpf: ci?.cpf||'', dn: ci?.data_nascimento||'', svcs: cSvcs.map(s => `<span class="service-badge">${s.organ_name}: ${s.service_name}</span>`).join(''), prof: cProf||null });
+                        }
+                    }
+                    for(let ci of allChildren.filter(c => c.mother_id === att.mother_id)){
+                        if(!childrenWithSet.has(ci.id)){
+                            let cProf = memberProfiles.find(p => p.member_type === 'child' && p.member_id === ci.id);
+                            childrenList.push({ name: ci.name||'Sem nome', cpf: ci.cpf||'', dn: ci.data_nascimento||'', svcs: '', prof: cProf||null });
+                        }
+                    }
+
+                    // Questionnaire block
+                    let qBlock = '';
+                    if(q) {
+                        let flags = [];
+                        if(q.homeless) flags.push('<span class="q-flag q-flag-warning">🏠 Situação de rua</span>');
+                        if(q.domestic_violence) flags.push('<span class="q-flag q-flag-danger">⚠️ Violência doméstica</span>');
+                        if(q.protective_measure) flags.push('<span class="q-flag q-flag-info">🛡️ Medida protetiva</span>');
+                        if(q.children_school) flags.push('<span class="q-flag q-flag-ok">🏫 Filhos na escola</span>');
+                        if(q.serious_illness) flags.push('<span class="q-flag q-flag-danger">🏥 Doença grave</span>');
+                        let qObsHtml = q.obs ? `<div class="member-obs" style="margin-top:8px;"><strong>Obs. do questionário:</strong><div class="obs-text">${q.obs}</div></div>` : '';
+                        if(flags.length || q.obs) qBlock = `<div class="questionnaire-block"><div class="questionnaire-title">📋 Questionário de Acolhimento</div>${flags.length ? `<div class="q-flags-row">${flags.join('')}</div>` : ''}${qObsHtml}</div>`;
+                    }
+
+                    // Children HTML
+                    let childrenHtml = childrenList.map(ch => {
+                        let chips = [ch.cpf ? `<span class="info-chip">📄 CPF: ${ch.cpf}</span>` : '', ch.dn ? `<span class="info-chip">🎂 Nasc.: ${fmtDate(ch.dn)}</span>` : ''].filter(Boolean).join('');
+                        let dem = ch.prof ? `<div class="member-demographics">📊 ${[ch.prof.escolaridade, ch.prof.raca_etnia, ch.prof.genero, ch.prof.idade != null ? ch.prof.idade + ' anos' : ''].filter(Boolean).join(' · ')}</div>` : '';
+                        let svcHtml = ch.svcs || '<em style="color:#a78bfa;font-size:0.82rem;">Nenhum serviço solicitado</em>';
+                        let obsHtml = ch.prof?.obs ? `<div class="member-obs"><strong>📝 Observações Gerais ${ch.name}:</strong><div class="obs-text">${ch.prof.obs}</div></div>` : '';
+                        return `<div class="member-block member-block-child"><div class="member-block-title">👶 Filho(a): ${ch.name}</div>${chips ? `<div class="member-contact-row">${chips}</div>` : ''}${dem}<div class="member-services"><strong>Serviços solicitados:</strong><div style="margin-top:4px;">${svcHtml}</div></div>${obsHtml}</div>`;
+                    }).join('');
+
+                    let allMotherObs = [...new Set([mother?.observation, motherProfile?.obs, q?.obs].filter(v => v && v.trim()))].join('\n');
+                    let motherObsBlock = allMotherObs ? `<div class="member-obs"><strong>📝 Observações Gerais ${mother?.name || ''}:</strong><div class="obs-text">${allMotherObs}</div></div>` : '';
+
+                    html += `<div class="family-detail-card">
+                        <h4 onclick="toggleExpand('${expandId}')"><span>👪 ${mother?.name || 'N/A'}</span><span style="display:flex;align-items:center;gap:8px;">${attDate ? `<span class="att-date-badge">📅 ${attDate}</span>` : ''}<span class="expand-icon">▼</span></span></h4>
+                        <div id="${expandId}" class="family-expandable">
+                            <div class="member-block">
+                                <div class="member-block-title">👩 ${mother?.name || 'N/A'}</div>
+                                ${contactChips ? `<div class="member-contact-row">${contactChips}</div>` : ''}
+                                ${motherDemogr}
+                                <div class="member-services"><strong>Serviços solicitados:</strong><div style="margin-top:4px;">${motherSvcsBadges}</div></div>
+                                ${motherObsBlock}
+                            </div>
+                            ${childrenHtml}
+                            <div class="action-buttons-fam"><button class="btn-danger" onclick="event.stopPropagation(); requestDeleteAttendance(${att.id})">🗑️ Remover Atendimento</button></div>
+                        </div>
+                    </div>`;
                 }
-                if(obsText) {
-                    html += `<div class="member-detail"><strong>Observações</strong><div class="services-list-small">${obsText}</div></div>`;
-                }
-                for(let child of childrenList){
-                    html += `<div class="member-detail"><strong>Filho(a): ${child.name}</strong><div class="services-list-small">${child.services || 'Nenhum serviço solicitado'}</div>${child.profile ? `<div class="services-list-small" style="color:#7A4895;margin-top:4px;">📋 ${child.profile.escolaridade} · ${child.profile.raca_etnia} · ${child.profile.genero} · ${child.profile.idade} anos</div>` : ''}</div>`;
-                }
-                html += `<div class="action-buttons-fam"><button class="btn-danger" onclick="event.stopPropagation(); requestDeleteAttendance(${att.id})">🗑️ Remover Atendimento</button></div></div></div>`;
             }
             html += `</div>`;
             document.getElementById('adminTabContent').innerHTML = html;
@@ -1826,84 +1938,109 @@
             document.getElementById('exportFamiliesDetailExcel').onclick = () => {
                 const fmtDate = iso => iso ? iso.split('-').reverse().join('/') : '';
                 const today = new Date().toLocaleDateString('pt-BR');
+                const NCOLS = 11; // columns A-K (0-10)
+                const colHeaders = ['Tipo','Nome','CPF','Telefone','Data de Nasc.','Escolaridade','Raça/Etnia','Gênero','Idade','Serviços Solicitados','Observações Gerais'];
 
-                const cols = [
-                    {wch:30},{wch:12},{wch:30},{wch:16},{wch:17},{wch:18},
-                    {wch:7},{wch:24},{wch:18},{wch:22},{wch:30},{wch:35},{wch:50},{wch:50}
-                ];
                 let wsData = [
-                    ['FAMÍLIAS ATENDIDAS - RELATÓRIO COMPLETO'],
+                    ['RELATÓRIO DE FAMÍLIAS ATENDIDAS — PopMulheres'],
                     [`Gerado em: ${today}`],
-                    [],
-                    ['Família','Tipo','Nome','CPF','Telefone','Data de Nasc.','Idade',
-                     'Escolaridade','Raça/Etnia','Gênero','Órgão','Serviço',
-                     'Questionário de Acolhimento','Observações']
+                    [`Total de famílias: ${attendances.length}`],
+                    []
                 ];
+                let merges = [];
 
                 for(let att of attendances) {
-                    const m          = att.mothers;
-                    const isShadow   = m?.observation?.startsWith('__man_shadow__:');
-                    const familyName = m?.name || 'N/A';
-                    const famItems   = items.filter(i => i.attendance_id === att.id);
+                    const m        = att.mothers;
+                    const isShadow = m?.observation?.startsWith('__man_shadow__:');
+                    const famName  = m?.name || 'N/A';
+                    const famItems = items.filter(i => i.attendance_id === att.id);
+                    const attDate  = att.finished_at ? new Date(att.finished_at).toLocaleString('pt-BR') : '';
+
+                    // Family header row — merge all columns
+                    const famHeaderRow = wsData.length;
+                    wsData.push([`FAMÍLIA: ${famName}${attDate ? '   |   Atendimento finalizado: ' + attDate : ''}`]);
+                    merges.push({ s: {r: famHeaderRow, c: 0}, e: {r: famHeaderRow, c: NCOLS - 1} });
+
+                    // Column headers
+                    wsData.push(colHeaders);
 
                     if(isShadow) {
-                        // Homem
-                        const manId   = parseInt(m.observation.replace('__man_shadow__:', ''));
+                        const manId  = parseInt(m.observation.replace('__man_shadow__:', ''));
                         const manProf = memberProfiles.find(p => p.member_type === 'man' && p.member_id === manId);
                         const manSvcs = famItems.filter(i => i.family_member_type === 'man' && i.family_member_id === manId);
-                        const manObs  = manProf?.obs || '';
-                        const baseRow = [familyName,'Homem',familyName, m?.cpf||'',m?.telefone||'',fmtDate(m?.data_nascimento),
-                            manProf?.idade??'', manProf?.escolaridade||'',manProf?.raca_etnia||'',manProf?.genero||''];
-                        if(manSvcs.length) manSvcs.forEach(s => wsData.push([...baseRow, s.organ_name||'',s.service_name||'','',manObs]));
-                        else wsData.push([...baseRow,'','','',manObs]);
-
+                        const manObs  = [...new Set([manProf?.obs].filter(v => v && v.trim()))].join(' | ');
+                        wsData.push([
+                            'Homem', famName, m?.cpf||'', m?.telefone||'', fmtDate(m?.data_nascimento),
+                            manProf?.escolaridade||'', manProf?.raca_etnia||'', manProf?.genero||'', manProf?.idade != null ? manProf.idade : '',
+                            manSvcs.map(s => `${s.organ_name}: ${s.service_name}`).join('; '),
+                            manObs
+                        ]);
                     } else {
-                        // Mãe
-                        const q      = questionnaires.find(q => q.mother_id === att.mother_id);
-                        const mProf  = memberProfiles.find(p => p.member_type === 'mother' && p.member_id === att.mother_id);
+                        const q     = questionnaires.find(q => q.mother_id === att.mother_id);
+                        const mProf = memberProfiles.find(p => p.member_type === 'mother' && p.member_id === att.mother_id);
                         const qParts = [];
                         if(q?.homeless)           qParts.push('Situação de rua');
                         if(q?.domestic_violence)  qParts.push('Violência doméstica');
                         if(q?.protective_measure) qParts.push('Medida protetiva');
                         if(q?.children_school)    qParts.push('Filhos na escola');
                         if(q?.serious_illness)    qParts.push('Doença grave');
-                        const qText    = qParts.join(', ');
-                        const motherObs = mProf?.obs || q?.obs || '';
+                        const qText     = qParts.length ? `[${qParts.join('; ')}]` : '';
+                        const motherObs = [...new Set([m?.observation, mProf?.obs, q?.obs].filter(v => v && v.trim()))].join(' | ');
+                        const motherObsFull = [qText, motherObs].filter(Boolean).join('  ');
                         const motherSvcs = famItems.filter(i => i.family_member_type === 'mother');
-                        const mBase = [familyName,'Mãe',m?.name||'N/A', m?.cpf||'',m?.telefone||'',fmtDate(m?.data_nascimento),
-                            mProf?.idade??'', mProf?.escolaridade||'',mProf?.raca_etnia||'',mProf?.genero||''];
-                        if(motherSvcs.length) motherSvcs.forEach(s => wsData.push([...mBase, s.organ_name||'',s.service_name||'',qText,motherObs]));
-                        else wsData.push([...mBase,'','',qText,motherObs]);
+                        wsData.push([
+                            'Mãe', m?.name||'N/A', m?.cpf||'', m?.telefone||'', fmtDate(m?.data_nascimento),
+                            mProf?.escolaridade||'', mProf?.raca_etnia||'', mProf?.genero||'', mProf?.idade != null ? mProf.idade : '',
+                            motherSvcs.map(s => `${s.organ_name}: ${s.service_name}`).join('; '),
+                            motherObsFull
+                        ]);
 
-                        // Filhos
-                        const familyChildren  = allChildren.filter(c => c.mother_id === att.mother_id);
-                        const processedChilds = new Set();
-                        // Filhos com serviços
-                        const childSvcs = famItems.filter(i => i.family_member_type === 'child');
-                        for(let cs of childSvcs) {
+                        // Children
+                        const famChildren  = allChildren.filter(c => c.mother_id === att.mother_id);
+                        const processedIds = new Set();
+                        for(let cs of famItems.filter(i => i.family_member_type === 'child')) {
                             const cid = cs.family_member_id;
-                            if(!processedChilds.has(cid)) processedChilds.add(cid);
-                            const ci   = allChildren.find(c => c.id === cid);
+                            if(processedIds.has(cid)) continue;
+                            processedIds.add(cid);
+                            const ci    = famChildren.find(c => c.id === cid);
+                            const cSvcs = famItems.filter(i => i.family_member_type === 'child' && i.family_member_id === cid);
                             const cProf = memberProfiles.find(p => p.member_type === 'child' && p.member_id === cid);
-                            wsData.push([familyName,'Filho(a)',ci?.name||'Sem nome',
-                                ci?.cpf||'','',fmtDate(ci?.data_nascimento),
-                                cProf?.idade??ci?.age??'', cProf?.escolaridade||'',cProf?.raca_etnia||'',cProf?.genero||ci?.genero||'',
-                                cs.organ_name||'',cs.service_name||'','',cProf?.obs||'']);
+                            wsData.push([
+                                'Filho(a)', ci?.name||'Sem nome', ci?.cpf||'', '', fmtDate(ci?.data_nascimento),
+                                cProf?.escolaridade||'', cProf?.raca_etnia||ci?.raca||'', cProf?.genero||ci?.genero||'', cProf?.idade != null ? cProf.idade : ci?.age != null ? ci.age : '',
+                                cSvcs.map(s => `${s.organ_name}: ${s.service_name}`).join('; '),
+                                cProf?.obs||''
+                            ]);
                         }
-                        // Filhos sem serviços
-                        for(let child of familyChildren) {
-                            if(!processedChilds.has(child.id)) {
-                                const cProf = memberProfiles.find(p => p.member_type === 'child' && p.member_id === child.id);
-                                wsData.push([familyName,'Filho(a)',child.name||'Sem nome',
-                                    child.cpf||'','',fmtDate(child.data_nascimento),
-                                    cProf?.idade??child.age??'', cProf?.escolaridade||'',cProf?.raca_etnia||'',cProf?.genero||child.genero||'',
-                                    '','','',cProf?.obs||'']);
-                            }
+                        for(let child of famChildren) {
+                            if(processedIds.has(child.id)) continue;
+                            const cProf = memberProfiles.find(p => p.member_type === 'child' && p.member_id === child.id);
+                            wsData.push([
+                                'Filho(a)', child.name||'Sem nome', child.cpf||'', '', fmtDate(child.data_nascimento),
+                                cProf?.escolaridade||'', cProf?.raca_etnia||child.raca||'', cProf?.genero||child.genero||'', cProf?.idade != null ? cProf.idade : child.age != null ? child.age : '',
+                                '',
+                                cProf?.obs||''
+                            ]);
                         }
                     }
-                    wsData.push([]);
+                    wsData.push([]); // blank separator
                 }
-                exportToExcel(wsData, 'familias_atendidas', 'Familias_Atendidas', cols);
+
+                const ws = XLSX.utils.aoa_to_sheet(wsData);
+                ws['!merges'] = merges;
+                ws['!cols'] = [
+                    {wch:10},{wch:30},{wch:16},{wch:16},{wch:14},
+                    {wch:22},{wch:18},{wch:20},{wch:7},{wch:55},{wch:55}
+                ];
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, 'Familias_Atendidas');
+                const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+                const blob = new Blob([wbout], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `familias_atendidas_${today.replace(/\//g,'-')}.xlsx`;
+                document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
             };
         } catch(e) { 
             document.getElementById('adminTabContent').innerHTML = '<div class="loading-placeholder">Erro ao carregar dados</div>';
