@@ -1,5 +1,4 @@
-import { PDFDocument, PDFPage, rgb } from "npm:pdf-lib@1.17.1";
-import fontkit from "npm:@pdf-lib/fontkit@1.1.1";
+import { PDFDocument, PDFPage, StandardFonts, rgb } from "npm:pdf-lib@1.17.1";
 import nodemailer from "npm:nodemailer@6.9.13";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -21,6 +20,8 @@ interface Child {
   id: number;
   name: string;
   age?: number;
+  cpf?: string;
+  data_nascimento?: string;
   profile?: MemberProfile;
   services: ServiceItem[];
 }
@@ -40,6 +41,7 @@ interface ReportPayload {
     name: string;
     birth_date?: string;
     cpf?: string;
+    telefone?: string;
     observation?: string;
     profile?: MemberProfile;
     services: ServiceItem[];
@@ -53,22 +55,13 @@ interface ReportPayload {
 
 async function generatePDF(data: ReportPayload): Promise<Uint8Array> {
   const doc = await PDFDocument.create();
-  doc.registerFontkit(fontkit);
 
-  const [regularBytes, boldBytes] = await Promise.all([
-    fetch("https://cdn.jsdelivr.net/gh/google/fonts@main/apache/roboto/static/Roboto-Regular.ttf")
-      .then((r) => r.arrayBuffer())
-      .then((b) => new Uint8Array(b)),
-    fetch("https://cdn.jsdelivr.net/gh/google/fonts@main/apache/roboto/static/Roboto-Bold.ttf")
-      .then((r) => r.arrayBuffer())
-      .then((b) => new Uint8Array(b)),
-  ]);
-
-  const regular = await doc.embedFont(regularBytes, { subset: true });
-  const bold = await doc.embedFont(boldBytes, { subset: true });
+  const regular = await doc.embedFont(StandardFonts.Helvetica);
+  const bold    = await doc.embedFont(StandardFonts.HelveticaBold);
 
   const colorPurple = rgb(0.48, 0.29, 0.58);
   const colorDark = rgb(0.17, 0.1, 0.3);
+  const colorBlack = rgb(0, 0, 0);
   const colorGray = rgb(0.45, 0.45, 0.45);
   const colorLight = rgb(0.95, 0.94, 0.99);
   const colorWhite = rgb(1, 1, 1);
@@ -95,7 +88,7 @@ async function generatePDF(data: ReportPayload): Promise<Uint8Array> {
       size: 14,
       color: colorWhite,
     });
-    p.drawText("Relatorio de Atendimento", {
+    p.drawText("Relatório de Atendimento", {
       x: MARGIN_LEFT,
       y: PAGE_H - 48,
       font: regular,
@@ -171,21 +164,22 @@ async function generatePDF(data: ReportPayload): Promise<Uint8Array> {
   }
 
   function wrapText(text: string, maxChars: number): string[] {
-    const words = text.split(" ");
     const lines: string[] = [];
-    let current = "";
-    for (const word of words) {
-      if ((current + word).length > maxChars) {
-        if (current.length > 0) {
-          lines.push(current.trimEnd());
+    const paragraphs = text.replace(/\r\n/g, "\n").replace(/\r/g, "\n").split("\n");
+    for (const para of paragraphs) {
+      const words = para.split(" ").filter((w) => w.length > 0);
+      if (words.length === 0) continue;
+      let current = "";
+      for (const word of words) {
+        const candidate = current ? current + " " + word : word;
+        if (candidate.length > maxChars) {
+          if (current) lines.push(current);
+          current = word.length > maxChars ? word.slice(0, maxChars) : word;
+        } else {
+          current = candidate;
         }
-        current = word + " ";
-      } else {
-        current = current + word + " ";
       }
-    }
-    if (current.trim().length > 0) {
-      lines.push(current.trimEnd());
+      if (current) lines.push(current);
     }
     return lines;
   }
@@ -217,7 +211,7 @@ async function generatePDF(data: ReportPayload): Promise<Uint8Array> {
 
   // ── Dados da mae ────────────────────────────────────────────────────────────
 
-  cursor = drawSectionTitle(page, cursor, "DADOS DA MAE");
+  cursor = drawSectionTitle(page, cursor, "DADOS DA MÃE");
   cursor = drawField(page, cursor, "Nome", data.mother.name, 0);
 
   if (data.mother.birth_date !== undefined && data.mother.birth_date !== null && data.mother.birth_date !== "") {
@@ -232,15 +226,19 @@ async function generatePDF(data: ReportPayload): Promise<Uint8Array> {
     cursor = drawField(page, cursor, "CPF", data.mother.cpf, 0);
   }
 
+  if (data.mother.telefone !== undefined && data.mother.telefone !== null && data.mother.telefone !== "") {
+    cursor = drawField(page, cursor, "Telefone", data.mother.telefone, 0);
+  }
+
   if (data.mother.observation !== undefined && data.mother.observation !== null && data.mother.observation !== "") {
-    cursor = drawField(page, cursor, "Observacao", data.mother.observation, 0);
+    cursor = drawField(page, cursor, "Observação", data.mother.observation, 0);
   }
 
   if (data.mother.profile !== undefined && data.mother.profile !== null) {
     const mp = data.mother.profile;
     cursor = drawField(page, cursor, "Escolaridade", mp.escolaridade, 0);
-    cursor = drawField(page, cursor, "Raca/Etnia", mp.raca_etnia, 0);
-    cursor = drawField(page, cursor, "Genero", mp.genero, 0);
+    cursor = drawField(page, cursor, "Raça/Etnia", mp.raca_etnia, 0);
+    cursor = drawField(page, cursor, "Gênero", mp.genero, 0);
     cursor = drawField(page, cursor, "Idade", mp.idade + " anos", 0);
   }
 
@@ -254,40 +252,12 @@ async function generatePDF(data: ReportPayload): Promise<Uint8Array> {
     cursor = state.cursor;
   }
 
-  cursor = drawSectionTitle(page, cursor, "QUESTIONARIO DE ACOLHIMENTO");
-  cursor = drawCheckItem(page, cursor, "Mulher em situacao de rua", data.questionnaire.homeless);
-  cursor = drawCheckItem(page, cursor, "Sofre violencia domestica", data.questionnaire.domestic_violence);
+  cursor = drawSectionTitle(page, cursor, "QUESTIONÁRIO DE ACOLHIMENTO");
+  cursor = drawCheckItem(page, cursor, "Mulher em situação de rua", data.questionnaire.homeless);
+  cursor = drawCheckItem(page, cursor, "Sofre violência doméstica", data.questionnaire.domestic_violence);
   cursor = drawCheckItem(page, cursor, "Tem medida protetiva", data.questionnaire.protective_measure);
   cursor = drawCheckItem(page, cursor, "Filhos frequentam ambiente escolar", data.questionnaire.children_school);
-  cursor = drawCheckItem(page, cursor, "Diagnostico de doenca grave", data.questionnaire.serious_illness);
-
-  if (data.questionnaire.obs !== undefined && data.questionnaire.obs !== null && data.questionnaire.obs !== "") {
-    cursor = cursor - 4;
-    page.drawText("Obs:", {
-      x: MARGIN_LEFT + 8,
-      y: cursor,
-      font: bold,
-      size: 9,
-      color: colorGray,
-    });
-    cursor = cursor - 13;
-    const obsLines = wrapText(data.questionnaire.obs, 80);
-    for (let i = 0; i < obsLines.length; i++) {
-      if (cursor < 60) {
-        state = newPage();
-        page = state.page;
-        cursor = state.cursor;
-      }
-      page.drawText(obsLines[i], {
-        x: MARGIN_LEFT + 16,
-        y: cursor,
-        font: regular,
-        size: 9,
-        color: colorDark,
-      });
-      cursor = cursor - 13;
-    }
-  }
+  cursor = drawCheckItem(page, cursor, "Diagnóstico de doença grave", data.questionnaire.serious_illness);
 
   cursor = cursor - 8;
 
@@ -299,7 +269,7 @@ async function generatePDF(data: ReportPayload): Promise<Uint8Array> {
       page = state.page;
       cursor = state.cursor;
     }
-    cursor = drawSectionTitle(page, cursor, "SERVICOS SOLICITADOS - MAE");
+    cursor = drawSectionTitle(page, cursor, "SERVIÇOS SOLICITADOS - MÃE");
     for (let i = 0; i < data.mother.services.length; i++) {
       if (cursor < 60) {
         state = newPage();
@@ -337,43 +307,32 @@ async function generatePDF(data: ReportPayload): Promise<Uint8Array> {
       cursor = drawField(page, cursor, "Idade", child.age + " anos", 0);
     }
 
+    if (child.data_nascimento !== undefined && child.data_nascimento !== null && child.data_nascimento !== "") {
+      const cn = new Date(child.data_nascimento + "T12:00:00");
+      const cd = String(cn.getDate()).padStart(2, "0");
+      const cm = String(cn.getMonth() + 1).padStart(2, "0");
+      const cy = cn.getFullYear();
+      cursor = drawField(page, cursor, "Nascimento", cd + "/" + cm + "/" + cy, 0);
+    }
+
+    if (child.cpf !== undefined && child.cpf !== null && child.cpf !== "") {
+      cursor = drawField(page, cursor, "CPF", child.cpf, 0);
+    }
+
     if (child.profile !== undefined && child.profile !== null) {
       const cp = child.profile;
       cursor = drawField(page, cursor, "Escolaridade", cp.escolaridade, 0);
-      cursor = drawField(page, cursor, "Raca/Etnia", cp.raca_etnia, 0);
-      cursor = drawField(page, cursor, "Genero", cp.genero, 0);
-
-      if (cp.obs !== undefined && cp.obs !== null && cp.obs !== "") {
-        cursor = cursor - 2;
-        const obsLines = wrapText("Obs: " + cp.obs, 80);
-        for (let li = 0; li < obsLines.length; li++) {
-          if (cursor < 60) {
-            state = newPage();
-            page = state.page;
-            cursor = state.cursor;
-          }
-          page.drawText(obsLines[li], {
-            x: MARGIN_LEFT + 8,
-            y: cursor,
-            font: regular,
-            size: 9,
-            color: colorGray,
-          });
-          cursor = cursor - 13;
-        }
-      }
+      cursor = drawField(page, cursor, "Raça/Etnia", cp.raca_etnia, 0);
+      cursor = drawField(page, cursor, "Gênero", cp.genero, 0);
     }
 
     if (child.services.length > 0) {
-      cursor = cursor - 4;
-      page.drawText("Servicos:", {
-        x: MARGIN_LEFT + 8,
-        y: cursor,
-        font: bold,
-        size: 9,
-        color: colorGray,
-      });
-      cursor = cursor - 13;
+      if (cursor < 80) {
+        state = newPage();
+        page = state.page;
+        cursor = state.cursor;
+      }
+      cursor = drawSectionTitle(page, cursor, "SERVIÇOS SOLICITADOS");
       for (let si = 0; si < child.services.length; si++) {
         if (cursor < 60) {
           state = newPage();
@@ -382,17 +341,45 @@ async function generatePDF(data: ReportPayload): Promise<Uint8Array> {
         }
         const s = child.services[si];
         page.drawText("* " + s.organ_name + " / " + s.service_name, {
-          x: MARGIN_LEFT + 16,
+          x: MARGIN_LEFT + 8,
           y: cursor,
           font: regular,
           size: 9,
           color: colorDark,
         });
-        cursor = cursor - 13;
+        cursor = cursor - 14;
       }
+      cursor = cursor - 4;
     }
 
     cursor = cursor - 8;
+  }
+
+  // ── Observações gerais da família ───────────────────────────────────────────
+
+  if (data.questionnaire.obs !== undefined && data.questionnaire.obs !== null && data.questionnaire.obs.trim() !== "") {
+    if (cursor < 100) {
+      state = newPage();
+      page = state.page;
+      cursor = state.cursor;
+    }
+    cursor = drawSectionTitle(page, cursor, "OBSERVAÇÕES GERAIS DA FAMÍLIA");
+    const famObsLines = wrapText(data.questionnaire.obs, 75);
+    for (let i = 0; i < famObsLines.length; i++) {
+      if (cursor < 60) {
+        state = newPage();
+        page = state.page;
+        cursor = state.cursor;
+      }
+      page.drawText(famObsLines[i], {
+        x: MARGIN_LEFT + 8,
+        y: cursor,
+        font: regular,
+        size: 9,
+        color: colorBlack,
+      });
+      cursor = cursor - 14;
+    }
   }
 
   // ── Rodape em todas as paginas ───────────────────────────────────────────────
@@ -409,7 +396,7 @@ async function generatePDF(data: ReportPayload): Promise<Uint8Array> {
 
   for (let pi = 0; pi < allPages.length; pi++) {
     allPages[pi].drawText(
-      "Pagina " + (pi + 1) + " de " + totalPages + "  |  Gerado em " + nowStr,
+      "Página " + (pi + 1) + " de " + totalPages + "  |  Gerado em " + nowStr,
       {
         x: MARGIN_LEFT,
         y: 18,
