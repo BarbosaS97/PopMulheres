@@ -12,6 +12,8 @@
     <link rel="shortcut icon" href="iconemulher.png">
     <link rel="apple-touch-icon" href="iconemulher.png">
     <link rel="manifest" href="manifest.json">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="googlebot" content="noindex, nofollow">
     <meta name="theme-color" content="#7A4895">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -485,10 +487,68 @@
         .btn-resetar-active:hover { background: linear-gradient(135deg, #15803d, #166534); transform: translateY(-1px); }
         .btn-resetar-inactive { background: #e2e8f0; color: #94a3b8; cursor: default; }
         .enraizados-count { font-size: 0.78rem; color: #7A4895; margin-top: 4px; }
+
+        /* Tela de bloqueio */
+        #lock-screen {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            width: 100vw; height: 100vh;
+            background: #ffffff;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            z-index: 99999; padding: 32px 20px;
+        }
+        #lock-screen .lock-logo {
+            max-width: 300px; width: 80%; margin-bottom: 36px;
+            object-fit: contain;
+        }
+        #lock-screen .lock-msg {
+            font-size: 1rem; color: #2d1b4e; font-weight: 500;
+            text-align: center; max-width: 440px; line-height: 1.7;
+            margin-bottom: 28px; border: 1.5px solid #e9d5ff;
+            border-radius: 16px; padding: 18px 22px;
+            background: #faf5ff;
+        }
+        #lock-screen .lock-row {
+            display: flex; gap: 12px; width: 100%; max-width: 420px;
+        }
+        #lock-screen #lockPassword {
+            flex: 1; padding: 14px 20px;
+            border: 2px solid #e9d5ff; border-radius: 48px;
+            font-size: 1rem; outline: none; color: #2d1b4e;
+            font-family: inherit;
+        }
+        #lock-screen #lockPassword:focus {
+            border-color: #AA8DCB;
+            box-shadow: 0 0 0 3px rgba(170,141,203,0.2);
+        }
+        #lock-screen #lockSubmit {
+            background: linear-gradient(135deg, #7A4895, #551E75);
+            color: white; border: none;
+            padding: 14px 28px; border-radius: 48px;
+            font-weight: 700; font-size: 0.95rem;
+            cursor: pointer; transition: all 0.3s;
+            white-space: nowrap; font-family: inherit;
+            box-shadow: 0 2px 8px rgba(85,30,117,0.3);
+        }
+        #lock-screen #lockSubmit:hover { transform: translateY(-2px); }
+        #lock-screen .lock-err {
+            color: #dc2626; font-size: 0.88rem;
+            margin-top: 14px; display: none;
+        }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </head>
 <body>
+
+<div id="lock-screen">
+    <img class="lock-logo" src="PopRuaJud - Mulheres Guerreiras.png" alt="PopRuaJud - Mulheres Guerreiras" onerror="this.style.display='none'">
+    <p class="lock-msg">Sistema privado, para ter acesso digite a senha abaixo ou contate o Fellipe no contato (61) 9 93846714</p>
+    <div class="lock-row">
+        <input type="password" id="lockPassword" placeholder="Digite a senha de acesso" autocomplete="off">
+        <button id="lockSubmit">ENTRAR</button>
+    </div>
+    <span class="lock-err" id="lockErr">Senha incorreta. Tente novamente.</span>
+</div>
 
 <div class="header">
     <div class="logo-area">
@@ -515,8 +575,11 @@
 </div>
 
 <script>
-    const SUPABASE_URL = 'https://gbuibkhkiriclnztlgxp.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdidWlia2hraXJpY2xuenRsZ3hwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg3NjgxNDksImV4cCI6MjA5NDM0NDE0OX0.e_3H4G97r3jw3Xp8R1vkLSp4Y9YrIrbRxAaSoc7GP-w';
+    const _d=s=>atob(s);
+    const _u=['aHR0cHM6Ly9n','YnVpYmtoa2ly','aWNsbnp0bGd4','cC5zdXBhYmFz','ZS5jbw=='];
+    const _q=['ZXlKaGJHY2lP','aUpJVXpJMU5p','SXNJblI1Y0NJ','NklrcFhWQ0o5','LmV5SnBjM01p','T2lKemRYQmhZ','bUZ6WlNJc0lu','SmxaaUk2SW1k','aWRXbGlhMmhy','YVhKcFkyeHVl','blJzWjNod0lp','d2ljbTlzWlNJ','NkltRnViMjRp','TENKcFlYUWlP','akUzTnpnM05q','Z3hORGtzSW1W','NGNDSTZNakE1','TkRNME5ERTBP','WDAuZV8zSDRH','OTdyM2p3M1hw','OFIxdmtMU3A0','WTlZcklyYlJ4','QWFTb2M3R1At','dw=='];
+    const SUPABASE_URL = _d(_u.join(''));
+    const SUPABASE_ANON_KEY = _d(_q.join(''));
     let allMothers = [], allMen = [], currentMother = null, currentFamilyMember = null, currentMemberType = null, currentAttendance = null;
     let currentMemberServices = [];
     let allOrgans = [];
@@ -547,19 +610,26 @@
         modal.querySelector('#confirmNo').onclick = () => modal.remove();
     }
 
+    async function _vh(s) {
+        const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
+        return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('');
+    }
+
     function showPasswordModal(callback) {
         let modal = document.createElement('div'); modal.className = 'modal-overlay';
         modal.innerHTML = `<div class="modal-container" style="max-width:450px;"><h3 style="color:#551E75;">Acesso Restrito</h3><input type="password" id="adminPassInput" placeholder="Senha do administrador" style="width:100%; padding:12px; border:2px solid #e9d5ff; border-radius:24px; margin:16px 0;"><div class="modal-buttons"><button id="confirmPassBtn" class="btn-primary">Confirmar</button><button id="cancelPassBtn" class="btn-secondary">Cancelar</button></div></div>`;
         document.body.appendChild(modal);
-        modal.querySelector('#confirmPassBtn').onclick = () => { 
-            if(modal.querySelector('#adminPassInput').value === 'admin097'){ 
-                modal.remove(); 
+        modal.querySelector('#confirmPassBtn').onclick = async () => {
+            const h = await _vh(modal.querySelector('#adminPassInput').value);
+            if(h === '9272e1cf36d0451cebe5d556f60d4c8b583a27ff545de4059e869526b9ecd65c'){
+                modal.remove();
                 if(callback) callback();
-            } else { 
-                showAlertModal('Senha incorreta', false); 
-                modal.remove(); 
-            } 
+            } else {
+                showAlertModal('Senha incorreta', false);
+                modal.remove();
+            }
         };
+        modal.querySelector('#adminPassInput').addEventListener('keydown', e => { if(e.key==='Enter') modal.querySelector('#confirmPassBtn').click(); });
         modal.querySelector('#cancelPassBtn').onclick = () => modal.remove();
     }
 
@@ -2894,9 +2964,39 @@
         });
     };
 
-    loadAllMothers();
-    loadAllMen();
-    loadOrgansAndServices();
+    function _startApp() {
+        loadAllMothers();
+        loadAllMen();
+        loadOrgansAndServices();
+    }
+
+    (async function() {
+        const ls = document.getElementById('lock-screen');
+        if(sessionStorage.getItem('_k1') === '1') {
+            ls.style.display = 'none';
+            _startApp();
+            return;
+        }
+        const btn = document.getElementById('lockSubmit');
+        const inp = document.getElementById('lockPassword');
+        const err = document.getElementById('lockErr');
+        async function _tryUnlock() {
+            if(!inp.value) return;
+            const h = await _vh(inp.value);
+            if(h === '182c6bb36893fd95290fa987620f9ec333f24d1bb0ce564dd23c604ff2d14ccf') {
+                sessionStorage.setItem('_k1', '1');
+                ls.style.display = 'none';
+                _startApp();
+            } else {
+                err.style.display = 'block';
+                inp.value = '';
+                inp.focus();
+            }
+        }
+        btn.addEventListener('click', _tryUnlock);
+        inp.addEventListener('keydown', e => { if(e.key === 'Enter') _tryUnlock(); });
+        inp.focus();
+    })();
 </script>
 </body>
 </html>
