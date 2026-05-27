@@ -1558,17 +1558,21 @@
         const yyyy = now.getFullYear();
         const dateStr = dd + '/' + mm + '/' + yyyy;
 
+        // Captura snapshots ANTES de qualquer await para evitar race condition com
+        // selectMother() que é chamada em paralelo e pode substituir essas variáveis
+        const snapMother        = { ...currentMother };
+        const snapQuestionnaire = { ...currentQuestionnaire };
+        const snapAttendanceId  = currentAttendance.id;
+
         const hdrs = { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` };
 
-        // Busca filhos e itens do atendimento em paralelo
         const [childResp, itemsResp] = await Promise.all([
-            fetch(`${SUPABASE_URL}/rest/v1/children?select=*&mother_id=eq.${currentMother.id}&order=name`, { headers: hdrs }),
-            fetch(`${SUPABASE_URL}/rest/v1/attendance_items?attendance_id=eq.${currentAttendance.id}&select=*,organs(name),services(name)`, { headers: hdrs })
+            fetch(`${SUPABASE_URL}/rest/v1/children?select=*&mother_id=eq.${snapMother.id}&order=name`, { headers: hdrs }),
+            fetch(`${SUPABASE_URL}/rest/v1/attendance_items?attendance_id=eq.${snapAttendanceId}&select=*,organs(name),services(name)`, { headers: hdrs })
         ]);
         const children = childResp.ok ? await childResp.json() : [];
         const allItems = itemsResp.ok ? await itemsResp.json() : [];
 
-        // Retorna somente { organ_name, service_name } — formato exato do ReportPayload
         function itemsFor(memberType, memberId) {
             return allItems
                 .filter(i => i.family_member_type === memberType && Number(i.family_member_id) === Number(memberId))
@@ -1579,7 +1583,6 @@
                 }));
         }
 
-        // Retorna perfil mapeado para os campos exatos do ReportPayload (sem IDs internos do DB)
         async function getProfile(memberType, memberId) {
             const key = `${memberType}_${memberId}`;
             const raw = profileCache[key] || await (async () => {
@@ -1602,8 +1605,8 @@
         }
 
         const [motherProfile, motherServices] = await Promise.all([
-            getProfile('mother', currentMother.id),
-            Promise.resolve(itemsFor('mother', currentMother.id))
+            getProfile('mother', snapMother.id),
+            Promise.resolve(itemsFor('mother', snapMother.id))
         ]);
 
         const childrenData = await Promise.all(children.map(async c => {
@@ -1613,14 +1616,14 @@
                 services: itemsFor('child', c.id),
                 profile:  await getProfile('child', c.id)
             };
-            // age só incluído quando é número válido (evita "null anos" no PDF)
             const age = parseInt(c.age);
-            if(!isNaN(age)) child.age = age;
+            if(!isNaN(age))       child.age             = age;
+            if(c.cpf)             child.cpf             = c.cpf;
+            if(c.data_nascimento) child.data_nascimento  = c.data_nascimento;
             return child;
         }));
 
-        // Questionário: apenas os 6 campos do ReportPayload, sem o campo `id` interno
-        const q = currentQuestionnaire;
+        const q = snapQuestionnaire;
         const questionnaire = {
             homeless:           Boolean(q.homeless),
             domestic_violence:  Boolean(q.domestic_violence),
@@ -1631,14 +1634,18 @@
         if(q.obs) questionnaire.obs = q.obs;
 
         const mother = {
-            id:       currentMother.id,
-            name:     currentMother.name,
+            id:       snapMother.id,
+            name:     snapMother.name,
             services: motherServices
         };
-        if(currentMother.birth_date) mother.birth_date   = currentMother.birth_date;
-        if(currentMother.cpf)        mother.cpf          = currentMother.cpf;
-        if(currentMother.observation) mother.observation = currentMother.observation;
-        if(motherProfile)            mother.profile      = motherProfile;
+        // data_nascimento é o campo preenchido pelo triador; birth_date é fallback do cadastro original
+        const dob = snapMother.data_nascimento || snapMother.birth_date;
+        if(dob)               mother.birth_date  = dob;
+        if(snapMother.cpf)    mother.cpf         = snapMother.cpf;
+        if(snapMother.telefone) mother.telefone  = snapMother.telefone;
+        if(snapMother.observation && !snapMother.observation.startsWith('__man_shadow__:'))
+                              mother.observation = snapMother.observation;
+        if(motherProfile)     mother.profile     = motherProfile;
 
         return { mother, questionnaire, children: childrenData, attendanceDate: dateStr };
     }
